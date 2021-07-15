@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <title>Phần mềm quản lý nhà hàng</title>
+  <link rel="stylesheet" href="../css/page/main.css">
+  <link rel="stylesheet" href="../css/page/employee.css">
+  <link rel="stylesheet" href="../css/common/menu.css">
+  <link rel="stylesheet" href="../css/common/header.css">
+  <link rel="stylesheet" href="../css/common/content.css">
+  <link rel="stylesheet" href="../css/base/button.css">
+
+</head>
+
+<body>
+  <div class="header">
+    <div class="header-left">
+      <div class="toggle"></div>
+      <div class="logo"></div>
+    </div>
+    <div class="header-right">
+      <div class="dropdown button">
+        <div class="dropdown-text">Nhà hàng Biển Đông</div>
+        <div class="dropdown-icon"></div>
+      </div>
+      <div class="information ">
+        <div class="notification"></div>
+        <div class="avatar"></div>
+        <div class="name">Mai Anh Bảo</div>
+        <div class="more"></div>
+      </div>
+    </div>
+  </div>
+  <div class="menu">
+    <div class="menu-item menu-item-active">
+      <div class="menu-icon menu-icon-dashboard "></div>
+      <div class="menu-item-text">Tổng quan</div>
+    </div>
+    <div class="menu-item ">
+      <div class="menu-icon menu-icon-report"></div>
+      <div class="menu-item-text">Báo cáo</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-icon menu-icon-dashboard"></div>
+      <div class="menu-item-text">Mua hàng</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-icon menu-icon-dicemployee"></div>
+      <div class="menu-item-text">Danh mục nhân viên</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-icon menu-icon-dicemployee"></div>
+      <div class="menu-item-text">Danh mục nhân viên</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-icon menu-icon-setting"></div>
+      <div class="menu-item-text">Thiết lập hệ thống</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="title">
+      <div class="title-name">Danh sách nhân viên</div>
+      <div class="title-button button">
+        <div class="title-button-icon"></div>
+        <div class="title-button-text">Thêm nhân viên</div>
+      </div>
+    </div>
+    <div class="toolbar">
+      <div class="search ">
+        <input type="text " placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" class="text-box-default">
+      </div>
+      <div class="hold">
+        <div class="filter-room button">
+          <div class="filter-room-text">Tất cả phòng ban</div>
+          <div class="filter-room-icon"></div>
+        </div>
+      </div>
+      <div class="hold">
+        <div class="filter-position button">
+          <div class="filter-position-text">Tất cả vị trí</div>
+          <div class="filter-position-icon"></div>
+        </div>
+      </div>
+      <div class="refresh">
+        <div class="refresh-icon"></div>
+      </div>
+    </div>
+    <div class="table-hold">
+      <table class="table ">
+        <thead class="table-thead">
+          <tr>
+            <th>Mã nhân viên</th>
+            <th>Họ và tên</th>
+            <th>Giới tính</th>
+            <th class="dob">Ngày sinh</th>
+            <th>Điện thoại</th>
+            <th>Email</th>
+            <th>Chức vụ</th>
+            <th>Phòng ban</th>
+            <th class="salary">Mức lương cơ bản</th>
+            <th>Tình trạng công việc</th>
+          </tr>
+        </thead>
+        <tbody class="table-row">
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532409</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+          <tr>
+            <td>NV-532408</th>
+            <td>Hồ Văn Long</td>
+            <td>Nam</td>
+            <td class="dob">11/08/1978</td>
+            <td>0940458449</td>
+            <td>cuon@example.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Nhân Sự</td>
+            <td class="salary">17.739.391</td>
+            <td>Đang thử việc</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footer">
+      <div class="footer-left">Hiển thị <b>1-10/1000</b> nhân viên</div>
+      <div class="pagination">
+        <div class="footer-middle">
+          <a href="#" class="pagination-firstpage"></a>
+          <a href="#" class="pagination-prevpage"></a>
+          <a href="#">1</a>
+          <a class="active" href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#" class="pagination-nextpage"></a>
+          <a href="#" class="pagination-lastpage"></a>
+        </div>
+      </div>
+      <div class="footer-right">10 nhân viên/trang</div>
+    </div>
+  </div>
+</body>
+
+</html>

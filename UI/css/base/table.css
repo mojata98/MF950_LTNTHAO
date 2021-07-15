@@ -1,0 +1,30 @@
+table.table{
+    border-collapse: collapse;
+}
+
+table.table tbody tr,td{
+    height: 48px;
+    border-bottom: 1px solid #bbbbbb;
+    border-top: 1px solid #bbbbbb;
+}
+
+table.table tbody tr td{
+    padding: auto 10px;
+    white-space: nowrap; /*K thể hiện nhiều dòng*/
+    text-align: left;
+}
+
+table.table tbody tr td:first-child{/*Td đầu tiên trong tr*/
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+td div.text-inline-description{
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+}
+
+table.table tbody tr:hover{
+    background-color: #E9EBEE;
+}
+

@@ -1,0 +1,116 @@
+.header {
+    height: 48px;
+    border-bottom: 1px solid #ccc;
+    /*Kéo dài cả trang*/
+    width: 100%;
+}
+
+.header .header-left {
+    width: 225px;
+    border-right: 1px solid #ccc;
+    height: 48px;
+    float: left;
+    /*Các thành phần con cùng 1 hàng*/
+    display: flex;
+    /*Các thành phần con trôi ở giữa parent*/
+    align-items: center;
+    border-bottom: 1px solid #ffffff;
+}
+
+.header .header-right {
+    width: calc(100% - 226px);
+    height: 48px;
+    float: left;
+    display: flex;
+}
+
+.header .header-left .toggle {
+    height: 24px;
+    width: 24px;
+    /* background-color: teal; */
+    margin-top: 12px;
+    margin-left: 16px;
+    margin-bottom: 12px;
+    margin-right: 10px;
+    background-image: url('../../content/img/toggle.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.header .header-left .logo {
+    height: 24px;
+    width: 100px;
+    background-image: url('../../content/img/cukcuk-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 0 center;
+}
+
+.header .header-right .dropdown {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: GoogleSans-Bold;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.header .header-right .dropdown .dropdown-icon {
+    height: 16px;
+    width: 16px;
+    background-image: url('../../content/icon/btn-next-page.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform: rotate(90deg);
+    padding-left: 10px;
+    background-position-y: -3px;
+    background-position-x: 5px;
+}
+
+.header .header-right .information {
+    height: 40px;
+    position: absolute;
+    right: 16px;
+    /* background-color: #ffffff; */
+    color: #000000;
+    font-family: GoogleSans-Regular;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.header .header-right .information .notification {
+    background-image: url('../../content/icon/bell.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 24px;
+    width: 24px;
+    padding-right: 16px;
+}
+
+.header .header-right .information .avatar {
+    background-image: url('../../content/icon/avatar-default.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40px;
+    width: 40px;
+}
+
+.header .header-right .information .name {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.header .header-right .information .more {
+    background-image: url('../../content/icon/option.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    padding-left: 16px;
+}
