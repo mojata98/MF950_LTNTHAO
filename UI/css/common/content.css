@@ -1,6 +1,5 @@
 .content {
     position: absolute;
-    /*Lỗi margin từ body*/
     top: 49px;
     left: 226px;
     right: 0px;
@@ -153,7 +152,7 @@ input.text-box-default {
     padding-left: 16px;
 }
 
-.content .toolbar .refresh{
+.content .toolbar .refresh {
     height: 40px;
     width: 40px;
     border: 1px solid #e5e5e5;
@@ -163,7 +162,7 @@ input.text-box-default {
     cursor: pointer;
 }
 
-.content .toolbar .refresh .refresh-icon{
+.content .toolbar .refresh .refresh-icon {
     height: 16px;
     width: 16px;
     background-image: url('../../content/icon/refresh.png');
@@ -172,7 +171,7 @@ input.text-box-default {
     margin: 12px 12px 12px 12px;
 }
 
-.table-hold{
+.table-hold {
     position: absolute;
     top: 124px;
     left: 16px;
@@ -181,17 +180,18 @@ input.text-box-default {
     overflow: scroll;
 }
 
-.table{
+.table {
     width: 100%;
     color: #212529;
     vertical-align: top;
     border-color: #dee2e6;
     caption-side: bottom;
-    border-collapse: collapse;  
+    border-collapse: collapse;
     border: none;
 }
 
-.table td, table th{
+.table td,
+table th {
     border: 1px solid #ccc;
     padding: 8px;
     border-left: none;
@@ -199,38 +199,43 @@ input.text-box-default {
     border-top: none;
 }
 
-.table tr:nth-child(even){background-color: #e5e5e5;}
+.table tr:nth-child(even) {
+    background-color: #e5e5e5;
+}
 
-.table tr:hover {background-color: #2FBE8E;}
+.table tr:hover {
+    background-color: #2FBE8E;
+}
 
 .table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #ffffff;
-  color: #000000;
-  font-weight: normal;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: normal;
 }
+
 .table-thead {
     font-family: GoogleSans-Bold;
     font-size: 13px;
 }
 
-.table-row{
+.table-row {
     font-family: GoogleSans-Regular;
     font-size: 13px;
     /* display: -moz-deck; */
 }
 
-.salary{
+.salary {
     text-align: right;
 }
 
-.dob{
+.dob {
     text-align: center;
 }
 
-.footer{
+.footer {
     position: absolute;
     bottom: 0px;
     height: 56px;
@@ -241,7 +246,7 @@ input.text-box-default {
     display: inline-block;
 }
 
-.content .footer .footer-left{
+.content .footer .footer-left {
     height: 30px;
     /* line-height: 48px; */
     left: 16px;
@@ -251,7 +256,7 @@ input.text-box-default {
     margin-bottom: 12px; */
 }
 
-.content .footer .footer-right{
+.content .footer .footer-right {
     /* line-height: 48px; */
     right: 16px;
     position: absolute;
@@ -259,19 +264,19 @@ input.text-box-default {
     top: 24px;
 }
 
-.pagination{
+.pagination {
     text-align: center;
     line-height: 24px;
     margin-top: 12px;
     margin-bottom: 12px;
 }
 
-.footer-middle{
+.footer-middle {
     height: 16px;
-    border: none;  
+    border: none;
     display: inline-block;
 }
-  
+
 .footer-middle a {
     color: black;
     float: left;
@@ -280,45 +285,46 @@ input.text-box-default {
     border-radius: 50%;
     margin-right: 4px;
 }
-  
+
 .footer-middle a.active {
     background-color: #019160;
     color: white;
 }
-  
-.content .footer .pagination .footer-middle a:hover:not(.active) {background-color: #e5e5e5;}
 
-.pagination-lastpage{
-    height: 10px; 
-    width: 10px; 
+.content .footer .pagination .footer-middle a:hover:not(.active) {
+    background-color: #e5e5e5;
+}
+
+.pagination-lastpage {
+    height: 10px;
+    width: 10px;
     background-image: url('../../content/icon/btn-lastpage.svg');
     background-size: contain;
     background-repeat: no-repeat;
     margin-top: 5px;
 }
 
-.pagination-firstpage{
-    height: 10px; 
-    width: 10px; 
+.pagination-firstpage {
+    height: 10px;
+    width: 10px;
     background-image: url('../../content/icon/btn-firstpage.svg');
     background-size: contain;
     background-repeat: no-repeat;
     margin-top: 5px;
 }
 
-.pagination-prevpage{
-    height: 10px; 
-    width: 10px; 
+.pagination-prevpage {
+    height: 10px;
+    width: 10px;
     background-image: url('../../content/icon/btn-prev-page.svg');
     background-size: contain;
     background-repeat: no-repeat;
     margin-top: 5px;
 }
 
-
-.pagination-nextpage{
-    height: 10px; 
-    width: 10px; 
+.pagination-nextpage {
+    height: 10px;
+    width: 10px;
     background-image: url('../../content/icon/btn-next-page.svg');
     background-size: contain;
     background-repeat: no-repeat;

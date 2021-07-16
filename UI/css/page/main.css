@@ -4,6 +4,8 @@
 @import url('../base/combobox.css');
 @import url('../base/table.css');
 @import url('../base/paging-bar.css');
+@import url('../base/dropdown.css');
+@import url('../base/dropdown_new.css');
 body {
     font-family: GoogleSans-Regular;
     font-size: 13px;
@@ -25,14 +27,14 @@ body {
     src: url('../../content/font/GoogleSans-Italic.otf');
 }
 
-.text-align-right{
+.text-align-right {
     text-align: right;
 }
 
-.text-align-left{
+.text-align-left {
     text-align: left;
 }
 
-.text-align-center{
+.text-align-center {
     text-align: center;
 }

@@ -6,91 +6,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/page/main.css">
+    <!-- <link rel="stylesheet" href="../css/page/main.css"> -->
+    <!-- <link rel="stylesheet" href="../css/common/modal-form.css"> -->
+    <link rel="stylesheet" href="../css/base/dropdown_new.css">
+    <link rel="stylesheet" href="../content/font/fontawesome-5.15.1/css/all.min.css">
 </head>
 
 <body style="padding: 10px;">
-    <!-- <div class="textbox">
-        <input type="text" class="text-box-default textbox-witd-icon">
-        <div class="textbox-icon"></div>
-        </input>
-    </div> --> 
+    <div class="hold" style="width: 200px;">
+        <label for="">dropdown</label>
+        <br><br>
+        <div class="dropdown1">
+            <button class="select-item1" id="show-dropdown">
+                <div class="select-item-text">Option X</div>
+                <div class="select-item-icon" ></div>
+            </button>
 
-    <!-- <div class="row" style="display: block;">
-        <label for="">Combobox</label>
-        <div class="combobox" style="width: 200px;">
-            <input type="text">
-            <button class="btn-combobox"></button>
-            <div class="combobox-dada">
-                <div class="combobox-item">
-                    <div class="combobox-item-icon"></div>
-                    <div class="combobox-item-text">Nam</div>
+            <div class="dropdown-option">
+                <div class="option-item1" id="dropdown-option">
+                    <div class="option-item-icon"></div>
+                    <div class="option-item-text">Option A</div>
                 </div>
-                <div class="combobox-item">Nữ</div>
+                <div class="option-item1 item-selected">
+                    <div class="option-item-icon"></div>
+                    <div class="option-item-text ">Option B</div>
+                </div>
+                <div class="option-item1">
+                    <div class="option-item-icon"></div>
+                    <div class="option-item-text">Option C</div>
+                </div>
             </div>
-        </div>
-    </div> -->
 
-    <!-- <div class="row" style="display: block;">
-        <label for="">Table</label>
-        <table class="table" widtd = "100%">
-            <tdead>
-                <tr>
-                    <td>STT</td>
-                    <td>Mã nhân viên</td>
-                    <td>Họ và tên</td>
-                    <td>Giới tính</td>
-                    <td class="text-align-center">Ngày sinh</td>
-                    <td>Dân tộc</td>
-                    <td class="text-align-right">Lương</td>
-                    <td>Địa chỉ</td>
-                </tr>
-            </tdead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>NV002</td>
-                    <td>Nguyễn Văn A</td>
-                    <td>Nam</td>
-                    <td class="text-align-center">03/01/1999</td>
-                    <td>Kinh</td>
-                    <td class="text-align-right">6.000.000</td>
-                    <td>
-                    <div class="text-inline-description" style="width: 200px;" title="Số 5 phương 10 Hà Tây Hà Nội shgsbshbfuwgbwbakjfbwjavnjsbgxzdajjsb jbjsbsbbjsbjnbj">
-                        Số 5 phương 10 Hà Tây Hà Nội shgsbshbfuwgbwbakjfbwjavnjsbgxzdajjsb jbjsbsbbjsbjnbj
-                    </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>NV003</td>
-                    <td>Nguyễn tdị Mỹ B</td>
-                    <td>Không xác định</td>
-                    <td class="text-align-center">03/11/1999</td>
-                    <td>Tày</td>
-                    <td class="text-align-right">6.000.000</td>
-                    <td>Số 5 phương 10 Hà Tây Hà Nội</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>NV004</td>
-                    <td>Nguyễn tdị Mỹ B</td>
-                    <td>Không xác định</td>
-                    <td class="text-align-center">03/11/1999</td>
-                    <td>Tày</td>
-                    <td class="text-align-right">6.000.000</td>
-                    <td>Số 5 phương 10 Hà Tây Hà Nội</td>
-                </tr>
-            </tbody>
-        </table>
+        </div>
     </div>
 
-    <div class="row" style="display: block;">
-        <label for="">Page</label>
-        <div class="">
+    <script>
+        var showdropdown = document.getElementById("show-dropdown");
+        var dropdownoption = document.getElementById("dropdown-option");
 
-        </div>
-    </div> -->
+        showdropdown.onclick = function() {
+            dropdownoption.style.display = "block";
+            dropdownoption.style.display = "flex";
+
+        }
+    </script>
+
 </body>
 
 </html>
