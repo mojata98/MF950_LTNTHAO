@@ -24,6 +24,7 @@
     right: 8px;
     top: 8px;
     bottom: 8px;
+    height: fit-content;
 }
 
 .modal .modal-content .btn-close {
@@ -173,21 +174,16 @@ text-align: center;
 }
 
 .modal .modal-content .form .form-content .info-employee .form-info .custom-input #addressOfCMTND {
-    /*Note*/
     width: calc(50% - 6px);
 }
 
 .modal .modal-footer {
     background: #e5e5e5;
-    /* padding: 8px 16px; */
     display: flex;
-    /*Can ben phai*/
     justify-content: flex-end;
     height: 60px;
     width: 100%;
     bottom: 0px;
-    /* background-color: aqua; */
-    position: absolute;
     padding-top: 10px;
     padding-bottom: 10px;
     align-items: center;
@@ -240,4 +236,12 @@ text-align: center;
     padding-right: 16px;
     font-style: italic;
     color: #454545;
+}
+
+.taxCode{
+    margin-top: 40px;
+}
+
+.salary-base{
+    margin-top: 40px;
 }

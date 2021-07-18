@@ -4,6 +4,7 @@
     left: 226px;
     right: 0px;
     bottom: 0px;
+    background-color: #e9ebee;
 }
 
 .content .title {
@@ -160,6 +161,11 @@ input.text-box-default {
     right: 16px;
     border-radius: 4px;
     cursor: pointer;
+    background-color: #ffffff;
+}
+
+.content .toolbar .refresh:hover{
+    border-color: #019160;
 }
 
 .content .toolbar .refresh .refresh-icon {
@@ -190,6 +196,13 @@ input.text-box-default {
     border: none;
 }
 
+th{
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #e9ebee;
+}
+
 .table td,
 table th {
     border: 1px solid #ccc;
@@ -207,10 +220,11 @@ table th {
     background-color: #2FBE8E;
 }
 
-.table th {
+
+
+.table td {
     padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
+    padding-bottom: 12px;  
     background-color: #ffffff;
     color: #000000;
     font-weight: normal;
@@ -227,13 +241,17 @@ table th {
     /* display: -moz-deck; */
 }
 
+.table-row:hover{
+    background-color: #019160;
+}
+
 .salary {
     text-align: right;
 }
 
 .dob {
     text-align: center;
-}
+} 
 
 .footer {
     position: absolute;
@@ -284,6 +302,10 @@ table th {
     text-decoration: none;
     border-radius: 50%;
     margin-right: 4px;
+    /* border: 1px solid #BBBBBB; */
+}
+.page-number{
+    border: 1px solid #BBBBBB;
 }
 
 .footer-middle a.active {
@@ -292,7 +314,7 @@ table th {
 }
 
 .content .footer .pagination .footer-middle a:hover:not(.active) {
-    background-color: #e5e5e5;
+    background-color: #ffffff;
 }
 
 .pagination-lastpage {
@@ -329,4 +351,49 @@ table th {
     background-size: contain;
     background-repeat: no-repeat;
     margin-top: 5px;
+}
+
+input{
+    left: 0;
+    padding-left: 0px;
+    z-index: 0;
+}
+
+input::placeholder{
+    font-size: 11px;
+    font-family: GoogleSans-Regular;
+    padding-left: 24px;
+}
+
+.icon-search{
+    height: 16px;
+    width: 16px;
+    z-index: 1;
+    left: 32px;
+    position: absolute;
+    
+}
+
+.search{
+    display: flex;
+    align-items: center;
+    
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+ ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+ ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

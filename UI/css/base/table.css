@@ -13,7 +13,7 @@ table.table tbody tr td {
     padding: auto 10px;
     white-space: nowrap;
     /*K thể hiện nhiều dòng*/
-    text-align: left;
+    /* text-align: left; */
     /* height: 40px; */
 }
 
@@ -29,5 +29,5 @@ td div.text-inline-description {
 }
 
 table.table tbody tr:hover {
-    background-color: #E9EBEE;
+    background-color: #2BFB8E;
 }

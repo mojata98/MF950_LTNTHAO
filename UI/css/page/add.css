@@ -233,3 +233,31 @@ a{
     right: 16px;
     padding-left: 12px;
 }
+
+
+input{
+    left: 0;
+    padding-left: 0px;
+    z-index: 0;
+}
+
+input::placeholder{
+    font-size: 11px;
+    font-family: GoogleSans-Regular;
+    padding-left: 24px;
+}
+
+.icon-search{
+    height: 16px;
+    width: 16px;
+    z-index: 1;
+    left: 16px;
+    position: absolute;
+    
+}
+
+.search{
+    display: flex;
+    align-items: center;
+    
+}

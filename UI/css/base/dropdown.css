@@ -1,76 +1,93 @@
 .dropdown {
-    width: 100%;
-    height: 100%;
+    /* width: 200px; */
+    min-width: 200px;
     position: relative;
 }
 
-.dropdown .select {
-    border: 1px solid #bbbbbb;
-    border-radius: 4px;
+.select-item {
     height: 40px;
-    font-weight: normal;
-    color: #000000;
-    display: flex;
+    width: 200px;
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius: 4px;
     align-items: center;
     padding-left: 16px;
-    padding-right: 0px;
+    text-align: left;
+    position: absolute;
+    display: flex;
     cursor: pointer;
-    background: #fff;
-    outline: none;
+    background-color: #ffffff;
 }
 
-.dropdown .select:focus {
+.select-item:hover {
     border-color: #019160;
+    background-color: #ffffff;
 }
 
-.dropdown .select .icon {
-    width: 16px;
+.select-item .select-item-icon {
+    position: absolute;
     height: 16px;
-    padding: 0 12px;
+    width: 16px;
+    right: 12px;
+    margin-left: 12px;
+    background-image: url('../../content/icon/btn-next-page.svg');
+    transform: rotate(90deg);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-.dropdown .select:focus>.icon {
+.dropdown .dropdown-option {
+    position: absolute;
+    width: 100%;
+    top: 42px;
+    border-radius: 4px;
+    border-top: none;
+    z-index: 50;
+}
+
+.dropdown .dropdown-option .option-item {
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    cursor: pointer;
+    border: none;
+    background-color: #ffffff;
+}
+
+.dropdown .dropdown-option .option-item:hover {
+    background-color: #ccc;
+}
+
+.dropdown .dropdown-option .option-item-icon {
+    height: 16px;
+    width: 16px;
+    margin-left: 12px;
+    margin-right: 12px;
+    flex-shrink: 0;    
+}
+
+.dropdown .dropdown-option .item-selected {
+    background-color: #019160;
+}
+
+.dropdown .select-item:focus>.option-item-icon {
     transform: rotate(180deg);
 }
 
-.dropdown .select:focus+.option {
+.dropdown .select-item:focus+.dropdown-option {
     display: block;
 }
 
-.dropdown .option {
+.dropdown .dropdown-option {
     display: none;
-    position: absolute;
-    width: 100%;
-    background: #fff;
-    padding: 4px 0;
-    z-index: 50;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-.dropdown .option-item {
-    display: flex;
-    align-items: center;
-    height: 40px;
-    /* position: absolute; */
-    /* width: 100%; */
-}
-
-.dropdown .option-item .icon {
-    padding: 0 10px;
-    color: transparent;
-}
-
-.dropdown .option-item:hover {
-    background: #e9ebee;
-}
-
-.dropdown .option-item:active,
-.dropdown .option-item:focus {
-    background: #019160;
-    color: #fff;
-}
-
-.dropdown .option-item:active .icon,
-.dropdown .option-item:focus .icon {
-    color: #fff;
-}
+.item-selected-icon{
+    background-image: url('../../content/icon/checked.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+} 

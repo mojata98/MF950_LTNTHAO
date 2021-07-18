@@ -2,10 +2,9 @@
 @import url('../base/text-box.css');
 @import url('../base/icon.css');
 @import url('../base/combobox.css');
-@import url('../base/table.css');
+/* @import url('../base/table.css'); */
 @import url('../base/paging-bar.css');
 @import url('../base/dropdown.css');
-@import url('../base/dropdown_new.css');
 body {
     font-family: GoogleSans-Regular;
     font-size: 13px;
