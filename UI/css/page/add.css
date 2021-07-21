@@ -1,263 +1,36 @@
-.form{
-    width: 50%;
-    height: calc(100vh - 0px);
-    border: 1px solid #e5e5e5;
-    margin: 8px;
-    border-radius: 4px;
-    bottom: 8px;
-    /* position: absolute; */
+.employee-id{
+    max-width: 130px;
 }
 
-.header{
-    height: 48px;
-    width: 100%;
-    padding-left: 24px;
-    padding-right: 24px;
-    font-family: GoogleSans-Bold;
-    font-size: 15px;
-    line-height: 48px;
+.employee-name{
+    max-width: 200px;
 }
 
-.header .title{
-    position: absolute;
+.employee-sex{
+    max-width: 100px;
 }
 
-.header .btn-exit{
-    height: 16px;
-    width: 16px;
-    position: absolute;
-    top: 12px;
-    right: 50%;
-    background-image: url('../../content/icon/x.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-.menu{
-    width: 12.5%;
-    height: calc(100vh - 108px);
-    bottom: 60px;
-    position: absolute;
-    padding-left: 24px;
+.employee-dob{
+    max-width: 95px;
 }
 
-.menu .image{   
-    height: 120px;
-    width: 120px;
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid #e5e5e5;
-    top: 24px;
-    background-image: url('../../content/icon/add.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-color: #e5e5e5;
+.employee-email{
+    /* max-width: 200px; */
+    width: 100px;
 }
 
-.menu .text{
-    position: absolute;
-    text-align: center;
-    top: 145px;
-    text-align: justify;
-    width: 120px;
-    font-family: GoogleSans-Regular;
-    font-size: 11px;
+.employee-position{
+    max-width: 100px;
 }
 
-.content {
-    position: absolute;
-    top: 48px;
-    left: 12.5%;
-    bottom: 60px;
-    height: calc(100vh - 108px);
-    width: 37.5%;
-    float: left;
+.employee-room{
+    max-width: 150px;
 }
 
-.footer{
-    position: absolute;
-    height: 60px;
-    width: 50%;
-    bottom: 0px;
+.employee-salary{
+    max-width: 170px;
 }
 
-.content .infor-general{
-    position: absolute;
-    width: 100%;
-    height: 60%;
-}
-
-.content .infor-job{
-    position: absolute;
-    width: 100%;
-    height: 40%;
-    bottom: 0px;
-}
-
-.content .infor-general .infor-title .name{
-    position: absolute;
-    font-family: GoogleSans-Regular;
-    font-size: 15px;
-}
-
-.content .infor-general .infor-title .name .line{
-    position: absolute;
-    width: 90px;
-    border: 2px solid #019160;
-    background-color: #019160;
-    top: 24px;
-}
-
-.content .infor-general .row{
-    position: absolute;
-    height: 73px;
-    width: 100%;
-    top: 8px;
-}
-
-.content .infor-general .row .first-col{
-    position: absolute;
-    height: 73px;
-    width: 48%;
-    top: 24px;
-    left: 0px;
-}
-
-.content .infor-general .row .second-col{
-    position: absolute;
-    height: 73px;
-    width: 48%;
-    top: 24px;
-    right: 16px;
-    padding-left: 12px;
-}
-
-a{
-    font-family: GoogleSans-Regular;
-    font-size: 13px;
-    color: red;
-}
-
-.content .infor-general .row .first-col .col-text{
-    font-family: GoogleSans-Regular;
-    font-size: 13px;
-}
-
-.content .infor-general .row .second-col .col-text{
-    font-family: GoogleSans-Regular;
-    font-size: 13px;
-}
-
-.content .infor-general .row-1{
-    position: absolute;
-    height: 73px;
-    width: 100%;
-    top: calc(73px + 10px);
-}
-
-.content .infor-general .row-1 .first-col{
-    position: absolute;
-    height: 73px;
-    width: 48%;
-    top: 24px;
-    left: 0px;
-}
-
-.content .infor-general .row-1 .second-col{
-    position: absolute;
-    height: 73px;
-    width: 48%;
-    top: 24px;
-    right: 16px;
-    padding-left: 12px;
-}
-
-.content .infor-general .row-2{
-    position: absolute;
-    height: 73px;
-    width: 100%;
-    top: calc(73px + 88px); 
-}
-
-.content .infor-general .row-2 .first-col{
-    position: absolute;
-    height: 73px;
-    width: 48%;
-    top: 24px;
-    left: 0px;
-}
-
-.content .infor-general .row-2 .second-col{
-    position: absolute;
-    height: 73px;
-    width: 48%;
-    top: 24px;
-    right: 16px;
-    padding-left: 12px;
-}
-
-.content .infor-general .row-3{
-    position: absolute;
-    height: 73px;
-    width: 100%;
-    top: calc(73px + 88px + 76px); 
-}
-
-.content .infor-general .row-3 .first-col{
-    position: absolute;
-    height: 73px;
-    width: 48%;
-    top: 24px;
-    left: 0px;
-}
-
-.content .infor-general .row-4{
-    position: absolute;
-    height: 73px;
-    width: 100%;
-    top: calc(73px + 88px + 76px + 76px); 
-}
-
-.content .infor-general .row-4 .first-col{
-    position: absolute;
-    height: 73px;
-    width: 48%;
-    top: 24px;
-    left: 0px;
-}
-
-.content .infor-general .row-4 .second-col{
-    position: absolute;
-    height: 73px;
-    width: 48%;
-    top: 24px;
-    right: 16px;
-    padding-left: 12px;
-}
-
-
-input{
-    left: 0;
-    padding-left: 0px;
-    z-index: 0;
-}
-
-input::placeholder{
-    font-size: 11px;
-    font-family: GoogleSans-Regular;
-    padding-left: 24px;
-}
-
-.icon-search{
-    height: 16px;
-    width: 16px;
-    z-index: 1;
-    left: 16px;
-    position: absolute;
-    
-}
-
-.search{
-    display: flex;
-    align-items: center;
-    
+.employee-workstatus{
+    max-width: 200px;
 }

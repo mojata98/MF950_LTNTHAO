@@ -2,7 +2,7 @@
 @import url('../base/text-box.css');
 @import url('../base/icon.css');
 @import url('../base/combobox.css');
-/* @import url('../base/table.css'); */
+@import url('../base/table.css');
 @import url('../base/paging-bar.css');
 @import url('../base/dropdown.css');
 body {
@@ -36,4 +36,12 @@ body {
 
 .text-align-center {
     text-align: center;
+}
+
+input.border-red{
+    border: 1px solid red;
+}
+
+input.border-default{
+    border: 1px solid #bbbbbb;
 }

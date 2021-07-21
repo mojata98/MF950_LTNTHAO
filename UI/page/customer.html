@@ -5,11 +5,9 @@
 
     <title>Phần mềm quản lý nhà hàng</title>
     <link rel="stylesheet" type="text/css" href="../css/page/main.css">
-    <!-- <link rel="stylesheet" href="../css/page/employee.css"> -->
     <link rel="stylesheet" type="text/css" href="../css/common/menu.css">
     <link rel="stylesheet" type="text/css" href="../css/common/header.css">
     <link rel="stylesheet" type="text/css" href="../css/common/content.css">
-    <link rel="stylesheet" type="text/css" href="../css/base/button.css">
     <link rel="stylesheet" type="text/css" href="../css/common/modal-form.css">
     <link rel="stylesheet" href="../content/font/fontawesome-5.15.1/js/all.min.js">
 </head>
@@ -82,10 +80,10 @@
     </div>
     <div class="content">
         <div class="title">
-            <div class="title-name">Danh sách nhân viên</div>
+            <div class="title-name">Danh sách khách hàng</div>
             <div class="title-button button" id="add-btn">
                 <div class=" title-button-icon "></div>
-                <div class="title-button-text ">Thêm nhân viên</div>
+                <div class="title-button-text ">Thêm khách hàng</div>
             </div>
         </div>
         <div class="toolbar ">
@@ -145,40 +143,26 @@
             </div>
             <!-- ============================Dropdown=========================== -->
             <div class="refresh ">
-                <div class="refresh-icon " id="btn-refresh"></div>
+                <div class="refresh-icon "></div>
             </div>
         </div>
         <div class="table-hold ">
-            <table class="table " id="EmployeeList">
+            <table class="table ">
                 <thead class="table-thead ">
                     <tr>
-                        <th class="text-align-center employee-stop-working" fieldName = "WorkStatus"></th>
-                        <th class="text-align-left employee-id" fieldName = "EmployeeCode">Mã nhân viên</th>
-                        <th class="text-align-left employee-name" fieldName = "FullName">Họ và tên</th>
-                        <th class="text-align-left employee-sex" fieldName = "GenderName">Giới tính</th>
-                        <th class="text-align-center employee-dob" fieldName = "DateOfBirth">Ngày sinh</th>
-                        <th class="text-align-left employee-phone-number" fieldName = "PhoneNumber">Điện thoại</th>
-                        <th class="text-align-left employee-email" style="max-width: 100px" fieldName = "Email">Email</th>
-                        <th class="text-align-left employee-position" fieldName = "PositionName">Chức vụ</th>
-                        <th class="text-align-left employee-room" fieldName = "DepartmentName">Phòng ban</th>
-                        <th class="text-align-right employee-salary" fieldName = "Salary">Mức lương cơ bản</th>
-                        <th class="text-align-left employee-workstatus" fieldName = "WorkStatus">Tình trạng công việc</th>
+                        <!-- <th class="text-align-center employee-stop-working"></th> -->
+                        <th class="text-align-left employee-id" fieldName = "EmployeeCode">Mã khách hàng</th>
+                        <th class="text-align-left employee-name" fieldName = "EmployeeName">Họ và tên</th>
+                        <th class="text-align-left employee-sex">Giới tính</th>
+                        <th class="text-align-center employee-dob">Ngày sinh</th>
+                        <th class="text-align-left employee-phone-number">Điện thoại</th>
+                        <th class="text-align-left employee-email" style="max-width: 100px">Email</th>
+                        <!-- <th class="text-align-left employee-position">Chức vụ</th>
+                        <th class="text-align-left employee-room">Phòng ban</th>
+                        <th class="text-align-right employee-salary">Mức lương cơ bản</th>
+                        <th class="text-align-left employee-workstatus">Tình trạng công việc</th> -->
                         
                     </tr>
-                    <!-- <tr>
-                        <th fieldName = "WorkStatus"></th>
-                        <th fieldName = "EmployeeCode">Mã nhân viên</th>
-                        <th fieldName = "FullName">Họ và tên</th>
-                        <th fieldName = "GenderName">Giới tính</th>
-                        <th fieldName = "DateOfBirth">Ngày sinh</th>
-                        <th fieldName = "PhoneNumber">Điện thoại</th>
-                        <th fieldName = "Email">Email</th>
-                        <th fieldName = "PositionName">Chức vụ</th>
-                        <th fieldName = "DepartmentName">Phòng ban</th>
-                        <th fieldName = "Salary">Mức lương cơ bản</th>
-                        <th fieldName = "WorkStatus">Tình trạng công việc</th>
-                        
-                    </tr> -->
                 </thead>
                 <tbody>
                     <!-- <tr>
@@ -199,7 +183,7 @@
             </table>
         </div>
         <div class="footer ">
-            <div class="footer-left ">Hiển thị <b>1-10/1000</b> nhân viên</div>
+            <div class="footer-left ">Hiển thị <b>1-10/1000</b> khách hàng</div>
             <div class="pagination ">
                 <div class="footer-middle ">
                     <a href="# " class="pagination-firstpage "></a>
@@ -212,7 +196,7 @@
                     <a href="# " class="pagination-lastpage "></a>
                 </div>
             </div>
-            <div class="footer-right ">10 nhân viên/trang</div>
+            <div class="footer-right ">10 khách hàng/trang</div>
         </div>
     </div>
     <!-- ===============================================================Add new Employee Form============================================================ -->
@@ -224,7 +208,7 @@
                 <!-- </div>               -->
             </button>
             <form action="#" class="form">
-                <div class="form-title">Thông tin nhân viên</div>
+                <div class="form-title">Thông tin khách hàng</div>
                 <div class="form-content">
                     <div class="avatar-employee">
                         <div class="avatar">
@@ -242,36 +226,36 @@
                                 <span class="text"> A. Thông tin chung: </span>
                             </div>
                             <div class="input">
-                                <label for="id" class="title-input" >Mã nhân viên (<span
+                                <label for="id" class="title-input">Mã khách hàng (<span
                                         class="required">*</span>)</label>
-                                <input type="text" id="txtEmployeeCode" required class="text-box-default" autofocus tabindex="1" />
+                                <input type="text" id="id" class="text-box-default" autofocus tabindex="1" />
                             </div>
                             <div class="input">
-                                <label for="fullName" class="title-input" >Họ và tên (<span
+                                <label for="fullName" class="title-input">Họ và tên (<span
                                         class="required">*</span>)</label>
-                                <input type="text" id="txtEmployeeName" required class="text-box-default" tabindex="2" />
+                                <input type="text" id="fullName" class="text-box-default" tabindex="2" />
                             </div>
                             <div class="input">
-                                <label for="birthOfDay" class="title-input" >Ngày sinh</label>
-                                <input type="date" id="txtEmployeeDob" class="text-box-default" tabindex="3" />
+                                <label for="birthOfDay" class="title-input">Ngày sinh</label>
+                                <input type="date" id="birthOfDay" class="text-box-default" tabindex="3" />
                             </div>
                             <div class="input">
-                                <label for="general" class="title-input" >Giới tính</label>
+                                <label for="general" class="title-input">Giới tính</label>
                                 <div class="dropdown">
                                     <button class="select-item custom-select" tabindex="4">
-                                        <span class="select-item-text" id="txtEmployeeGender">Nam</span>
+                                        <span class="select-item-text">Nam</span>
                                         <span class="select-item-icon"></span>
                                     </button>
                                     <div class="dropdown-option">
-                                        <div class="option-item item-selected" >
+                                        <div class="option-item item-selected" tabindex="5">
                                             <div class="option-item-icon item-selected-icon"></div>
                                             <div class="option-item-text">Nam</div>
                                         </div>
-                                        <div class="option-item" >
+                                        <div class="option-item" tabindex="6">
                                             <div class="option-item-icon  "></div>
                                             <div class="option-item-text ">Nữ</div>
                                         </div>
-                                        <div class="option-item" >
+                                        <div class="option-item" tabindex="7">
                                             <div class="option-item-icon  "></div>
                                             <div class="option-item-text ">Khác</div>
                                         </div>
@@ -279,44 +263,44 @@
                                 </div>
                             </div>
                             <div class="input">
-                                <label for="CMTND" class="title-input" >Số CMTND/ Căn cước (<span
+                                <label for="CMTND" class="title-input">Số CMTND/ Căn cước (<span
                                         class="required">*</span>)</label>
-                                <input type="text" id="txtEmployeeCMND" required class="text-box-default" tabindex="5" />
+                                <input type="text" id="CMTND" class="text-box-default" tabindex="7" />
                             </div>
                             <div class="input">
                                 <label for="dayOfCMTND" class="title-input">Ngày cấp</label>
-                                <input type="date" id="dayOfCMTND" class="text-box-default" tabindex="6" />
+                                <input type="date" id="dayOfCMTND" class="text-box-default" tabindex="8" />
                             </div>
                             <div class="input custom-input">
-                                <label for="addressOfCMTND" class="title-input" >Nơi cấp</label>
-                                <input type="text" id="txtEmployeePlace" class="text-box-default" tabindex="7" />
+                                <label for="addressOfCMTND" class="title-input">Nơi cấp</label>
+                                <input type="text" id="addressOfCMTND" class="text-box-default" tabindex="9" />
                             </div>
                             <div class="input" style="display: none; position: fixed;">
                                 <label for="dayOfCMTND" class="title-input"></label>
-                                <input type="date" id="dayOfCMTND1" class="text-box-default"/>
+                                <input type="date" id="dayOfCMTND1" class="text-box-default" tabindex="" />
                             </div>
                             <div class="input">
-                                <label for="email" class="title-input" >Email(<span class="required">*</span>)</label>
-                                <input type="text" id="txtEmployeeEmail" required class="text-box-default" tabindex="8" />
+                                <label for="email" class="title-input">Email(<span class="required">*</span>)</label>
+                                <input type="text" id="email" class="text-box-default" tabindex="10" />
                             </div>
                             <div class="input">
-                                <label for="phone" class="title-input" >Số điện thoại(<span
+                                <label for="phone" class="title-input">Số điện thoại(<span
                                         class="required">*</span>)</label>
-                                <input type="text" id="txtEmployeePhoneNumber" required class="text-box-default" tabindex="9" />
+                                <input type="text" id="phone" class="text-box-default" tabindex="11" />
                             </div>
                             <!-- ========================================================Information Title================================================================ -->
                             <div class="infomation-title">
                                 <span class="text"> B. Thông tin công việc: </span>
                             </div>
                             <div class="input">
-                                <label for="general" class="title-input" >Vị trí</label>
+                                <label for="general" class="title-input">Vị trí</label>
                                 <div class="dropdown">
-                                    <button class="select-item custom-select" tabindex="10">
-                                        <span class="select-item-text" id="txtEmployeePositionName">Giám đốc</span>
+                                    <button class="select-item custom-select" tabindex="12">
+                                        <span class="select-item-text">Giám đốc</span>
                                         <span class="select-item-icon"></span>
                                     </button>
                                     <div class="dropdown-option">
-                                        <div class="option-item item-selected" >
+                                        <div class="option-item item-selected" tabindex="13">
                                             <div class="option-item-icon item-selected-icon"></div>
                                             <div class="option-item-text">Giám đốc</div>
                                         </div>
@@ -333,14 +317,14 @@
                             </div>
                             
                             <div class="input">
-                                <label for="general" class="title-input" >Phòng ban</label>
+                                <label for="general" class="title-input">Phòng ban</label>
                                 <div class="dropdown">
-                                    <button class="select-item custom-select" tabindex="11">
-                                        <span class="select-item-text" id="txtEmployeeDepartmentName">Phòng nhân sự</span>
+                                    <button class="select-item custom-select" tabindex="14">
+                                        <span class="select-item-text">Phòng nhân sự</span>
                                         <span class="select-item-icon"></span>
                                     </button>
                                     <div class="dropdown-option">
-                                        <div class="option-item item-selected" >
+                                        <div class="option-item item-selected" tabindex="15">
                                             <div class="option-item-icon item-selected-icon"></div>
                                             <div class="option-item-text">Phòng nhân sự</div>
                                         </div>
@@ -353,31 +337,31 @@
                                 </div>
                             </div>
                             <div class="input taxCode">
-                                <label for="taxCode" class="title-input" >Mã số thuế cá nhân</label>
-                                <input type="text" id="txtEmployeeTaxCode" class="text-box-default" tabindex="12" />
+                                <label for="taxCode" class="title-input">Mã số thuế cá nhân</label>
+                                <input type="text" id="taxCode" class="text-box-default" tabindex="16" />
                             </div>
                             <div class="input salary-base">
-                                <label for="salary" class="title-input" >Mức lương cơ bản</label>
+                                <label for="salary" class="title-input">Mức lương cơ bản</label>
                                 <div class="salary">
-                                    <input type="text" id="txtEmployeeSalary" class="text-box-default" tabindex="13" />
+                                    <input type="text" id="salary" class="text-box-default" tabindex="17" />
                                     <span class="icon">(VNĐ)</span>
                                 </div>
                             </div>
                             <div class="input">
                                 <label for="dayOfJoin" class="title-input">Ngày gia nhập công ty(<span
                                         class="required">*</span>)</label>
-                                <input type="date" id="dayOfJoin" class="text-box-default" tabindex="14" />
+                                <input type="date" id="dayOfJoin" class="text-box-default" tabindex="18" />
                             </div>
                             
                             <div class="input">
-                                <label for="general" class="title-input" >Tình trạng công việc</label>
+                                <label for="general" class="title-input">Tình trạng công việc</label>
                                 <div class="dropdown">
-                                    <button class="select-item custom-select" tabindex="15">
-                                        <span class="select-item-text" id="txtEmployeeWorkStatus">Đang làm</span>
+                                    <button class="select-item custom-select" tabindex="19">
+                                        <span class="select-item-text">Đang làm</span>
                                         <span class="select-item-icon"></span>
                                     </button>
                                     <div class="dropdown-option">
-                                        <div class="option-item item-selected" >
+                                        <div class="option-item item-selected" tabindex="20">
                                             <div class="option-item-icon item-selected-icon"></div>
                                             <div class="option-item-text">Đang làm</div>
                                         </div>
@@ -395,10 +379,10 @@
             </form>
             <!-- ========================================================Footer================================================================ -->
             <div class="modal-footer">
-                <button class="btn-cancel button" tabindex="16" id="btn-cancel">Hủy</button>
-                <button class="btn-save button-icon button" tabindex="17">
+                <button class="btn-cancel button" tabindex="22">Hủy</button>
+                <button class="btn-save button-icon button" tabindex="21">
                     <span class="icon-left"></span>
-                    <span class="text" id="btn-save">Lưu</span>
+                    <span class="text">Lưu</span>
                 </button>
             </div>
 
@@ -413,10 +397,20 @@
 
     <script src="../lib/jquery-3.6.0.min.js"></script>
     <script src="../js/common/common.js"></script>
-    <!-- <script src="../js/common/base.js"></script> -->
-    <script src="../js/page/employee.js"></script>
+    <script src="../js/common/base.js"></script>
+    <script src="../js/page/customer.js"></script>
 
     <script>
+        var add = document.getElementById("add-btn");
+        var modal = document.getElementById("modal");
+        var close = document.getElementById("btn-close");
+        add.onclick = function () {
+            modal.style.display = "block ";
+        }
+        close.onclick = function () {
+            modal.style.display = "none";
+        }
+
         var showdropdown = document.getElementById("show-dropdown");
         var dropdownoption = document.getElementById("dropdown-option");
 

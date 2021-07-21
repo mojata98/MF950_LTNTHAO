@@ -128,6 +128,7 @@ text-align: center;
 
 .modal .modal-content .form .form-content .info-employee .infomation-title {
     grid-column: span 2 / span 2;
+
 }
 
 .modal .modal-content .form .form-content .info-employee .infomation-title .text {
@@ -150,6 +151,7 @@ text-align: center;
 .modal .modal-content .form .form-content .info-employee .form-info .text-box-default {
     display: block;
     width: 100%;
+    color: #000000;
 }
 
 .required {
@@ -167,13 +169,14 @@ text-align: center;
 .modal .modal-content .form .form-content .info-employee .form-info .title-input {
     display: block;
     margin-bottom: 4px;
+    text-align: left;
 }
 
 .modal .modal-content .form .form-content .info-employee .form-info .custom-input {
     grid-column: span 2 / span 2;
 }
 
-.modal .modal-content .form .form-content .info-employee .form-info .custom-input #addressOfCMTND {
+.modal .modal-content .form .form-content .info-employee .form-info .custom-input #txtEmployeePlace {
     width: calc(50% - 6px);
 }
 
@@ -245,3 +248,12 @@ text-align: center;
 .salary-base{
     margin-top: 40px;
 }
+
+/* .icon-left{
+    background-image: url('../../content/icon/save.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    z-index: 100000;
+} */

@@ -1,33 +1,63 @@
+.table-hold {
+    position: absolute;
+    top: 124px;
+    left: 16px;
+    right: 16px;
+    bottom: 56px;
+    overflow: scroll;
+    background-color: #ffffff;
+}
+
 table.table {
     border-collapse: collapse;
+    width: 100%;
 }
 
-table.table tbody tr,
-td {
+.table-thead {
+    font-family: GoogleSans-Bold;
+    font-size: 13px;
+    height: 48px;
+    position: sticky;
+    top: 0;
+    background-color: #e9ebee;   
+}
+
+th{
+    padding-left: 8px;
+}
+
+
+table.table tbody th,td {
     height: 48px;
     border-bottom: 1px solid #bbbbbb;
-    border-top: 1px solid #bbbbbb;
-}
-
-table.table tbody tr td {
-    padding: auto 10px;
+    padding-left: 8px;
     white-space: nowrap;
-    /*K thể hiện nhiều dòng*/
-    /* text-align: left; */
-    /* height: 40px; */
-}
-
-table.table tbody tr td:first-child {
-    /*Td đầu tiên trong tr*/
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-td div.text-inline-description {
-    overflow-y: hidden;
+    box-sizing: border-box;
     text-overflow: ellipsis;
+    overflow: hidden;
+    /* background-color: #ffffff; */
 }
 
 table.table tbody tr:hover {
-    background-color: #2BFB8E;
+    background-color: #bbbbbb;
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+ ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+ ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
