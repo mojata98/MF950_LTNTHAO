@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="../css/page/main.css"> -->
+    <!-- <link rel="stylesheet" href="../css/common/modal-form.css"> -->
+    <link rel="stylesheet" href="../css/base/dropdown_new.css">
+    <link rel="stylesheet" href="../content/font/fontawesome-5.15.1/css/all.min.css">
+</head>
+
+<body style="padding: 10px;">
+    <div class="hold" style="width: 200px;">
+        <label for="">dropdown</label>
+        <br><br>
+        <div class="dropdown1">
+            <button class="select-item1" id="show-dropdown">
+                <div class="select-item-text">Option X</div>
+                <div class="select-item-icon" ></div>
+            </button>
+
+            <div class="dropdown-option">
+                <div class="option-item1" id="dropdown-option">
+                    <div class="option-item-icon"></div>
+                    <div class="option-item-text">Option A</div>
+                </div>
+                <div class="option-item1 item-selected">
+                    <div class="option-item-icon"></div>
+                    <div class="option-item-text ">Option B</div>
+                </div>
+                <div class="option-item1">
+                    <div class="option-item-icon"></div>
+                    <div class="option-item-text">Option C</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        var showdropdown = document.getElementById("show-dropdown");
+        var dropdownoption = document.getElementById("dropdown-option");
+
+        showdropdown.onclick = function() {
+            dropdownoption.style.display = "block";
+            dropdownoption.style.display = "flex";
+
+        }
+    </script>
+
+</body>
+
+</html>

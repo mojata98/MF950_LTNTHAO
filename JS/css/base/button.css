@@ -1,0 +1,31 @@
+.button {
+    height: 40px;
+    border-radius: 4px;
+    color: #ffffff;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: center;
+    background-color: #019160;
+    /*Cho chữ trong button ra giữa, cách trên và dưới đều nhau*/
+    line-height: 40px;
+    /* box-sizing: unset; */
+    /*Set kích thước chiều rộng khớp với độ dài nội dung trên button*/
+    display: inline-block;
+    /* Ấn chuột vào chuyển hình bàn tay */
+    cursor: pointer;
+}
+
+
+/* class */
+
+.button:hover {
+    background-color: #2FBE8E;
+}
+
+
+/* button */
+
+button:active {
+    background-color: #01B075;
+}
+

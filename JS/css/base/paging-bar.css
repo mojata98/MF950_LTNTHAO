@@ -1,0 +1,28 @@
+.paging-bar{
+    display: flex;
+    align-items: center;
+    height: 56px;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.paging-bar .paging-left{
+    min-width: 200px;
+    height: 100%;
+    background-color: royalblue;
+}
+
+.paging-bar .paging-right{
+    position: absolute;
+    right: 0px;
+    min-width: 200px;
+    height: 100%;
+    background-color: saddlebrown;
+}
+
+.paging-bar .paging-tool{
+    min-width: 200px;
+    height: 100%;
+    background-color: seagreen;
+}
+  

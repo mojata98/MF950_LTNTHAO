@@ -1,0 +1,23 @@
+.icon-16{
+    width: 16px;
+    height: 16px;
+}
+
+.icon-24{
+    width: 24px;
+    height: 24px;
+}
+
+.icon-search{
+    background-image: url('../../content/icon/search.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/*Cần import vào file main.css*/
+
+/* .icon{
+    background-repeat: no-repeat;
+    background-size: auto;
+} */
+
