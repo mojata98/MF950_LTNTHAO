@@ -89,7 +89,7 @@
     <div class="content">
         <div class="content-title">
             <div class="content-title-text">Danh sách nhân viên</div>
-            <div class="button-new" id="btnAdd" onclick="btnAddOnClick();">
+            <div class="button-new" id="btnAdd" > <!--onclick="btnAddOnClick();"-->
                 <div class="button-icon"></div>
                 <div class="button-value">Thêm nhân viên</div>
             </div>
@@ -132,7 +132,7 @@
                     </ul>
                 </label>
             </div>
-            <div class="refresh" onclick="btnRefresh()">
+            <div class="refresh" id="btnRefresh"> <!--onclick="btnRefresh()"-->
                 <div class="button-refresh">
                 </div>
             </div>
@@ -160,7 +160,7 @@
         </div>
         <!-------------------------------------------------------FOOTER-------------------------------------------------------->
         <div class="footer ">
-            <div class="footer-left ">Hiển thị <b>1-10/1000</b> nhân viên</div>
+            <div class="footer-left ">Hiển thị <b id="employeeTotal">1-10/1000</b> nhân viên</div>
             <div class="pagination ">
                 <div class="footer-middle ">
                     <a href="# " class="pagination-firstpage "></a>
@@ -361,21 +361,24 @@
                 <div class="button bth-save" id="btnSave" onclick="save()">
                     <i class="far fa-save"></i> Lưu
                 </div>
-                <div class="button bth-cancle" onclick="btnExitDlg()">
+                <div class="button bth-cancle" id = "btnCancel" > <!--onclick="btnExitDlg()"-->
                     Hủy
                 </div>
             </div>
-            <button class="btn-exit" id="btn-exit" onclick="btnExitDlg()">
+            <button class="btn-exit" id="btnExit" > <!--onclick="btnExitDlg()"-->
             </button>
         </div>
     </div>
     <!-------------------------------------------------------JS-------------------------------------------------------->
     <script src="../lib/js/jquery.min.js"></script>
     <script src="../lib/js/jquery.validate.min.js"></script>
+    
     <script src="../js/common/base.js"></script>
-    <script src="../js/common/common.js"></script>
-    <script src="../js/page/employee.js"></script>
     <script src="../js/common/dropdown.js"></script>
+    <script src="../js/common/common.js"></script>
+    
+    <script src="../js/page/employee.js"></script>
+    
 </body>
 
 </html>

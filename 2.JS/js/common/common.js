@@ -38,7 +38,7 @@ function formatMoney(money) {
     }
 }
 
-/**
+/**-------------------------------------
  * Hàm bỏ các giá trị null cho giới tính
  * @param {String} gender giới tính
  * Author: LNTHAO (19/7/2021) 
@@ -58,7 +58,7 @@ function formatGender(gender) {
     return valueG;
 }
 
-/**
+/**--------------------------------------------------------------
  * Hàm click chọn item trong menu làm đổi style cho menu và item
  * Author: LNTHAO (20/7/2021)
  */
@@ -67,7 +67,7 @@ $('.menu .menu-item').click(function () {
     $(this).addClass('menu-item-active');
 })
 
-/**
+/**------------------------------------------
  * Hiển thị nút x cho input tìm kiếm
  * Author: LNTHAO (20/7/2021)
  */
@@ -75,7 +75,7 @@ $('input.icon-search').focus(function () {
     $('button.btn-reset').show();
 })
 
-/**
+/**----------------------------------------
  * Set lại giá trị input khi click nút x
  * Author: LNTHAO (20/7/2021)
  */
@@ -84,7 +84,9 @@ $('.btn-reset').on('click', function(){
     $('input.icon-search').attr("placeholder", "Tìm kiếm theo Mã, Tên hoặc Số điện thoại");
     $('button.btn-reset').hide();
 });
-/**
+
+
+/**-----------------------------------------
  * Hàm thu nhỏ menu
  * Author: LNTHAO (20/7/2021)
  */
@@ -95,7 +97,8 @@ function zoomMenu() {
     $('#icon-left-menu').hide();
     $('#icon-right-menu').show();
 }
-/**
+
+/**---------------------------
  * Hàm mở rộng menu
  * Author: LNTHAO (20/7/2021)
  */
@@ -108,31 +111,7 @@ function showMenu() {
 }
 
 
-
-/**
- * Hàm hiển thị form dialog thông tin nhân viên
- * Author: LNTHAO (21/7/2021)
- */
-function btnAddOnClick() {
-    formMode = 1;
-    $('#dlgEmployeeDetail').show();
-    $('#dlgEmployeeDetail input').val(null);
-    $('#dlgEmployeeDetail .dropdown-list').hide();
-    $('#dlgEmployeeDetail .dropdown-value').text(null);
-    $('#dlgEmployeeDetail .icon-down').removeClass('move-up');
-    $('#dlgEmployeeDetail input').removeClass('border-red');
-    //lấy mã nhân viên mới và thực hiện binding vào input mã nhân viên
-    $.ajax({
-        url: "http://cukcuk.manhnv.net/v1/Employees/NewEmployeeCode",
-        method: "GET",
-    }).done(res => {
-        $('#txtEmployeeCode').val(res);
-        $('#txtEmployeeCode').focus();
-    }).fail(res => {
-        console.log(res);
-    })
-}
-/**
+/**----------------------------------------
  * Validate dữ liệu
  * Author: LNTHAO (21/7/2021)
  */
@@ -163,7 +142,7 @@ $('#txtIdentityNumber').blur(function () {
     }
 })
 
-/**
+/**-----------------------------
  * Định dạng cho email
  * Author: LNTHAO (22/7/2021)
  */
@@ -176,7 +155,7 @@ function isEmail(email) {
     }
 }
 
-/**
+/**----------------------------------
  * Định dạnh cho CMND
  * Author: LNTHAO (22/7/2021)
  */
@@ -189,287 +168,20 @@ function isIdentityNumber(cmt) {
     }
 }
 
-/**
- * Hàm thoát, hủy khỏi form dialog thông tin nhân viên
- * Author: LNTHAO (21/7/2021)
- */
-function btnExitDlg() {
-    $('#dlgEmployeeDetail').hide();
-    $('#dlgEmployeeDetail').parent().parent().find('.dropdown-item').removeClass('active');
-    $('#dlgEmployeeDetail').parent().parent().find('.dropdown-list').hide();
-    $('#dlgEmployeeDetail').parent().parent().find('.icon-down').removeClass('move-up');
-}
-
-/**
- * Sửa thông tin nhân viên khi double click vào thông tin trong bảng
- * Author: LNTHAO (26/7/2021)
- */
-// var employeeId;
-$('table#tbListDataEmployee').on('dblclick', 'tbody tr', function () {
-    try {
-        formMode = 0;
-        $('#dlgEmployeeDetail').show();// Note
-        //Lấy id
-        employeeId = $(this).attr('employeeId');
-        $.ajax({
-            url: `http://cukcuk.manhnv.net/v1/Employees/${employeeId}`,
-            method: 'GET',
-        }).done(function (res) {
-
-            console.log(res);
-            var positionId = res.PositionId;
-            var positionName = '';
-            var genderValue = '';
-            var depName = '';
-            var wstatusValue = '';
-            var genderValue = '';
-            if (positionId != null || positionId != undefined) {
-                for (let i = 0; i < dataPosition.length; i++) {
-                    if (dataPosition[i].id == positionId) {
-                        positionName = dataPosition[i].name;
-                        break;
-                    }
-                    else {
-                        positionName = '';
-                    }
-                }
-                $('#txtPositionName').attr('value', res['PositionId']);
-                var thisItem = $('#txtPositionName').parent().parent();
-                thisItem.find('.dropdown-item').removeClass('active');
-                thisItem.find(`.dropdown-item[value="${positionId}"]`).addClass('active');
-            }
-            var depId = res.DepartmentId;
-            if (depId != null || depId != undefined) {
-                for (let i = 0; i < dataDepartment.length; i++) {
-                    if (dataDepartment[i].id == depId) {
-                        depName = dataDepartment[i].name;
-                        break;
-                    }
-                    else {
-                        depName = '';
-                    }
-                }
-                $('#txtDepartmentName').attr('value', res['DepartmentId']);
-                var thisItem = $('#txtDepartmentName').parent().parent();
-                thisItem.find('.dropdown-item').removeClass('active');
-                thisItem.find(`.dropdown-item[value="${depId}"]`).addClass('active');
-            }
-            var genderIndex = res.Gender;
-            var genderValue = '';
-            if (genderIndex != null || genderIndex != undefined || genderIndex < dataGender.length) {
-
-                for (let i = 0; i < dataGender.length; i++) {
-                    if (dataGender[i].index == genderIndex) {
-                        genderValue = dataGender[i].value;
-                        break;
-                    }
-                    else {
-                        genderValue = '';
-                    }
-                }
-                $('#txtGender').attr('value', res['Gender']);
-                var thisItem = $('#txtGender').parent().parent();
-                thisItem.find('.dropdown-item').removeClass('active');
-                thisItem.find(`.dropdown-item[value="${genderIndex}"]`).addClass('active');
-            }
-            var wstatusIndex = res.WorkStatus;
-            if (wstatusIndex != null || wstatusIndex != undefined || wstatusIndex < dataWorkStatus.length) {
-                wstatusValue = loadWorkStatus(wstatusIndex);
-                $('#txtWorkStatus').attr('value', wstatusIndex);
-                var thisItem = $('#txtWorkStatus').parent().parent();
-                thisItem.find('.dropdown-item').removeClass('active');
-                thisItem.find(`.dropdown-item[value="${wstatusIndex}"]`).addClass('active');
-            }
-            var salary = Number((res['Salary'])).toLocaleString('vi');
-            console.log(salary);
-            $('#txtEmployeeCode').val(res['EmployeeCode']);
-            $('#txtFullName').val(res['FullName']);
-            $('#txtDateOfBirth').val(formatCalendar(res['DateOfBirth']));
-            $('#txtGender').text(genderValue);
-            $('#txtIdentityNumber').val(res['IdentityNumber']);
-            $('#txtIdentityDate').val(formatCalendar(res['IdentityDate']));
-            $('#txtIdentityPlace').val(res['IdentityPlace']);
-            $('#txtEmail').val(res['Email']);
-            $('#txtPhoneNumber').val(res['PhoneNumber']);
-            $('#txtPositionName').text(positionName);
-            $('#txtDepartmentName').text(depName);
-            $('#txtDepartmentName').attr('value', res['DepartmentId']);
-            $('#txtPersonalTaxCode').val(res['PersonalTaxCode']);
-            $('#txtSalary').val(salary);
-            $('#txtJoinDate').val(formatCalendar(res['JoinDate']));
-            $('#txtWorkStatus').text(wstatusValue);
-            $('#dlgEmployeeDetail').show();
-        }).fail(function (res) {
-        })
-    } catch (error) {
-        console.log(error);
-    }
-})
-
-/**
- * Delete - Xóa toàn bộ dữ liệu
- * Author: LNTHAO (25/7/2021) --> Note lại
- */
-$('table#tbListDataEmployee').on('mousedown', 'tbody tr', function (event) {
-
-    try {
-        if (event.which == 3) {
-            if (confirm("Bạn có chắc chắn muốn xóa")) {
-                employeeId = $(this).attr('employeeid');
-                $.ajax({
-                    url: `http://cukcuk.manhnv.net/v1/Employees/${employeeId}`,
-                    method: 'DELETE'
-                }).done(function (res) {
-                    btnRefresh();
-                }).fail(function (res) {
-                });
-            }
-        }
-    } catch (error) {
-        console.log(error);
-    }
-});
 
 
-/**
- * Save - Lưu toàn bộ dữ liệu
- * Author: LNTHAO (22/7/2021)
- */
-function save() {
-    if ($('#txtEmployeeCode').val() == "" || $('#txtFullName').val() == "" ||
-        $('#txtIdentityNumber').val() == "" || $('#txtEmail').val() == "" || $('#txtPhoneNumber').val() == "") {
-        alert("Nhập thiếu trường thông tin bắt buộc");
-        if ($('#txtEmployeeCode').val() == "") {
-            $('#txtEmployeeCode').addClass("border-red");
-        }
-        if ($('#txtFullName').val() == "") {
-            $('#txtFullName').addClass("border-red");
-        }
-        if ($('#txtIdentityNumber').val() == "") {
-            $('#txtIdentityNumber').addClass("border-red");
-        }
-        if ($('#txtEmail').val() == "") {
-            $('#txtEmail').addClass("border-red");
-        }
-        if ($('#txtPhoneNumber').val() == "") {
-            $('#txtPhoneNumber').addClass("border-red");
-        }
-    }
-    else {
-        // thu thập dữ liệu =) build thành object nhân viên
-        let employee = {
-            "EmployeeId": "8efe3ae6-eb14-11eb-94eb-42010a8c0002",
-            "EmployeeCode": "NV01545",
-            "FirstName": null,
-            "LastName": null,
-            "FullName": "Mai Quỳnh",
-            "Gender": 0,
-            "DateOfBirth": null,
-            "PhoneNumber": "+844796868786",
-            "Email": "nho12@gmail.com",
-            "Address": null,
-            "IdentityNumber": "009988998899",
-            "IdentityDate": null,
-            "IdentityPlace": "HN",
-            "JoinDate": null,
-            "MartialStatus": null,
-            "EducationalBackground": null,
-            "QualificationId": null,
-            "DepartmentId": null,
-            "PositionId": null,
-            "WorkStatus": null,
-            "PersonalTaxCode": "23434343434",
-            "Salary": 1000000.0,
-            "PositionCode": null,
-            "PositionName": null,
-            "DepartmentCode": null,
-            "DepartmentName": null,
-            "QualificationName": null,
-            "GenderName": null,
-            "EducationalBackgroundName": null,
-            "MartialStatusName": null,
-            "CreatedDate": "2021-07-22T17:45:09",
-            "CreatedBy": null,
-            "ModifiedDate": "2021-07-22T18:01:04",
-            "ModifiedBy": null
-        };
-        let tmethod = 'POST'; // của hàm thêm mới
-        let turl = 'http://cukcuk.manhnv.net/v1/Employees';
-        if (formMode == 0) { //của hàm sửa
-            tmethod = 'PUT';
-            turl = `http://cukcuk.manhnv.net/v1/Employees/${employeeId}`;
-        }
-        if (isDuplicateCode($('#txtIdentityNumber').val()) == false && formMode == 1) {//nếu thêm mới bị trùng mã MV
-            alert("Mã nhân viên đã bị trùng!!!")
-        }
-        else if (isDuplicateIdentityNumber($('#txtIdentityNumber').val()) == false && formMode == 1) {// nếu thêm mới bị trùng cmt
-            alert("Mã chứng minh thư/căn cước đã bị trùng");
-        }
-        else {// cập nhật dữ liệu
-            var salary = reFormatMoney($('#txtSalary').val());
-            employee.EmployeeCode = $('#txtEmployeeCode').val();
-            employee.FullName = $('#txtFullName').val();
-            employee.DateOfBirth = $('#txtDateOfBirth').val();
-            employee.Gender = $('#txtGender').attr('value');
-            employee.IdentityNumber = $('#txtIdentityNumber').val();
-            employee.IdentityDate = $('#txtIdentityDate').val();
-            employee.IdentityPlace = $('#txtIdentityPlace').val();
-            employee.Email = $('#txtEmail').val();
-            employee.PhoneNumber = $('#txtPhoneNumber').val();
-            employee.PositionId = $('#txtPositionName').attr('value');
-            employee.DepartmentId = $('#txtDepartmentName').attr('value');
-            employee.PersonalTaxCode = $('#txtPersonalTaxCode').val();
-            employee.Salary = salary;
-            employee.JoinDate = $('#txtJoinDate').val();
-            employee.WorkStatus = $('#txtWorkStatus').attr('value');
-            console.log(employee);
-            let tmethod = 'POST';
-            let turl = 'http://cukcuk.manhnv.net/v1/Employees';
-            if (formMode == 0) {
-                tmethod = 'PUT';
-                turl = `http://cukcuk.manhnv.net/v1/Employees/${employeeId}`;
-            }
-            $.ajax(
-                {
-                    url: turl,
-                    method: tmethod,
-                    data: JSON.stringify(employee),
-                    dataType: "json",
-                    contentType: "application/json",
-                }
-            ).done(res => {
-                if (formMode == 0) {
-                    alert("Sửa thành công");
-                }
-                else {
-                    alert("Thêm mới thành công");
-                }
-                $('#dlgEmployeeDetail').hide();
-                location.reload();
-            }).fail(function (res) {
-                switch (res.status) {
-                    case 500:
-                        alert("Có lỗi, vui lòng liên hệ MISA!");
-                        break;
-                    case 400:
-                        alert("Dữ liệu không hợp lệ!");
-                        break;
-                    default: break;
-                }
-            })
-        }
-    }
-}
-/**
+
+
+/**---------------------------
  * Hàm load lại trang
  * Author: LNTHAO (20/7/2021)
  */
 
-function btnRefresh() {
-    location.reload();
-}
+// function btnRefresh() {
+//     location.reload();
+// }
 
-/**
+/**----------------------------------------------
  * Hàm kiểm tra có bị trùng mã nhân viên không
  * @param code mã nhân viên  
  * Author: LNTHAO (23/7/2021)
@@ -486,7 +198,7 @@ function isDuplicateCode(code) {
 
 }
 
-/**
+/**------------------------------------------------
  * Hàm kiểm tra có bị trùng CMND
  * @param num số chứng minh thư/căn cước công dân
  * Author: LNTHAO (23/7/2021)
@@ -504,7 +216,7 @@ function isDuplicateIdentityNumber(num) {
 }
 
 
-/**
+/**-----------------------------------------
  * Hàm chuyển về dạng số thuần để lưu lương
  * @param {string} str 
  * Author: LNTHAO (23/07/2021)
@@ -526,7 +238,7 @@ function reFormatMoney(str) {
 
 moneyInput($('#txtSalary'));
 
-/**
+/**-------------------------------------
  * Định dạng tiền trên form nhân viên
  * @param {*} myinput 
  * @returns 
@@ -547,7 +259,7 @@ function formatAutoMoney(myinput) {
     return 0;
 }
 
-/**
+/**------------------------------------
  * Hàm lưu chuỗi input tiền nhập vào
  * @param {*} thismoney 
  * Author: LNTHAO (23/07/2021)
@@ -560,7 +272,7 @@ function moneyInput(thismoney) {
     })
 }
 
-/**
+/**----------------------------------------
  * Hàm chuyển đổi định dạng ngày tháng năm
  * @param {*} thisdate 
  * @returns 
@@ -571,7 +283,7 @@ function formatDataDDMMYY(thisdate){
     return ("0"+ data.getDate()).slice(-2) + '/' + ("0"+ (date.getMonth()+ 1)).slice(-2) + '/' + date.getFullYear();
 }
 
-/**
+/**-----------------------------------------
  * Hàm chuyển đổi định dạng ngày tháng năm
  * @param {*} thisdate 
  * @returns 
@@ -603,9 +315,9 @@ function formatDateMMDDYY(thisdate) {
         return result;
     }
 }
-//---------------------------------------------------------------------
 
-/**
+
+/**-----------------------------------
  * Định nghĩa cho các workstatus
  * Author: LNTHAO (20/07/2021)
  */
@@ -620,7 +332,7 @@ function formatDateMMDDYY(thisdate) {
     return valueWorkStatus;
 }
 
-/**
+/**-----------------------------------
  * Tìm kiếm, lọc thông tin trong bảng
  * Author: LNTHAO (20/07/2021)
  */
@@ -630,3 +342,135 @@ $("#txtSearch").keyup(function () {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
 });
+
+/**-----------------------------------------------------------------------
+         * Sửa thông tin nhân viên khi double click vào thông tin trong bảng
+         * Author: LNTHAO (26/7/2021)
+         */
+        // var employeeId;
+        $('table#tbListDataEmployee').on('dblclick', 'tbody tr', function () {
+            try {
+                // formMode = 0;
+                $('#dlgEmployeeDetail').show();// Note
+                //Lấy id
+                employeeId = $(this).attr('employeeId');
+                $.ajax({
+                    url: `http://cukcuk.manhnv.net/v1/Employees/${employeeId}`,
+                    method: 'GET',
+                }).done(function (res) {
+
+                    console.log(res);
+                    var positionId = res.PositionId;
+                    var positionName = '';
+                    var genderValue = '';
+                    var depName = '';
+                    var wstatusValue = '';
+                    var genderValue = '';
+                    if (positionId != null || positionId != undefined) {
+                        for (let i = 0; i < dataPosition.length; i++) {
+                            if (dataPosition[i].id == positionId) {
+                                positionName = dataPosition[i].name;
+                                break;
+                            }
+                            else {
+                                positionName = '';
+                            }
+                        }
+                        $('#txtPositionName').attr('value', res['PositionId']);
+                        var thisItem = $('#txtPositionName').parent().parent();
+                        thisItem.find('.dropdown-item').removeClass('active');
+                        thisItem.find(`.dropdown-item[value="${positionId}"]`).addClass('active');
+                    }
+                    var depId = res.DepartmentId;
+                    if (depId != null || depId != undefined) {
+                        for (let i = 0; i < dataDepartment.length; i++) {
+                            if (dataDepartment[i].id == depId) {
+                                depName = dataDepartment[i].name;
+                                break;
+                            }
+                            else {
+                                depName = '';
+                            }
+                        }
+                        $('#txtDepartmentName').attr('value', res['DepartmentId']);
+                        var thisItem = $('#txtDepartmentName').parent().parent();
+                        thisItem.find('.dropdown-item').removeClass('active');
+                        thisItem.find(`.dropdown-item[value="${depId}"]`).addClass('active');
+                    }
+                    var genderIndex = res.Gender;
+                    var genderValue = '';
+                    if (genderIndex != null || genderIndex != undefined || genderIndex < dataGender.length) {
+
+                        for (let i = 0; i < dataGender.length; i++) {
+                            if (dataGender[i].index == genderIndex) {
+                                genderValue = dataGender[i].value;
+                                break;
+                            }
+                            else {
+                                genderValue = '';
+                            }
+                        }
+                        $('#txtGender').attr('value', res['Gender']);
+                        var thisItem = $('#txtGender').parent().parent();
+                        thisItem.find('.dropdown-item').removeClass('active');
+                        thisItem.find(`.dropdown-item[value="${genderIndex}"]`).addClass('active');
+                    }
+                    var wstatusIndex = res.WorkStatus;
+                    if (wstatusIndex != null || wstatusIndex != undefined || wstatusIndex < dataWorkStatus.length) {
+                        wstatusValue = loadWorkStatus(wstatusIndex);
+                        $('#txtWorkStatus').attr('value', wstatusIndex);
+                        var thisItem = $('#txtWorkStatus').parent().parent();
+                        thisItem.find('.dropdown-item').removeClass('active');
+                        thisItem.find(`.dropdown-item[value="${wstatusIndex}"]`).addClass('active');
+                    }
+                    var salary = Number((res['Salary'])).toLocaleString('vi');
+                    console.log(salary);
+                    $('#txtEmployeeCode').val(res['EmployeeCode']);
+                    $('#txtFullName').val(res['FullName']);
+                    $('#txtDateOfBirth').val(formatCalendar(res['DateOfBirth']));
+                    $('#txtGender').text(genderValue);
+                    $('#txtIdentityNumber').val(res['IdentityNumber']);
+                    $('#txtIdentityDate').val(formatCalendar(res['IdentityDate']));
+                    $('#txtIdentityPlace').val(res['IdentityPlace']);
+                    $('#txtEmail').val(res['Email']);
+                    $('#txtPhoneNumber').val(res['PhoneNumber']);
+                    $('#txtPositionName').text(positionName);
+                    $('#txtDepartmentName').text(depName);
+                    $('#txtDepartmentName').attr('value', res['DepartmentId']);
+                    $('#txtPersonalTaxCode').val(res['PersonalTaxCode']);
+                    $('#txtSalary').val(salary);
+                    $('#txtJoinDate').val(formatCalendar(res['JoinDate']));
+                    $('#txtWorkStatus').text(wstatusValue);
+                    $('#dlgEmployeeDetail').show();
+                }).fail(function (res) {
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        })
+
+        /**----------------------------------------------------------------------------
+         * Delete - Xóa toàn bộ dữ liệu
+         * Author: LNTHAO (25/7/2021) --> Note lại
+         */
+        $('table#tbListDataEmployee').on('mousedown', 'tbody tr', function (event) {
+
+            try {
+                if (event.which == 3) {
+                    if (confirm("Bạn có chắc chắn muốn xóa?")) {
+                        employeeId = $(this).attr('employeeId');
+                        $.ajax({
+                            url: `http://cukcuk.manhnv.net/v1/Employees/${employeeId}`,
+                            method: 'DELETE',
+                        }).done(function (res) {
+                            alert("Xóa thành công.");
+                            location.reload();                         
+                        }).fail(function (res) {
+                            alert("Xóa không thành công.");
+                        });
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        })
