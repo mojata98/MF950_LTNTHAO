@@ -1,4 +1,4 @@
-var formMode;
+// var formMode;
 
 /**------------------------------------------------------
  * Chuyển dữ liệu ngày tháng sang ngày/tháng/năm
@@ -79,7 +79,7 @@ $('input.icon-search').focus(function () {
  * Set lại giá trị input khi click nút x
  * Author: LNTHAO (20/7/2021)
  */
-$('.btn-reset').on('click', function(){
+$('.btn-reset').on('click', function () {
     $('input.icon-search').val('');
     $('input.icon-search').attr("placeholder", "Tìm kiếm theo Mã, Tên hoặc Số điện thoại");
     $('button.btn-reset').hide();
@@ -200,7 +200,7 @@ function isDuplicateCode(code) {
 
 /**------------------------------------------------
  * Hàm kiểm tra có bị trùng CMND
- * @param num số chứng minh thư/căn cước công dân
+ * @param num số chứng minh thư/căn cước công dân ??
  * Author: LNTHAO (23/7/2021)
  */
 function isDuplicateIdentityNumber(num) {
@@ -278,9 +278,9 @@ function moneyInput(thismoney) {
  * @returns 
  * Author: LNTHAO (23/07/2021)
  */
-function formatDataDDMMYY(thisdate){
+function formatDataDDMMYY(thisdate) {
     date = new Date(thisdate);
-    return ("0"+ data.getDate()).slice(-2) + '/' + ("0"+ (date.getMonth()+ 1)).slice(-2) + '/' + date.getFullYear();
+    return ("0" + data.getDate()).slice(-2) + '/' + ("0" + (date.getMonth() + 1)).slice(-2) + '/' + date.getFullYear();
 }
 
 /**-----------------------------------------
@@ -301,7 +301,7 @@ function formatDateMMDDYY(thisdate) {
  * @returns 
  * Author: LNTHAO (26/07/2021)
  */
- function formatCalendar(date){
+function formatCalendar(date) {
     var date = new Date(date);
     if (Number.isNaN(date.getTime())) {
         return "";
@@ -321,7 +321,7 @@ function formatDateMMDDYY(thisdate) {
  * Định nghĩa cho các workstatus
  * Author: LNTHAO (20/07/2021)
  */
- function loadWorkStatus(indexS) {
+function loadWorkStatus(indexS) {
     var valueWorkStatus = '';
     for (let i = 0; i < dataWorkStatus.length; i++) {
         if (dataWorkStatus[i].index == indexS) {
@@ -344,133 +344,133 @@ $("#txtSearch").keyup(function () {
 });
 
 /**-----------------------------------------------------------------------
-         * Sửa thông tin nhân viên khi double click vào thông tin trong bảng
-         * Author: LNTHAO (26/7/2021)
-         */
-        // var employeeId;
-        $('table#tbListDataEmployee').on('dblclick', 'tbody tr', function () {
-            try {
-                // formMode = 0;
-                $('#dlgEmployeeDetail').show();// Note
-                //Lấy id
+* Sửa thông tin nhân viên khi double click vào thông tin trong bảng
+* Author: LNTHAO (26/7/2021)
+*/
+// var employeeId;
+$('table#tbListDataEmployee').on('dblclick', 'tbody tr', function () {
+    try {
+        formMode = 0;
+        $('#dlgEmployeeDetail').show();// Note
+        //Lấy id
+        employeeId = $(this).attr('employeeId');
+        $.ajax({
+            url: `http://cukcuk.manhnv.net/v1/Employees/${employeeId}`,
+            method: 'GET',
+        }).done(function (res) {
+
+            console.log(res);
+            var positionId = res.PositionId;
+            var positionName = '';
+            var genderValue = '';
+            var depName = '';
+            var wstatusValue = '';
+            var genderValue = '';
+            if (positionId != null || positionId != undefined) {
+                for (let i = 0; i < dataPosition.length; i++) {
+                    if (dataPosition[i].id == positionId) {
+                        positionName = dataPosition[i].name;
+                        break;
+                    }
+                    else {
+                        positionName = '';
+                    }
+                }
+                $('#txtPositionName').attr('value', res['PositionId']);
+                var thisItem = $('#txtPositionName').parent().parent();
+                thisItem.find('.dropdown-item').removeClass('active');
+                thisItem.find(`.dropdown-item[value="${positionId}"]`).addClass('active');
+            }
+            var depId = res.DepartmentId;
+            if (depId != null || depId != undefined) {
+                for (let i = 0; i < dataDepartment.length; i++) {
+                    if (dataDepartment[i].id == depId) {
+                        depName = dataDepartment[i].name;
+                        break;
+                    }
+                    else {
+                        depName = '';
+                    }
+                }
+                $('#txtDepartmentName').attr('value', res['DepartmentId']);
+                var thisItem = $('#txtDepartmentName').parent().parent();
+                thisItem.find('.dropdown-item').removeClass('active');
+                thisItem.find(`.dropdown-item[value="${depId}"]`).addClass('active');
+            }
+            var genderIndex = res.Gender;
+            var genderValue = '';
+            if (genderIndex != null || genderIndex != undefined || genderIndex < dataGender.length) {
+
+                for (let i = 0; i < dataGender.length; i++) {
+                    if (dataGender[i].index == genderIndex) {
+                        genderValue = dataGender[i].value;
+                        break;
+                    }
+                    else {
+                        genderValue = '';
+                    }
+                }
+                $('#txtGender').attr('value', res['Gender']);
+                var thisItem = $('#txtGender').parent().parent();
+                thisItem.find('.dropdown-item').removeClass('active');
+                thisItem.find(`.dropdown-item[value="${genderIndex}"]`).addClass('active');
+            }
+            var wstatusIndex = res.WorkStatus;
+            if (wstatusIndex != null || wstatusIndex != undefined || wstatusIndex < dataWorkStatus.length) {
+                wstatusValue = loadWorkStatus(wstatusIndex);
+                $('#txtWorkStatus').attr('value', wstatusIndex);
+                var thisItem = $('#txtWorkStatus').parent().parent();
+                thisItem.find('.dropdown-item').removeClass('active');
+                thisItem.find(`.dropdown-item[value="${wstatusIndex}"]`).addClass('active');
+            }
+            var salary = Number((res['Salary'])).toLocaleString('vi');
+            console.log(salary);
+            $('#txtEmployeeCode').val(res['EmployeeCode']);
+            $('#txtFullName').val(res['FullName']);
+            $('#txtDateOfBirth').val(formatCalendar(res['DateOfBirth']));
+            $('#txtGender').text(genderValue);
+            $('#txtIdentityNumber').val(res['IdentityNumber']);
+            $('#txtIdentityDate').val(formatCalendar(res['IdentityDate']));
+            $('#txtIdentityPlace').val(res['IdentityPlace']);
+            $('#txtEmail').val(res['Email']);
+            $('#txtPhoneNumber').val(res['PhoneNumber']);
+            $('#txtPositionName').text(positionName);
+            $('#txtDepartmentName').text(depName);
+            $('#txtDepartmentName').attr('value', res['DepartmentId']);
+            $('#txtPersonalTaxCode').val(res['PersonalTaxCode']);
+            $('#txtSalary').val(salary);
+            $('#txtJoinDate').val(formatCalendar(res['JoinDate']));
+            $('#txtWorkStatus').text(wstatusValue);
+            $('#dlgEmployeeDetail').show();
+        }).fail(function (res) {
+        })
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+/**----------------------------------------------------------------------------
+ * Delete - Xóa toàn bộ dữ liệu
+ * Author: LNTHAO (25/7/2021) --> Note lại
+ */
+$('table#tbListDataEmployee').on('mousedown', 'tbody tr', function (event) {
+
+    try {
+        if (event.which == 3) {
+            if (confirm("Bạn có chắc chắn muốn xóa?")) {
                 employeeId = $(this).attr('employeeId');
                 $.ajax({
                     url: `http://cukcuk.manhnv.net/v1/Employees/${employeeId}`,
-                    method: 'GET',
+                    method: 'DELETE',
                 }).done(function (res) {
-
-                    console.log(res);
-                    var positionId = res.PositionId;
-                    var positionName = '';
-                    var genderValue = '';
-                    var depName = '';
-                    var wstatusValue = '';
-                    var genderValue = '';
-                    if (positionId != null || positionId != undefined) {
-                        for (let i = 0; i < dataPosition.length; i++) {
-                            if (dataPosition[i].id == positionId) {
-                                positionName = dataPosition[i].name;
-                                break;
-                            }
-                            else {
-                                positionName = '';
-                            }
-                        }
-                        $('#txtPositionName').attr('value', res['PositionId']);
-                        var thisItem = $('#txtPositionName').parent().parent();
-                        thisItem.find('.dropdown-item').removeClass('active');
-                        thisItem.find(`.dropdown-item[value="${positionId}"]`).addClass('active');
-                    }
-                    var depId = res.DepartmentId;
-                    if (depId != null || depId != undefined) {
-                        for (let i = 0; i < dataDepartment.length; i++) {
-                            if (dataDepartment[i].id == depId) {
-                                depName = dataDepartment[i].name;
-                                break;
-                            }
-                            else {
-                                depName = '';
-                            }
-                        }
-                        $('#txtDepartmentName').attr('value', res['DepartmentId']);
-                        var thisItem = $('#txtDepartmentName').parent().parent();
-                        thisItem.find('.dropdown-item').removeClass('active');
-                        thisItem.find(`.dropdown-item[value="${depId}"]`).addClass('active');
-                    }
-                    var genderIndex = res.Gender;
-                    var genderValue = '';
-                    if (genderIndex != null || genderIndex != undefined || genderIndex < dataGender.length) {
-
-                        for (let i = 0; i < dataGender.length; i++) {
-                            if (dataGender[i].index == genderIndex) {
-                                genderValue = dataGender[i].value;
-                                break;
-                            }
-                            else {
-                                genderValue = '';
-                            }
-                        }
-                        $('#txtGender').attr('value', res['Gender']);
-                        var thisItem = $('#txtGender').parent().parent();
-                        thisItem.find('.dropdown-item').removeClass('active');
-                        thisItem.find(`.dropdown-item[value="${genderIndex}"]`).addClass('active');
-                    }
-                    var wstatusIndex = res.WorkStatus;
-                    if (wstatusIndex != null || wstatusIndex != undefined || wstatusIndex < dataWorkStatus.length) {
-                        wstatusValue = loadWorkStatus(wstatusIndex);
-                        $('#txtWorkStatus').attr('value', wstatusIndex);
-                        var thisItem = $('#txtWorkStatus').parent().parent();
-                        thisItem.find('.dropdown-item').removeClass('active');
-                        thisItem.find(`.dropdown-item[value="${wstatusIndex}"]`).addClass('active');
-                    }
-                    var salary = Number((res['Salary'])).toLocaleString('vi');
-                    console.log(salary);
-                    $('#txtEmployeeCode').val(res['EmployeeCode']);
-                    $('#txtFullName').val(res['FullName']);
-                    $('#txtDateOfBirth').val(formatCalendar(res['DateOfBirth']));
-                    $('#txtGender').text(genderValue);
-                    $('#txtIdentityNumber').val(res['IdentityNumber']);
-                    $('#txtIdentityDate').val(formatCalendar(res['IdentityDate']));
-                    $('#txtIdentityPlace').val(res['IdentityPlace']);
-                    $('#txtEmail').val(res['Email']);
-                    $('#txtPhoneNumber').val(res['PhoneNumber']);
-                    $('#txtPositionName').text(positionName);
-                    $('#txtDepartmentName').text(depName);
-                    $('#txtDepartmentName').attr('value', res['DepartmentId']);
-                    $('#txtPersonalTaxCode').val(res['PersonalTaxCode']);
-                    $('#txtSalary').val(salary);
-                    $('#txtJoinDate').val(formatCalendar(res['JoinDate']));
-                    $('#txtWorkStatus').text(wstatusValue);
-                    $('#dlgEmployeeDetail').show();
+                    alert("Xóa thành công.");
+                    location.reload();
                 }).fail(function (res) {
-                })
-            } catch (error) {
-                console.log(error);
+                    alert("Xóa không thành công.");
+                });
             }
-        })
-
-        /**----------------------------------------------------------------------------
-         * Delete - Xóa toàn bộ dữ liệu
-         * Author: LNTHAO (25/7/2021) --> Note lại
-         */
-        $('table#tbListDataEmployee').on('mousedown', 'tbody tr', function (event) {
-
-            try {
-                if (event.which == 3) {
-                    if (confirm("Bạn có chắc chắn muốn xóa?")) {
-                        employeeId = $(this).attr('employeeId');
-                        $.ajax({
-                            url: `http://cukcuk.manhnv.net/v1/Employees/${employeeId}`,
-                            method: 'DELETE',
-                        }).done(function (res) {
-                            alert("Xóa thành công.");
-                            location.reload();                         
-                        }).fail(function (res) {
-                            alert("Xóa không thành công.");
-                        });
-                    }
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        })
+        }
+    } catch (error) {
+        console.log(error);
+    }
+})

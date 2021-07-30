@@ -9,7 +9,7 @@
     background-color: #e5e5e5;
     padding-right: 16px;
     transition: all 0.5s;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
     overflow-x: hidden;
     box-sizing: border-box;
 }
@@ -37,7 +37,7 @@
     font-weight: bold;
 }
 
-::placeholder {
+input::placeholder {
     opacity: 1; /* Firefox */
     font-size: 11px;
     font-family: GoogleSans;

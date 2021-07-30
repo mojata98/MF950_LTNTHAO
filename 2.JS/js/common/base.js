@@ -1,9 +1,69 @@
-var formMode;
+var formMode; // formMode = 1 : Thêm mới || formMode = 0 : Sửa thông tin
 class BaseJS {
     constructor() {
         this.loadData();
         this.initEvents();
     }
+
+    /**---------------------------------------
+    * Tải dữ liệu cho bảng nhân viên từ API
+    * Author: LNTHAO (20/07/2021)
+    */
+     loadData() {
+        $("table #tbListDataEmployee").empty();
+        // Lấy thông tin các cột
+        var colums = $('table thead th'); // Đọc số lượng cột
+        $.ajax(
+            {
+                url: "http://cukcuk.manhnv.net/v1/Employees", // viết hoa !== viết thường
+                method: "GET",
+                dataType: "json", // Tránh lỗi từ vòng lặp $.each
+                async: false,
+            }
+        ).done(function (res) {
+            $.each(res, function (index, obj) {
+                var tr = $(`<tr employeeId = '${obj.EmployeeId}'></tr>`);
+                $.each(colums, function (index, item) {
+                    var td = $(`<td title = "` + obj[$(item).attr('fieldName')] + `"></td>`);
+                    var fieldName = $(item).attr('fieldName');
+                    var value = obj[fieldName];
+                    var formatType = $(item).attr('formatType');
+                    var textAlignType = $(item).attr('textAlignType');
+                    switch (formatType) {
+                        case "ddmmyyyy":
+                            value = formatDate(value);
+                            break;
+                        case "Money":
+                            value = formatMoney(value);
+                            break;
+                        default:
+                            break;
+                    }
+                    switch (textAlignType) {
+                        case "Center":
+                            td.addClass('text-align-center');
+                            break;
+                        case "Right":
+                            td.addClass("text-align-right");
+                            break;
+                        case "Left":
+                            td.addClass("text-align-left");
+                            break;
+                        default:
+                            break;
+                    }
+                    td.append(value);
+                    $(tr).append(td);
+                })
+                $('table tbody').append(tr);
+            })
+        }).fail(function (res) {
+
+        })
+        var a = $('#tbListDataEmployee tr').length;
+        document.getElementById('employeeTotal').innerHTML = a;
+    }
+
 
     getDataUrl() {
 
@@ -19,6 +79,7 @@ class BaseJS {
          * Author: LNTHAO (21/07/2021)
          */
         $('#btnAdd').click(function () {
+            formMode = 1;
             $('#dlgEmployeeDetail').show();
             $('#dlgEmployeeDetail input').val(null);
             $('#dlgEmployeeDetail .dropdown-list').hide();
@@ -133,16 +194,7 @@ class BaseJS {
                     "ModifiedDate": "2021-07-22T18:01:04",
                     "ModifiedBy": null
                 };
-                let tmethod = 'POST'; // của hàm thêm mới
-                let turl = 'http://cukcuk.manhnv.net/v1/Employees';
-                if (formMode == 0) { //của hàm sửa
-                    tmethod = 'PUT';
-                    turl = `http://cukcuk.manhnv.net/v1/Employees/${employeeId}`;
-                }
-                if (isDuplicateCode($('#txtIdentityNumber').val()) == false && formMode == 1) {//nếu thêm mới bị trùng mã MV
-                    alert("Mã nhân viên đã bị trùng!!!")
-                }
-                else if (isDuplicateIdentityNumber($('#txtIdentityNumber').val()) == false && formMode == 1) {// nếu thêm mới bị trùng cmt
+                if (formMode == 1 && isDuplicateIdentityNumber($('#txtIdentityNumber').val()) == false ) {
                     alert("Mã chứng minh thư/căn cước đã bị trùng");
                 }
                 else {// cập nhật dữ liệu
@@ -204,64 +256,9 @@ class BaseJS {
         
     }
 
-    /**---------------------------------------
-    * Tải dữ liệu cho bảng nhân viên từ API
-    * Author: LNTHAO (20/07/2021)
-    */
-    loadData() {
-        $("table #tbListDataEmployee").empty();
-        // Lấy thông tin các cột
-        var colums = $('table thead th'); // Đọc số lượng cột
-        $.ajax(
-            {
-                url: "http://cukcuk.manhnv.net/v1/Employees", // viết hoa !== viết thường
-                method: "GET",
-                dataType: "json", // Tránh lỗi từ vòng lặp $.each
-                async: false,
-            }
-        ).done(function (res) {
-            $.each(res, function (index, obj) {
-                var tr = $(`<tr employeeId = '${obj.EmployeeId}'></tr>`);
-                $.each(colums, function (index, item) {
-                    var td = $(`<td title = "` + obj[$(item).attr('fieldName')] + `"></td>`);
-                    var fieldName = $(item).attr('fieldName');
-                    var value = obj[fieldName];
-                    var formatType = $(item).attr('formatType');
-                    var textAlignType = $(item).attr('textAlignType');
-                    switch (formatType) {
-                        case "ddmmyyyy":
-                            value = formatDate(value);
-                            break;
-                        case "Money":
-                            value = formatMoney(value);
-                            break;
-                        default:
-                            break;
-                    }
-                    switch (textAlignType) {
-                        case "Center":
-                            td.addClass('text-align-center');
-                            break;
-                        case "Right":
-                            td.addClass("text-align-right");
-                            break;
-                        case "Left":
-                            td.addClass("text-align-left");
-                            break;
-                        default:
-                            break;
-                    }
-                    td.append(value);
-                    $(tr).append(td);
-                })
-                $('table tbody').append(tr);
-            })
-        }).fail(function (res) {
+    
 
-        })
-        var a = $('#tbListDataEmployee tr').length;
-        document.getElementById('employeeTotal').innerHTML = a;
-    }
+    
 
 }
 

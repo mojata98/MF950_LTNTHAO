@@ -60,7 +60,7 @@
 .em-del-content .em-avatar .icon-avatar {
     width: 130px;
     height: 130px;
-    background-image: url(../../content/img/default-avatar.jpg);
+    background-image: url(../../assets/img/default-avatar.jpg);
     background-size: contain;
     border: 1px solid #e5e5e5;
     background-position: cover;
