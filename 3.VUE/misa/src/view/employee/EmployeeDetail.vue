@@ -11,7 +11,6 @@
                 <div class="form-content">
                     <div class="avatar-employee">
                         <div class="avatar">
-                            <img src="assets/img/default-avatar.png" alt="avatar" />
                             <input type="file" id="avatar" hidden />
                         </div>
                         <div class="text">
@@ -27,17 +26,17 @@
                             <div class="input">
                                 <label for="id" class="title-input" >Mã nhân viên (<span
                                         class="required">*</span>)</label>
-                                <input type="text" id="txtEmployeeCode" required class="text-box-default" autofocus tabindex="1" />
+                                <input type="text" id="txtEmployeeCode" required class="text-box-default" autofocus tabindex="1" v-model = "employee.EmployeeCode" />
                             </div>
                             <div class="input">
                                 <label for="fullName" class="title-input" >Họ và tên (<span
                                         class="required">*</span>)</label>
-                                <input type="text" id="txtFullName" required class="text-box-default" tabindex="2" />
+                                <input type="text" id="txtFullName" required class="text-box-default" tabindex="2" v-model = "employee.FullName"/>
                                 <span class="tooltiptext">Định dạng không hợp lệ.</span>
                             </div>
                             <div class="input">
-                                <label for="birthOfDay" class="title-input" >Ngày sinh</label>
-                                <input type="date" id="txtDateOfBirth" class="text-box-default" tabindex="3" />
+                                <label for="birthOfDay" class="title-input date" >Ngày sinh</label>
+                                <input type="date" id="txtDateOfBirth" class="text-box-default" tabindex="3" v-model = "employee.DateOfBirth"/>
                             </div>
                             
                         
@@ -56,17 +55,17 @@
                                     </div>
                             </div>
                             <div class="input">
-                                <label for="CMTND" class="title-input" >Số CMTND/ Căn cước (<span
-                                        class="required">*</span>)</label>
-                                <input type="text" id="txtIdentityNumber" required class="text-box-default" tabindex="5" />
+                                <label for="CMTND" class="title-input identityCode" title="Số CMTND/ Căn cước">Số CMTND/ Căn cước (<span
+                                        class="required ">*</span>)</label>
+                                <input type="text" id="txtIdentityNumber" required class="text-box-default" tabindex="5" v-model = "employee.IdentityNumber"/>
                             </div>
                             <div class="input">
-                                <label for="dayOfCMTND" class="title-input">Ngày cấp</label>
-                                <input type="date" id="txtIdentityDate" class="text-box-default" tabindex="6" />
+                                <label for="dayOfCMTND" class="title-input">Ngày cấp </label>
+                                <input type="date" id="txtIdentityDate" class="text-box-default" tabindex="6" v-model = "employee.IdentityDate"/>
                             </div>
                             <div class="input custom-input" id="txtIdentityPlace1">
                                 <label for="addressOfCMTND" class="title-input" >Nơi cấp</label>
-                                <input type="text" id="txtIdentityPlace" class="text-box-default" tabindex="7" />
+                                <input type="text" id="txtIdentityPlace" class="text-box-default" tabindex="7" v-model = "employee.IdentityPlace"/>
                             </div>
                             <div class="input" style="display: none; position: fixed;">
                                 <label for="dayOfCMTND" class="title-input"></label>
@@ -74,12 +73,12 @@
                             </div>
                             <div class="input">
                                 <label for="email" class="title-input" >Email(<span class="required">*</span>)</label>
-                                <input type="text" id="txtEmail" placeholder="example@domain" required class="text-box-default" tabindex="8" />
+                                <input type="text" id="txtEmail" placeholder="example@domain" required class="text-box-default" tabindex="8" v-model = "employee.Email"/>
                             </div>
                             <div class="input">
                                 <label for="phone" class="title-input" >Số điện thoại(<span
                                         class="required">*</span>)</label>
-                                <input type="text" id="txtPhoneNumber" required class="text-box-default" tabindex="9" />
+                                <input type="text" id="txtPhoneNumber" required class="text-box-default" tabindex="9" v-model = "employee.PhoneNumber"/>
                             </div>
                             <!-- ========================================================Information Title================================================================ -->
                             <div class="infomation-title">
@@ -91,7 +90,7 @@
                                         <label for="general" class="title-input" >Vị trí</label>
                                         <label class="dropdown dropdown-department dropdownForm" name="department">
                                         <div class="dropdown-header-wrapper">
-                                            <span class="dropdown-value" id="txtGender">
+                                            <span class="dropdown-value" id="txtPositionName">
                                                 Giám đốc
                                             </span>
                                             <i class="fas fa-chevron-down icon-down"></i>
@@ -106,7 +105,7 @@
                                         <label for="general" class="title-input" >Phòng ban</label>
                                         <label class="dropdown dropdown-department dropdownForm" name="department">
                                         <div class="dropdown-header-wrapper">
-                                            <span class="dropdown-value" id="txtGender">
+                                            <span class="dropdown-value" id="txtDepartmentName">
                                                 Phòng hậu cần
                                             </span>
                                             <i class="fas fa-chevron-down icon-down"></i>
@@ -117,19 +116,18 @@
                             </div>
                             <div class="input taxCode">
                                 <label for="taxCode" class="title-input" >Mã số thuế cá nhân</label>
-                                <input type="text" id="txtPersonalTaxCode" class="text-box-default" tabindex="12" />
+                                <input type="text" id="txtPersonalTaxCode" class="text-box-default" tabindex="12" v-model = "employee.PersonalTaxCode"/>
                             </div>
                             <div class="input salary-base">
                                 <label for="salary" class="title-input" >Mức lương cơ bản</label>
                                 <div class="salary">
-                                    <input type="text" id="txtSalary" class="text-box-default" tabindex="13" />
+                                    <input type="text" id="txtSalary" class="text-box-default" tabindex="13" v-model = "employee.Salary"/>
                                     <span class="icon">(VNĐ)</span>
                                 </div>
                             </div>
                             <div class="input">
-                                <label for="dayOfJoin" class="title-input">Ngày gia nhập công ty(<span
-                                        class="required">*</span>)</label>
-                                <input type="date" id="txtJoinDate" required class="text-box-default" tabindex="14" />
+                                <label for="dayOfJoin" class="title-input">Ngày gia nhập công ty</label>
+                                <input type="date" id="txtJoinDate" required class="text-box-default" tabindex="14" v-model = "employee.JoinDate"/>
                             </div>
                             
                             <div class="input">
@@ -154,7 +152,7 @@
             <!-- ========================================================Footer================================================================ -->
             <div class="modal-footer">
                 <button class="btn-cancel button" tabindex="16" id="btn-cancel" v-on:click="btnCloseForm()">Hủy</button>
-                <button class="btn-save button-icon button" tabindex="17">
+                <button class="btn-save button-icon button" tabindex="17" v-on:click="btnSave()">
                     <span class="icon-left"></span>
                     <span class="text" id="btn-save">Lưu</span>
                 </button>
@@ -171,6 +169,34 @@ export default ({
         btnCloseForm(){
             // this.isHide = true; // khôg nên có 
             this.$emit('isHideUpdated',true);
+        },
+        /**
+         * Lưu dữ liệu - Thêm mới dữ liệu
+         * Author: LNTHAO (01/08/2021)
+         */
+        btnSave(){
+            if (this.mode == 0) {
+                let vm = this;
+                // Gọi API lấy dữ liệu
+                axios.post(`http://cukcuk.manhnv.net/v1/Employees`, vm.employee).then(res =>{
+                    alert("Thêm mới thành công.");
+                    console.log(res);
+                }).catch(res =>{
+                    console.log(res);
+                });
+            } else {
+                let vm = this;
+                // Gọi API lấy dữ liệu
+                axios.put(`http://cukcuk.manhnv.net/v1/Employees/${vm.employeeId}`, vm.employee).then(res =>{
+                    alert("Sửa thành công.");
+                    console.log(res);
+                }).catch(res =>{
+                    console.log(res);
+                });
+            }
+            this.$emit('isHideUpdated',true);
+            window.$forceUpdate();
+            console.log(this);
         }
     },
     setup() {
@@ -184,13 +210,18 @@ export default ({
         },
         employeeId:{
             type: String,
-            employeeId: '',
+            // default: '',
             // required: true,
+        },
+        mode: {
+            type: Number,
+            required: true,
+            default: 0, // 0 - Thêm mới, 1 - Sửa thông tin
         }
     },
     data() {
         return {
-            employee: {}
+            employee: {},
         }
     },
     watch:{
@@ -203,17 +234,23 @@ export default ({
             let vm = this;
             // Gọi API lấy dữ liệu
             axios.get(`http://cukcuk.manhnv.net/v1/Employees/${value}`).then(res =>{
-                console.log(res.data);
+                // console.log(res.data);
                 vm.employee = res.data;
             }).catch(res =>{
                 console.log(res);
             });
         },
+
+        mode: function(){
+            if (this.mode == 0) {
+                this.employee = {};
+            }
+        }
     },
     computed:{
         testEmployeeId: function(){
             return this.employeeId;
-        },
+        }
     }
 })
 

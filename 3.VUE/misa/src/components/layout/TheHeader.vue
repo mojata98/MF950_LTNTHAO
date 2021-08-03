@@ -14,8 +14,8 @@
                             </span>
                             <i class="fas fa-chevron-down icon-down "></i>
                         </div>
-                        <ul class="dropdown-list" style="width: 200px;">
-                            <li class="dropdown-item">Nhà Hàng Biển Đông</li>
+                        <ul class="dropdown-list" style="width: 200px; display: none">
+                            <li class="dropdown-item active">Nhà Hàng Biển Đông</li>
                             <li class="dropdown-item">Nhà Hàng Biển Tây</li>
                             <li class="dropdown-item">Nhà Hàng Biển Nam</li>
                             <li class="dropdown-item">Nhà Hàng Biển Bắc</li>

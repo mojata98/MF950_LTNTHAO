@@ -2,7 +2,7 @@
     height: 40px;
     line-height: 40px;
     background-color: #fff;
-    width: 200px;
+    /* width: 200px; */
     border-radius: 4px;
     border: 1px solid #bbb;
     position: relative;
@@ -76,7 +76,7 @@
 
 
 .icon-down, .dropdown-list {
-    display: none;
+    display: block;
     z-index: 103;
 }
 

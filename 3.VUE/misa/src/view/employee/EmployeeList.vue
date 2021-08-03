@@ -1,4 +1,5 @@
 <template>
+    <div>
   <div class="content">
         <div class="content-title">
             <div class="content-title-text">Danh sách nhân viên</div>
@@ -10,7 +11,7 @@
         <div class="filter">
             <div class="filter-search">
                 <input type="text" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại"
-                    onfocus="this.placeholder = ''" style="width: 270px;" class="icon-search
+                    onfocus="this.placeholder = ''" style="width: 250px;" class="icon-search
                         input-search" tabindex="1" name="inputSearch" id="txtSearch">
                 <button class="btn-reset" style="display: none;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -22,7 +23,7 @@
                 </button>
             </div>
             <div class="filter-department" tabindex="2">
-                <label class="dropdown dropdown-department" name="department">
+                <label class="dropdown dropdown-department" name="department" style="width: 180px;">
                     <div class="dropdown-header-wrapper">
                         <span class="dropdown-value" id="drdValueDepartment">
                             Tất cả phòng ban
@@ -34,7 +35,7 @@
                 </label>
             </div>
             <div class="filter-position" id="pos">
-                <label class="dropdown dropdown-position" name="position" style="margin-left: 16px;">
+                <label class="dropdown dropdown-position" name="position" style="margin-left: 16px; width: 150px;" >
                     <div class="dropdown-header-wrapper">
                         <span class="dropdown-value" id="drdValuePosition">
                             Tất cả vị trí
@@ -46,7 +47,7 @@
                 </label>
             </div>
             <div class="refresh" id="btnRefresh"> <!--onclick="btnRefresh()"-->
-                <div class="button-refresh">
+                <div class="button-refresh" v-on:refresh="refresh()">
                 </div>
             </div>
         </div>
@@ -54,6 +55,7 @@
             <table class="table table-striped" style="width: 100%;" id="tbListDataEmployee">
                 <thead>
                     <tr>
+                        <th scope="col" fieldName = "Checkbox" textAlignType = "Center"><input type="checkbox" class="checkbox"></th>
                         <th scope="col" fieldName = "EmployeeCode" textAlignType = "Left">Mã nhân viên</th>
                         <th scope="col" fieldName = "FullName" textAlignType = "Left">Họ và tên</th>
                         <th scope="col" fieldName = "GenderName" textAlignType = "Left">Giới tính</th>
@@ -64,20 +66,23 @@
                         <th scope="col" fieldName = "DepartmentName" textAlignType = "Left">Phòng ban</th>
                         <th scope="col" class="text-align-right" fieldName = "Salary" textAlignType = "Right" formatType = "Money">Mức lương cơ bản</th>
                         <th scope="col" fieldName = "WorkStatus" textAlignType = "Left">Tình trạng công việc</th>
+                        <th scope="col" fieldName = "Action" textAlignType = "Center"></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr v-for="employee in employees" :key="employee.EmployeeId" v-on:dblclick="fixInfor(employee.EmployeeId)">
+                <tbody id="tbody" >
+                    <tr v-for="employee in employees" :key="employee.EmployeeId" v-on:dblclick="fixInfor(employee.EmployeeId)" >
+                        <td style = "text-align: center;"><input type="checkbox" class="checkbox"></td>
                         <td>{{employee.EmployeeCode}}</td>
                         <td>{{employee.FullName}}</td>
                         <td>{{employee.GenderName}}</td>
-                        <td>{{employee.DateOfBirth}}</td>
+                        <td style = "text-align: center;">{{employee.DateOfBirth}}</td>
                         <td>{{employee.PhoneNumber}}</td>
                         <td>{{employee.Email}}</td>
                         <td>{{employee.PositionName}}</td>
                         <td>{{employee.DepartmentName}}</td>
-                        <td>{{employee.Salary}}</td>
-                        <td>{{employee.WorkStatus}}</td>                        
+                        <td style = "text-align: right;">{{employee.Salary}}</td>
+                        <td>{{employee.WorkStatus}}</td>     
+                        <td style = "text-align: center;"><div class="button btnDel" >Xóa</div></td>                   
                     </tr>
                 </tbody>
             </table>
@@ -98,17 +103,23 @@
                 </div>
             </div>
             <div class="footer-right ">10 nhân viên/trang</div>
-        </div>
-        <EmployeeDetail v-bind:isHide="isHide" @isHideUpdated = "isHide = $event" />
+        </div>   
   </div>
+    <EmployeeDetail v-bind:isHide="isHide" @isHideUpdated = "isHide = $event" 
+    v-bind:employeeId="employeeId"
+    v-bind:mode="modeFormDetail"/>
+
+    <BasePopup />
+    </div>
 </template>
 
 <script>
 import axios from 'axios';
 import EmployeeDetail from '../employee/EmployeeDetail.vue';
+import BasePopup from '../../components/base/BasePopup.vue';
 export default {
     name: "EmployeePage",
-    components: {EmployeeDetail},
+    components: {EmployeeDetail, BasePopup},
 
     /**------------------------------
      * Sinh dữ liệu cho bảng từ API
@@ -118,7 +129,7 @@ export default {
         var vm = this;
         // Gọi API lấy dữ liệu
         axios.get("http://cukcuk.manhnv.net/v1/Employees").then(res =>{
-            console.log(res);
+            // console.log(res);
             vm.employees = res.data;
         }).catch(res =>{
             console.log(res);
@@ -126,27 +137,48 @@ export default {
     },
 
     methods: {
+        /**
+         * Ẩn hiện form thêm nhân viên
+         * CreatedBy: LNTHAO (29/07/2021)
+         */
         btnAddOnClick(){
             this.isHide = false;
+            this.modeFormDetail = 0;
         },
-        fixInfor(employeeId){
-            alert(employeeId);
+        /**
+         * Xem và sửa thông tin nhân viên
+         * CreatedBy: LNTHAO (29/07)
+         */
+        fixInfor(emplId){
+            this.modeFormDetail = 1;
             this.isHide = false;
-            this.employeeId = employeeId;
+            this.employeeId = emplId;
         },
+        // refresh(){
+        //     this.$forceUpdate();
+        // },
     },
     data() {
         return {
             employees: [],
-            header: [], 
+            // header: [], 
             employeeId: '',
             isHide: true,
+            modeFormDetail: 0,
         }
     },
 };
 </script>
 
 <style scoped>
-/* @import '../../css/layout/content.css'; */
 @import '../../css/layout/modal-form.css';
+
+.checkbox{
+    height: 16px; 
+    width: 16px;
+}
+
+.checkbox:hover{
+    cursor: pointer;
+}
 </style>

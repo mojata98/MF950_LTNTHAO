@@ -5,6 +5,8 @@
 @import url(../css/base/dropdown.css);
 @import url(../css/base/input.css);
 @import url(../css/base/tag_a.css);
+@import url(../css/base/popup.css);
+@import url(../css/base/toast-message.css);
 body {
     font-family: GoogleSans;
     font-size: 13px;

@@ -1,6 +1,6 @@
 .modal {
     /* display: none; */
-    position: fixed;
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
@@ -12,19 +12,20 @@
     /* Black w/ opacity */
     overflow: scroll;
     position: absolute;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .modal .modal-content {
-    width: 50%;
-    /* margin: 50px 100px; */
+    max-height: 100vh;
+    width: 700px;
     background: #fff;
     position: absolute;
     border-radius: 4px;
-    right: 8px;
-    top: 8px;
-    bottom: 8px;
-    height: fit-content;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: scroll;
+    /* height: fit-content; */
 }
 
 .modal .modal-content .btn-close {
@@ -76,6 +77,7 @@ text-align: center;
 
 .modal .modal-content .form {
     padding: 24px 24px 0;
+    /* overflow-y: scroll; */
 }
 
 .modal .modal-content .form .form-title {
@@ -98,6 +100,9 @@ text-align: center;
     border: 1px solid #ccc;
     border-radius: 100%;
     cursor: pointer;
+    background-image: url(../../assets/img/default-avatar.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .modal .modal-content .form .form-content .avatar-employee .text {
@@ -213,6 +218,8 @@ text-align: center;
     font-weight: bold;
     outline: none;
     border: 1px solid transparent;
+    align-items: center;
+    display: flex;
 }
 
 .modal .modal-footer .btn-save:hover{
@@ -235,7 +242,7 @@ text-align: center;
     padding-right: 60px;
 }
 
-#txtEmployeeSalary{
+#txtSalary{
     text-align: right;
     padding-right: 60px;
 }
@@ -253,22 +260,16 @@ text-align: center;
     top: 0;
 }
 
-/* .taxCode{
-    margin-top: 40px;
-} */
-
-/* .salary-base{
-    margin-top: 40px;
-} */
-
-/* .icon-left{
-    background-image: url('../../content/icon/save.png');
+.icon-left{
+    background-image: url('../../assets/icon/save.png');
     background-size: contain;
     background-repeat: no-repeat;
+    color: #fff;
     height: 16px;
     width: 16px;
-    z-index: 100000;
-} */
+    margin-right: 8px;
+    /* z-index: 100000; */
+}
 
 .input .tooltiptext{
     visibility: hidden;
@@ -322,4 +323,22 @@ text-align: center;
 
 .m-dialog-hidden{
     display: none;
+}
+
+.identityCode{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#txtDateOfBirth{
+    width: 100%!important;
+}
+
+#txtIdentityDate{
+    width: 100%!important;
+}
+
+#txtJoinDate{
+    width: 100%!important;
 }

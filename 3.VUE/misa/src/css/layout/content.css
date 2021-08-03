@@ -9,7 +9,7 @@
     background-color: #e5e5e5;
     padding-right: 16px;
     transition: all 0.5s;
-    /* overflow-y: hidden; */
+    overflow-y: hidden;
     overflow-x: hidden;
     box-sizing: border-box;
 }
@@ -158,7 +158,6 @@ button.btn.btn-default.dropdown-toggle {
 .zoom-out-menu i{
     line-height: 20px;
 }
-
 
 
 .footer {

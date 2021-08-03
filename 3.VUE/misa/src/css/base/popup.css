@@ -1,0 +1,154 @@
+.popup-container{
+    height: 200px;
+    width: 450px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: block;
+    position: absolute;
+    background-color: #fff;
+}
+
+.popup-header{
+    position: absolute;
+    height: 24px;
+    width: 100%;
+}
+
+.popup-body{
+    position: absolute;
+    height: 132px;
+    top: 24px;
+    width: 100%;
+    display: block;
+}
+
+.popup-footer{
+    position: absolute;
+    height: 60px;
+    top: 140px;
+    width: 100%;
+    background-color: #e9ebee;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.btn-close{
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    background-color: #fff;
+    display: flex;
+    right: 0;
+    z-index: 1;
+    border-radius: 4px ;
+}
+
+.btn-close:hover{
+    background-color: #bbb;
+    cursor: pointer;
+}
+
+.close-icon{
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url(../../assets/icon/x.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.popup-title{
+    font-family: GoogleSans-Bold;
+    font-size: 15px;
+    height: 24px;
+    width: 366px;
+    padding-left: 24px;
+    align-items: center;
+}
+
+.popup-content{  
+    margin-top: 24px;
+    align-items: center;
+    display: flex;
+    margin-left: 24px;
+}
+
+.popup-icon-contain{
+    height: 44px;
+    background-color: #e9ebee;
+    border-radius: 50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    width: 64px;
+    margin-bottom: 24px;
+}
+
+.popup-icon{
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border-radius: 50%;
+    margin-left: 9px;
+    margin-top: 9px;
+}
+
+.popup-icon-warning{
+    background-image: url(../../assets/icon/warning-emoji.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.popup-icon-delete{
+    background-image: url(../../assets/icon/warning_red.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.popup-message-container{
+    display: flex;
+    align-items: center;
+}
+
+.popup-message{
+    font-family: GoogleSans;
+    font-size: 13px;
+    padding-left: 10px;
+    margin-right: 24px;
+    padding-bottom: 24px;
+}
+
+.button.btnContinue{
+    margin-right: 16px;  
+    background-color: transparent;
+    color: #000000;  
+}
+
+.btnContinue:hover{
+    background-color: #bbb;
+}
+
+.button.btnClose{
+    margin-right: 24px;
+}
+
+.btnDelete{
+    margin-right: 24px;
+    background-color: #F65454;
+}
+
+.btnDelete:hover{
+    background-color: #ff4747;
+}
+
+.popup-message-report{
+    font-family: GoogleSans;
+    font-size: 13px;
+    padding-bottom: 24px;
+    margin-right: 24px;
+}

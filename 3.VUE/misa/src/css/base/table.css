@@ -1,8 +1,22 @@
 table.table {
     border-collapse: collapse;
     background-color: #fff;
+    
 }
 
+table thead, table tbody tr{
+    table-layout: fixed;
+}
+
+table.table thead{
+    overflow: hidden;
+}
+
+table.table tbody {
+    /* display: block; */
+    overflow-y: scroll;
+}
+  
 table.table tbody tr {
     height: 48px;
     border-bottom: 1px solid #bbbbbb;
@@ -56,16 +70,15 @@ th {
     width: 5px;
     height: 5px;
 }
-
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
- ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 4px;
 }
 
- ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
