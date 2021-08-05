@@ -24,7 +24,7 @@
         </div>
         <div class="menu-item">
             <div class="menu-icon menu-icon-setting"></div>
-            <div class="menu-item-text">Thiết kế hệ thông</div>
+            <div class="menu-item-text">Thiết kế hệ thống</div>
         </div>
         <div class="zoom-out-menu">
             <i class="fas fa-chevron-right" onclick="showMenu()" id="icon-right-menu" style="display: none;"></i>

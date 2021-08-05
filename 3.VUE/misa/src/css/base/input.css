@@ -34,7 +34,7 @@ input:focus {
 
 .input-search {
     padding-left: 40px;
-    margin-right: 16px;
+    /* margin-right: 16px; */
 }
 
 input[type="date"]{
