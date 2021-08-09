@@ -56,13 +56,11 @@ export default {
 
   methods: {
     btnCloseModalForm() {
-      // this.isHide = true; // khôg nên có
-      this.$emit("isHideUpdated", true);//????
-      this.$emit("isHidePopupUpdated", true);
+      this.$emit("closeDetailForm");
     },
 
     btnClosePopupForm(){
-      this.$emit("isHidePopupUpdated", true);
+      this.$emit("isHidePopupUpdated");   
     },
   },
 };

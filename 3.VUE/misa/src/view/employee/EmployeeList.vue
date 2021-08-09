@@ -3,8 +3,13 @@
     <div class="content">
       <div class="content-title">
         <div class="content-title-text">Danh sách nhân viên</div>
+
+        <div class="button button-new btnDel" id="btnDel">
+          <!-- <div class="button-icon"></div> -->
+          <div class="button-value" @click="btnDeleteAll()">Xóa nhân viên</div>
+        </div>
+
         <div class="button-new" id="btnAdd">
-          <!--onclick="btnAddOnClick();"-->
           <div class="button-icon"></div>
           <div class="button-value" @click="btnAddOnClick()">
             Thêm nhân viên
@@ -42,10 +47,10 @@
             </svg>
           </button>
         </div>
-        
+
         <BaseDropdown
           id="main-department"
-          style="margin-left: 16px; width: 200px;"
+          style="margin-left: 16px; width: 200px"
           nameDropdown="filter-department"
           dropdownType="dropdown-department"
           myUrl="api/Department"
@@ -54,9 +59,9 @@
           itemId="DepartmentId"
           itemName="DepartmentName"
         />
-        
+
         <BaseDropdown
-          style="margin-left: 16px; width: 200px;"
+          style="margin-left: 16px; width: 200px"
           nameDropdown="filter-position"
           dropdownType="dropdown-position"
           myUrl="v1/Positions"
@@ -67,7 +72,6 @@
         />
 
         <div class="refresh" id="btnRefresh">
-          <!--onclick="btnRefresh()"-->
           <div class="button-refresh" @click="loadData"></div>
         </div>
       </div>
@@ -81,7 +85,7 @@
           <thead>
             <tr>
               <th
-                style="text-align: center"
+                style="text-align: center; width: 50px"
                 scope="col"
                 fieldName="Checkbox"
                 textAlignType="Center"
@@ -89,7 +93,7 @@
                 <input type="checkbox" class="checkbox" />
               </th>
               <th
-                style=""
+                style="min-width: 100px"
                 scope="col"
                 fieldName="EmployeeCode"
                 textAlignType="Left"
@@ -97,7 +101,7 @@
                 Mã nhân viên
               </th>
               <th
-                style=""
+                style="min-width: 100px"
                 scope="col"
                 fieldName="FullName"
                 textAlignType="Left"
@@ -105,7 +109,7 @@
                 Họ và tên
               </th>
               <th
-                style=""
+                style="min-width: 100px"
                 scope="col"
                 fieldName="GenderName"
                 textAlignType="Left"
@@ -113,7 +117,7 @@
                 Giới tính
               </th>
               <th
-                style=""
+                style="min-width: 50px"
                 scope="col"
                 class="text-align-center"
                 fieldName="DateOfBirth"
@@ -123,18 +127,23 @@
                 Ngày sinh
               </th>
               <th
-                style=""
+                style="min-width: 100px"
                 scope="col"
                 fieldName="PhoneNumber"
                 textAlignType="Left"
               >
                 Điện thoại
               </th>
-              <th scope="col" fieldName="Email" textAlignType="Left">
-                <span style="width: 100px">Email</span>
+              <th
+                style="min-width: 100px; max-width: 150px"
+                scope="col"
+                fieldName="Email"
+                textAlignType="Left"
+              >
+                Email
               </th>
               <th
-                style=""
+                style="min-width: 100px"
                 scope="col"
                 fieldName="PositionName"
                 textAlignType="Left"
@@ -142,7 +151,7 @@
                 Chức vụ
               </th>
               <th
-                style=""
+                style="min-width: 100px"
                 scope="col"
                 fieldName="DepartmentName"
                 textAlignType="Left"
@@ -150,7 +159,7 @@
                 Phòng ban
               </th>
               <th
-                style=""
+                style="min-width: 100px"
                 scope="col"
                 class="text-align-right"
                 fieldName="Salary"
@@ -160,7 +169,7 @@
                 Mức lương cơ bản
               </th>
               <th
-                style=""
+                style="min-width: 100px"
                 scope="col"
                 fieldName="WorkStatus"
                 textAlignType="Left"
@@ -168,7 +177,7 @@
                 Tình trạng công việc
               </th>
               <th
-                style=""
+                style="min-width: 100px"
                 scope="col"
                 fieldName="Action"
                 textAlignType="Center"
@@ -184,20 +193,36 @@
               <td style="text-align: center">
                 <input type="checkbox" class="checkbox" />
               </td>
-              <td style="">{{ employee.EmployeeCode }}</td>
-              <td style="">{{ employee.FullName }}</td>
-              <td style="">{{ employee.GenderName }}</td>
-              <td style="max-width: 100px; text-align: center">
-                {{ employee.DateOfBirth }}
+              <td style="min-width: 100px">{{ employee.EmployeeCode }}</td>
+              <td style="min-width: 100px; max-width: 150px">
+                {{ employee.FullName }}
               </td>
-              <td style="">{{ employee.PhoneNumber }}</td>
-              <td style="max-width: 150px">{{ employee.Email }}</td>
-              <td style="">{{ employee.PositionName }}</td>
-              <td style="">{{ employee.DepartmentName }}</td>
-              <td style="text-align: right">{{ employee.Salary }}</td>
-              <td style="">{{ employee.WorkStatus }}</td>
-              <td style="text-align: center">
-                <div class="button btnDel">Xóa</div>
+              <td style="min-width: 50px">{{ employee.GenderName }}</td>
+              <td style="min-width: 50px; text-align: center">
+                {{ employee.DateOfBirth | myDate }}
+              </td>
+              <td style="min-width: 100px">{{ employee.PhoneNumber }}</td>
+              <td
+                style="min-width: 100px; max-width: 150px"
+                :title="employee.Email"
+              >
+                {{ employee.Email }}
+              </td>
+              <td style="min-width: 100px">{{ employee.PositionName }}</td>
+              <td style="min-width: 100px">{{ employee.DepartmentName }}</td>
+              <td style="min-width: 100px; text-align: right">
+                {{ formatAutoMoney(employee.Salary) }}
+              </td>
+              <td style="min-width: 100px">
+                {{ formatWorkStatus(employee.WorkStatus) }}
+              </td>
+              <td style="text-align: center; min-width: 50px; max-width: 100px">
+                <div
+                  class="button btnDel"
+                  @click="btnDelete(employee.EmployeeId)"
+                >
+                  Xóa
+                </div>
               </td>
             </tr>
           </tbody>
@@ -227,6 +252,7 @@
       v-bind:isHide="isHide"
       @isHideUpdated="isHide = $event"
       v-bind:employeeId="employeeId"
+      v-bind:employeeCode="employeeCode"
       v-bind:mode="modeFormDetail"
       @loadData="loadData"
     />
@@ -243,18 +269,21 @@ import BaseDropdown from "../../components/base/BaseDropdown.vue";
 
 export default {
   name: "EmployeePage",
-  components: { 
+  components: {
     EmployeeDetail,
     BasePopup,
-    BaseDropdown, },
+    BaseDropdown,
+  },
 
   data() {
     return {
       employees: [],
       // header: [],
       employeeId: "",
+      employeeCode: "",
       isHide: true,
       modeFormDetail: 0,
+      isChecked: [],
     };
   },
 
@@ -262,18 +291,8 @@ export default {
    * Sinh dữ liệu cho bảng từ API
    * Author: LNTHAO (29/07/2021)
    */
-  mounted() {
-    var vm = this;
-    // Gọi API lấy dữ liệu
-    axios
-      .get("http://cukcuk.manhnv.net/v1/Employees")
-      .then((res) => {
-        // console.log(res);
-        vm.employees = res.data;
-      })
-      .catch((res) => {
-        console.log(res);
-      });
+  created() {
+    this.loadData();
   },
 
   methods: {
@@ -281,14 +300,13 @@ export default {
      * Load dữ liệu cho bảng
      * CreatedBy: LNTHAO (4/8)
      */
-    loadData(){
+    loadData() {
+      var vm = this;
       axios
         .get("http://cukcuk.manhnv.net/v1/Employees")
         .then((res) => {
-          this.employees = res.data;
-          // this.isChecked = new Array(this.employees.length).fill(false);
-          console.log("ok");
-          alert("Load dữ liệu thành công.")
+          vm.employees = res.data;
+          alert("Load data thành công");
         })
         .catch((res) => {
           console.log(res);
@@ -299,11 +317,21 @@ export default {
      * CreatedBy: LNTHAO (29/07/2021)
      */
     btnAddOnClick() {
-      this.isHide = false;
-      this.modeFormDetail = 0;
+      let vm = this;
+      axios // chuyển sang bên hàm con ||
+        .get("http://cukcuk.manhnv.net/v1/Employees/NewEmployeeCode")
+        .then((res) => {
+          vm.employeeCode = res.data;
+          alert(vm.employeeCode);
+          this.isHide = false;
+          this.modeFormDetail = 0;
+        })
+        .catch((res) => {
+          console.log(res);
+        });
     },
     /**
-     * Xem và sửa thông tin nhân viên
+     * Xem thông tin nhân viên khi nhấn đúp chuột
      * CreatedBy: LNTHAO (29/07)
      */
     fixInfor(emplId) {
@@ -311,7 +339,65 @@ export default {
       this.isHide = false;
       this.employeeId = emplId;
     },
-    
+    /**
+     * Nhấn nút xóa để xóa 1 nhân viên
+     * CreatedBy: LNTHAO (05/08)
+     */
+    btnDelete(emplId) {
+      var id = emplId;
+      let vm = this;
+      axios
+        .delete("http://cukcuk.manhnv.net/v1/Employees/" + id)
+        .then((res) => {
+          alert("Xóa dữ liệu thành công.");
+          console.log(res);
+          vm.loadData();
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    },
+    /** TODO----------------------------------
+     * Xóa nhân viên khi chọn check box - Đang làm
+     * CreatedBy: LNTHAO (05/08)
+     */
+    btnDeleteAll() {
+      alert("Bạn chắc chắn muốn xóa nhân viên?");
+    },
+    /**
+     *Hàm format lương hiển thị dạng 1.000.000
+     *CreateBy LNTHAO (6/8/2021)
+     */
+    formatAutoMoney(myinput) {
+      myinput += "";
+      if (myinput != null) {
+        myinput.replaceAll(".", "");
+        let onlynumber = "";
+        for (let i = 0; i < myinput.length; i++) {
+          if (!isNaN(parseInt(myinput[i], 10))) {
+            onlynumber += myinput[i];
+          }
+        }
+        return Number(onlynumber).toLocaleString("vi");
+      }
+      return 0;
+    },
+    /**
+     * Format trạng thái hoạt động
+     * CreatedBy: LNTHAO (06/08)
+     */
+    formatWorkStatus(value) {
+      switch (value) {
+        case 0:
+          return "Đang thử việc";
+        case 1:
+          return "Đang làm việc";
+        case 3:
+          return "Đang nghỉ phép";
+        default:
+          return "Đã nghỉ việc";
+      }
+    },
   },
 };
 </script>

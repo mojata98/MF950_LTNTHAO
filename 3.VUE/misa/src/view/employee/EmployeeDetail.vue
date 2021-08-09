@@ -28,6 +28,7 @@
                   <label for="id" class="title-input"
                     >Mã nhân viên (<span class="required">*</span>)</label
                   >
+                  <!-- v-bind:value="employee.employeeCode" -->
                   <input
                     type="text"
                     id="txtEmployeeCode"
@@ -275,6 +276,7 @@
     <BasePopup
       v-bind:isHidePopup="isHidePopup"
       @isHidePopupUpdated="isHidePopup = $event"
+      @closeDetailForm="btnCancelForm()"
     />
   </div>
 </template>
@@ -283,22 +285,33 @@
 import axios from "axios";
 import BasePopup from "../../components/base/BasePopup.vue";
 import BaseDropdown from "../../components/base/BaseDropdown.vue";
+// import BaseInput from "../../components/base/BaseInput.vue";
+
 export default {
   components: {
     BasePopup,
     BaseDropdown,
+    // BaseInput,
   },
   methods: {
+
     
+    
+    /**
+     * Đóng form nhân viên khi ấn nút Hủy
+     * CreatedBy: LNTHAO (01/08)
+     */
     btnCancelForm() {
-      // this.isHide = true; // khôg nên có
+      this.isHidePopup = true;
       this.$emit("isHideUpdated", true);
     },
-
+    /**
+     * Đóng Popup khi nhấn nút X
+     * CreatedBy: LNTHAO (01/08)
+     */
     btnCloseForm() {
       this.isHidePopup = false;
     },
-
     /**
      * Lưu dữ liệu - Thêm mới dữ liệu
      * Author: LNTHAO (01/08/2021)
@@ -306,7 +319,8 @@ export default {
     btnSave() {
       if (this.mode == 0) {
         let vm = this;
-        // Gọi API lấy dữ liệu
+        alert(vm.employee.employeeCode);// truyền OK
+        // Thêm mới nhân viên
         axios
           .post(`http://cukcuk.manhnv.net/v1/Employees`, vm.employee)
           .then((res) => {
@@ -319,7 +333,7 @@ export default {
           });
       } else {
         let vm = this;
-        // Gọi API lấy dữ liệu
+        // Sửa thông tin nhân viên
         axios
           .put(
             `http://cukcuk.manhnv.net/v1/Employees/${vm.employeeId}`,
@@ -338,6 +352,10 @@ export default {
       // window.$forceUpdate();
       // console.log(this);
     },
+    closeDetailForm(){
+      this.isHidePopup = true;
+      this.$emit("isHideUpdated", true);
+    }
   },
   setup() {},
   props: {
@@ -357,6 +375,9 @@ export default {
       required: true,
       default: 0, // 0 - Thêm mới, 1 - Sửa thông tin
     },
+    employeeCode:{
+      type: String,
+    },
   },
   data() {
     return {
@@ -370,24 +391,28 @@ export default {
      * Author: LNTHAO (29/07/2021)
      */
     employeeId: function (value) {
-      // alert("watch: " + this.employeeId);
       let vm = this;
-      // Gọi API lấy dữ liệu
       axios
         .get(`http://cukcuk.manhnv.net/v1/Employees/${value}`)
         .then((res) => {
-          // console.log(res.data);
           vm.employee = res.data;
         })
         .catch((res) => {
           console.log(res);
         });
     },
-
+    
     mode: function () {
       if (this.mode == 0) {
         this.employee = {};
       }
+    },
+
+    employeeCode: function(value){  
+      if (this.mode == 0) {
+        let vm = this;
+        vm.employee.employeeCode = value;
+      }     
     },
   },
   computed: {

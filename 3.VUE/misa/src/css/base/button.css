@@ -187,8 +187,10 @@ button.btn-reset svg {
 
 .btnDel{
     background-color: #FF4747;
+    opacity: 0.3;
 }
 
 .btnDel:hover{
     background-color: red;
+    opacity: 1;
 }
