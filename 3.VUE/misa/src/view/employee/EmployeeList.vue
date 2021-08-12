@@ -301,6 +301,7 @@ export default {
       modeFormDetail: 0,
       isChecked: [],
       employeeClick: null,
+      employee: {},
     };
   },
 
@@ -317,6 +318,40 @@ export default {
     eventBus.$on("isHideUpdated", (value) => {
       this.isHideForm = value;
     })
+    /**
+     * Nhận sự kiện xóa từ Popup
+     * CreatedBy: LNTHAO (12/08)
+     */
+    eventBus.$on("deletePerson", (value) => {
+      var id = value;
+      let vm = this;
+      axios
+        .delete("http://cukcuk.manhnv.net/v1/Employees/" + id)
+        .then((res) => {
+          console.log(res);
+          this.$toast.success(
+            "Xóa dữ liệu thành công! Vui lòng đợi trong giây lát để hệ thống tải lại dữ liệu!",
+            {
+              position: "bottom-right",
+              timeout: 5000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButtonOnHover: false,
+              hideProgressBar: true,
+              closeButton: "button",
+              icon: true,
+              rtl: false,
+            }
+          );
+          vm.loadData();
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    });
   },
 
   methods: {
@@ -324,7 +359,7 @@ export default {
      * Load dữ liệu cho bảng
      * CreatedBy: LNTHAO (4/8)
      */
-     async loadData() {
+    async loadData() {
       var vm = this;
       // vm.$toast.info("Vui lòng đợi hệ thống load dữ liệu!", {
       //       position: "bottom-right",
@@ -382,41 +417,17 @@ export default {
       this.isHideForm = false;
       this.employeeId = emplId;
       eventBus.$emit("openModalFormToEdit", this.isHideForm);
+      // alert(emplId.EmployeeId);
     },
     /**
      * Nhấn nút xóa để xóa 1 nhân viên
      * CreatedBy: LNTHAO (05/08)
      */
-    async btnDelete(emplId) {
-      var id = emplId;
-      let vm = this;
-      await axios
-        .delete("http://cukcuk.manhnv.net/v1/Employees/" + id)
-        .then((res) => {
-          console.log(res);
-          this.$toast.success(
-            "Xóa dữ liệu thành công! Vui lòng đợi trong giây lát để hệ thống tải lại dữ liệu!",
-            {
-              position: "bottom-right",
-              timeout: 5000,
-              closeOnClick: true,
-              pauseOnFocusLoss: true,
-              pauseOnHover: true,
-              draggable: true,
-              draggablePercent: 0.6,
-              showCloseButtonOnHover: false,
-              hideProgressBar: true,
-              closeButton: "button",
-              icon: true,
-              rtl: false,
-            }
-          );
-          vm.loadData();
-        })
-        .catch((res) => {
-          console.log(res);
-        });
+    btnDelete(empl) {
+      eventBus.$emit("openPopUpDelete", empl);
     },
+
+
     /** TODO----------------------------------
      * Xóa nhân viên khi chọn check box - Đang làm
      * CreatedBy: LNTHAO (05/08)

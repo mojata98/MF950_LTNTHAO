@@ -19,46 +19,86 @@
       <div class="popup-title"><b>Đóng Form thông tin chung</b></div>
       <div class="popup-content">
         <div class="popup-icon-contain">
-          <div class="popup-icon popup-icon-warning"></div>
+          <div 
+          class="popup-icon "
+          :class="{ 'popup-icon-warning': isWarning , 'popup-icon-delete': isDelete}"
+          ></div>
         </div>
         <div class="popup-message-contain">
           <div class="popup-message">
-            Bạn có chắc chắn muốn đóng <b>"Thông tin nhân viên"</b> hay không?
+            <span :class="{ 'hide-message-warning': isMessageWarning }">Bạn có chắc chắn muốn đóng <b>"Thông tin nhân viên"</b> hay không?</span> 
+            <span :class="{ 'hide-message-delete': isMessageDelete }">Bạn có chắc chắn muốn xóa Nhân viên có mã <b>{{ message }}</b> hay không?</span> 
           </div>
         </div>
       </div>
     </div>
     <div class="popup-footer">
-      <div class="button btnContinue" @click="btnClosePopupForm()">Tiếp tục nhập</div>
-      <div class="button btnClose" @click="btnCloseModalForm()">Đóng</div>
+      <div class="button btnContinue" @click="btnClosePopupForm()">
+        <span :class="{ 'hide-message-warning': isMessageWarning }">Tiếp tục nhập</span> 
+        <span :class="{ 'hide-message-delete': isMessageDelete }">Hủy</span> 
+        </div>
+      <div class="button " @click="btnCloseModalForm()"
+        :class="{ 'btnClose': isWarning , 'btnDelete': isDelete}" 
+      >
+        <span :class="{ 'hide-message-warning': isMessageWarning }">Đóng</span> 
+        <span :class="{ 'hide-message-delete': isMessageDelete }">Xóa</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import eventBus from "../../js/eventBus";
+import axios from "axios";
+
 export default {
   name: "Popup",
 
   props: {
-    // isHidePopup: {
-    //   // chi duoc doc khong duoc sua
-    //   type: Boolean,
-    //   default: true,
-    //   // required: true,
-    // },
-
-    // isHide:{ // chi duoc doc khong duoc sua 
-    //     type: Boolean,
-    //     default: false,
-    //     // required: true,
-    // },
+    
   },
 
   created() {
+    /**
+     * Mở popup dạng warning
+     * CreatedBy: LNTHAO (12/08)
+     */
     eventBus.$on("openPopUp", (value) => {
       this.isHidePopup = value;
-    })
+      this.isWarning = true;
+      this.isDelete = false;
+      this.isMessageWarning = false;
+      this.isMessageDelete = true;
+    });
+    /**
+     * Mở popup dạng delete
+     * CreatedBy: LNTHAO (12/08)
+     */
+    eventBus.$on("openPopUpDelete", async (value) => {
+      this.value = value;
+      this.isHidePopup = false;
+      this.isWarning = false;
+      this.isDelete = true;
+      this.isMessageWarning = true;
+      this.isMessageDelete = false;
+      await axios
+        .get(`http://cukcuk.manhnv.net/v1/Employees/${value}`)
+        .then((res) => {
+          this.employee = res.data;
+          console.log(this.employee);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+      this.message = this.employee.EmployeeCode;
+    });
+    /**
+     * Đóng popup khi ấn Hủy hoặc dấu X
+     * CreatedBy: LNTHAO (12/08)
+     */
+    eventBus.$on("closePopUp", (value) => {
+      this.isHidePopup = value;
+    });
   },
 
   methods: {
@@ -67,16 +107,21 @@ export default {
      * CreatedBy: LNTHAO (10/08)
      */
     btnClosePopupForm(){
-      this.isHidePopup = true;
+      eventBus.$emit("closePopUp", true);
     },
     /**
      * Đóng PopUp và Modal Form khi nhấn nút Đóng
      * CreatedBy: LNTHAO (10/08)
      */
     btnCloseModalForm() {
-      this.isHidePopup = true;
-      this.isHideForm = true;
-      eventBus.$emit("closePopUpAndModalForm", this.isHideForm);
+      eventBus.$emit("closePopUp", true);
+      if (this.isWarning){
+        this.isHideForm = true;
+        eventBus.$emit("closePopUpAndModalForm", this.isHideForm);
+      }
+      else{
+        eventBus.$emit("deletePerson", this.employee.EmployeeId);
+      }
     },
   },
 
@@ -84,6 +129,13 @@ export default {
     return {
       isHidePopup: true,
       isHideForm: true,
+      isWarning: false,
+      isDelete: false,
+      isMessageWarning: true,
+      isMessageDelete: true,
+      value: "",
+      employee: {},
+      message: "",
     }
   },
 };
@@ -91,6 +143,12 @@ export default {
 
 <style scoped>
 .popup-hidden {
+  display: none;
+}
+.hide-message-warning{
+  display: none;
+}
+.hide-message-delete{
   display: none;
 }
 </style>

@@ -88,3 +88,7 @@ C:\Users\Admin\Desktop\MF950_LTNTHAO\4. API\MISA.CukCuk\MISA.CukCuk.Api.DEMO\obj
 C:\Users\Admin\Desktop\MF950_LTNTHAO\4. API\MISA.CukCuk\MISA.CukCuk.Api.DEMO\obj\Debug\netcoreapp3.1\MISA.CukCuk.Api.DEMO.dll
 C:\Users\Admin\Desktop\MF950_LTNTHAO\4. API\MISA.CukCuk\MISA.CukCuk.Api.DEMO\obj\Debug\netcoreapp3.1\MISA.CukCuk.Api.DEMO.pdb
 C:\Users\Admin\Desktop\MF950_LTNTHAO\4. API\MISA.CukCuk\MISA.CukCuk.Api.DEMO\obj\Debug\netcoreapp3.1\MISA.CukCuk.Api.DEMO.genruntimeconfig.cache
+C:\Users\Admin\Desktop\MF950_LTNTHAO\4. API\MISA.CukCuk\MISA.CukCuk.Api.DEMO\obj\Debug\netcoreapp3.1\MISA.CukCuk.Api.DEMO.Properties.Resources.resources
+C:\Users\Admin\Desktop\MF950_LTNTHAO\4. API\MISA.CukCuk\MISA.CukCuk.Api.DEMO\obj\Debug\netcoreapp3.1\MISA.CukCuk.Api.DEMO.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\MF950_LTNTHAO\4. API\MISA.CukCuk\MISA.CukCuk.Api.DEMO\obj\Debug\netcoreapp3.1\MISA.CukCuk.Api.DEMO.Properties.ResourceDev.resources
+C:\Users\Admin\Desktop\MF950_LTNTHAO\4. API\MISA.CukCuk\MISA.CukCuk.Api.DEMO\obj\Debug\netcoreapp3.1\MISA.CukCuk.Api.DEMO.Properties.ResourceResponseSuccess.resources

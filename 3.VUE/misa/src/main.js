@@ -9,7 +9,9 @@ import moment from 'moment';
 import { ValidationProvider, ValidationObserver, extend } from 'vee-validate'; 
 import * as rules from 'vee-validate/dist/rules';
 import { messages } from 'vee-validate/dist/locale/vi.json';
-
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+import VueMask from 'v-mask';
 
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
@@ -39,3 +41,8 @@ Object.keys(rules).forEach(rule => {
 // Register it globally
 Vue.component('ValidationProvider', ValidationProvider);
 Vue.component('ValidationObserver', ValidationObserver);
+
+Vue.component('datepicker', DatePicker);
+
+
+Vue.use(VueMask);

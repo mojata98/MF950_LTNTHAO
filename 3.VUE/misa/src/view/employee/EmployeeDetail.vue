@@ -82,6 +82,12 @@
                     <label for="birthOfDay" class="title-input date"
                       >Ngày sinh</label
                     >
+                    <datepicker
+                    v-model="employee.DateOfBirth"
+                    :format="'DD/MM/YYYY'"
+                    :value-type="'YYYY-MM-DD'"
+                    style="width: 100%; height: 42px;"
+                    >
                     <input
                       type="date"
                       id="txtDateOfBirth"
@@ -89,6 +95,7 @@
                       tabindex="3"
                       v-model="employee.DateOfBirth"
                     />
+                    </datepicker>
                   </div>
 
                   <div class="input">
@@ -134,6 +141,12 @@
                     <label for="dayOfCMTND" class="title-input"
                       >Ngày cấp
                     </label>
+                    <datepicker
+                    v-model="employee.IdentityDate"
+                    :format="'DD/MM/YYYY'"
+                    :value-type="'YYYY-MM-DD'"
+                    style="width: 100%; height: 42px;"
+                    >
                     <input
                       type="date"
                       id="txtIdentityDate"
@@ -141,6 +154,7 @@
                       tabindex="6"
                       v-model="employee.IdentityDate"
                     />
+                    </datepicker>
                   </div>
                   <div class="input custom-input" id="txtIdentityPlace1">
                     <label for="addressOfCMTND" class="title-input"
@@ -263,6 +277,7 @@
                         class="text-box-default"
                         tabindex="13"
                         v-model="employee.Salary"
+                        v-mask="'##.###.###'"
                       />
                       <span class="icon">(VNĐ)</span>
                     </div>
@@ -270,6 +285,12 @@
                   <div class="input">
                     <label for="dayOfJoin" class="title-input"
                       >Ngày gia nhập công ty</label
+                    >
+                    <datepicker
+                    v-model="employee.JoinDate"
+                    :format="'DD/MM/YYYY'"
+                    :value-type="'YYYY-MM-DD'"
+                    style="width: 100%; height: 42px;"
                     >
                     <input
                       type="date"
@@ -279,6 +300,7 @@
                       tabindex="14"
                       v-model="employee.JoinDate"
                     />
+                    </datepicker>
                   </div>
 
                   <div class="input">
@@ -334,6 +356,8 @@ import BasePopup from "../../components/base/BasePopup.vue";
 import BaseDropdown from "../../components/base/BaseDropdown.vue";
 import eventBus from "../../js/eventBus";
 import { ValidationProvider, extend } from "vee-validate";
+// import DatePicker from 'vue2-datepicker';
+// import 'vue2-datepicker/index.css';
 // import $ from 'jquery';
 // import moment from 'moment';
 
@@ -352,6 +376,7 @@ export default {
     BasePopup,
     BaseDropdown,
     ValidationProvider,
+    // DatePicker,
   },
 
   created() {
@@ -419,7 +444,6 @@ export default {
         await axios
           .post(`http://cukcuk.manhnv.net/v1/Employees`, vm.employee)
           .then((res) => {
-            // alert("Thêm mới thành công.");
             this.$toast.success(
               "Thêm mới thành công! \nVui lòng đợi trong giây lát để hệ thống tải lại dữ liệu!",
               {
@@ -458,7 +482,7 @@ export default {
             });
             console.log(res);
           });
-        vm.employee = {};
+        vm.employee = {};// Bị dính lỗi validate lần 2
 
       } else {
         let vm = this;
@@ -494,12 +518,8 @@ export default {
             console.log(res);
           });
       }
-      // this.$emit("isHideUpdated", true);
     },
-    // closeDetailForm() {
-    //   this.isHidePopup = true;
-    //   eventBus.$emit("isHideUpdated", this.isHideForm);
-    // },
+    
     /**
      *Hàm format lương hiển thị dạng 1.000.000
      *CreateBy LNTHAO (6/8/2021)

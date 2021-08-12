@@ -37,6 +37,10 @@ namespace MISA.CukCuk.Api.DEMO.Model
         /// </summary>
         public string Address { get; set; }
         /// <summary>
+        /// Email
+        /// </summary>
+        public string Email { get; set; }
+        /// <summary>
         /// Số điện thoại
         /// </summary>
         public string PhoneNumber { get; set; }
