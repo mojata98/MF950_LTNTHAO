@@ -6,7 +6,7 @@
     height: calc(100vh - 49px);
     z-index: -10;
     width: calc(100% - 225px);
-    background-color: #e5e5e5;
+    background-color: #ffffff;
     padding-right: 16px;
     transition: all 0.5s;
     overflow-y: hidden;
@@ -56,6 +56,16 @@ input::placeholder {
     background-size: contain;
     float: left;
     margin-top: 10px;
+}
+
+.content .content-title .button-new .button-icon-delete {
+    background-image: url(../../assets/icon/delete.svg);
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    background-size: contain;
+    float: left;
+    margin-top: 11px;
 }
 
 .content .content-title .button-new .button-value {
@@ -273,3 +283,43 @@ button.btn.btn-default.dropdown-toggle {
 #btnDel{
     right: 200px;
 }
+
+.hold-scroll{
+    height: 48px;
+    width: 22px;
+    background-color: #fff;
+    z-index: 1000;
+    right: 0;
+    position: absolute;
+    margin-top: 16px;
+}
+
+.hold-button{
+    align-items: center;
+    width: 40px;
+    height: 16px;
+    margin: 0 auto;
+    
+}
+
+.icon-edit{
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    background-image: url(../../assets/icon/edit.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.icon-delete{
+    height: 16px;
+    width: 16px;
+    margin-left: 24px;
+    background-image: url(../../assets/icon/delete.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+

@@ -5,8 +5,12 @@
         <div class="content-title-text">Danh sách nhân viên</div>
 
         <div class="button button-new btnDel" id="btnDel">
-          <!-- <div class="button-icon"></div> -->
-          <div class="button-value" @click="btnDeleteAll()">Xóa nhân viên</div>
+          <div class="button-icon-delete"></div>
+            <div 
+              class="button-value" 
+              @click="btnDeleteAll()"
+              ref="deleteAll"
+            >Xóa nhân viên</div>
         </div>
 
         <div class="button-new" id="btnAdd">
@@ -74,6 +78,10 @@
         <div class="refresh" id="btnRefresh">
           <div class="button-refresh" @click="loadData"></div>
         </div>
+      </div>
+
+      <div>
+        <div class="hold-scroll"></div>
       </div>
 
       <div class="content-table">
@@ -177,21 +185,24 @@
                 Tình trạng công việc
               </th>
               <th
-                style="min-width: 100px"
+                style="
+                  min-width: 100px;
+                  text-align: center;
+                  background-color: #fff;
+                  z-index: 1;
+                "
                 scope="col"
                 fieldName="Action"
                 textAlignType="Center"
-              ></th>
+              >
+                Thao tác
+              </th>
             </tr>
           </thead>
           <tbody id="tbody">
-            <tr
-              v-for="employee in employees"
-              :key="employee.EmployeeId"
-              v-on:dblclick="fixInfor(employee.EmployeeId)"
-            >
+            <tr v-for="employee in employees" :key="employee.EmployeeId">
               <td style="text-align: center">
-                <input type="checkbox" class="checkbox" />
+                <input type="checkbox" class="checkbox" @click="btnCheckedOnClick(employee.EmployeeId)"/>
               </td>
               <td style="min-width: 100px">{{ employee.EmployeeCode }}</td>
               <td style="min-width: 100px; max-width: 150px">
@@ -199,7 +210,7 @@
               </td>
               <td style="min-width: 50px">{{ employee.GenderName }}</td>
               <td style="min-width: 50px; text-align: center">
-                {{ employee.DateOfBirth | myDate }}
+                {{  employee.DateOfBirth? moment(employee.DateOfBirth).format('DD/MM/YYYY') : ""}}
               </td>
               <td style="min-width: 100px">{{ employee.PhoneNumber }}</td>
               <td
@@ -217,11 +228,17 @@
                 {{ formatWorkStatus(employee.WorkStatus) }}
               </td>
               <td style="text-align: center; min-width: 50px; max-width: 100px">
-                <div
-                  class="button btnDel"
-                  @click="btnDelete(employee.EmployeeId)"
-                >
-                  Xóa
+                <div class="hold-button">
+                  <div
+                    class="icon-edit"
+                    title="Xem thông tin"
+                    @click="fixInfor(employee.EmployeeId)"
+                  ></div>
+                  <div
+                    class="icon-delete"
+                    title="Xóa"
+                    @click="btnDelete(employee.EmployeeId)"
+                  ></div>
                 </div>
               </td>
             </tr>
@@ -249,15 +266,13 @@
       </div>
     </div>
     <EmployeeDetail
-      v-bind:isHide="isHide"
-      @isHideUpdated="isHide = $event"
       v-bind:employeeId="employeeId"
       v-bind:employeeCode="employeeCode"
       v-bind:mode="modeFormDetail"
       @loadData="loadData"
     />
 
-    <BasePopup v-bind:isHide="isHide" @isHideUpdated="isHide = $event" />
+    <BasePopup />
   </div>
 </template>
 
@@ -266,7 +281,8 @@ import axios from "axios";
 import EmployeeDetail from "../employee/EmployeeDetail.vue";
 import BasePopup from "../../components/base/BasePopup.vue";
 import BaseDropdown from "../../components/base/BaseDropdown.vue";
-
+import eventBus from '../../js/eventBus';
+// import $ from 'jquery';
 export default {
   name: "EmployeePage",
   components: {
@@ -281,9 +297,10 @@ export default {
       // header: [],
       employeeId: "",
       employeeCode: "",
-      isHide: true,
+      isHideForm: true,
       modeFormDetail: 0,
       isChecked: [],
+      employeeClick: null,
     };
   },
 
@@ -293,6 +310,13 @@ export default {
    */
   created() {
     this.loadData();
+    /**
+     * Nhận sự kiện mở Form nhân viên
+     * CreatedBy: LNTHAO (10/08)
+     */
+    eventBus.$on("isHideUpdated", (value) => {
+      this.isHideForm = value;
+    })
   },
 
   methods: {
@@ -300,13 +324,40 @@ export default {
      * Load dữ liệu cho bảng
      * CreatedBy: LNTHAO (4/8)
      */
-    loadData() {
+     async loadData() {
       var vm = this;
+      // vm.$toast.info("Vui lòng đợi hệ thống load dữ liệu!", {
+      //       position: "bottom-right",
+      //       timeout: 2000,
+      //       closeOnClick: true,
+      //       pauseOnFocusLoss: true,
+      //       pauseOnHover: true,
+      //       draggable: true,
+      //       draggablePercent: 0.6,
+      //       showCloseButtonOnHover: false,
+      //       hideProgressBar: true,
+      //       closeButton: "button",
+      //       icon: true,
+      //       rtl: false,
+      //     });
       axios
         .get("http://cukcuk.manhnv.net/v1/Employees")
         .then((res) => {
           vm.employees = res.data;
-          alert("Load data thành công");
+          this.$toast.info("Load dữ liệu thành công!", {
+            position: "bottom-right",
+            timeout: 2000,
+            closeOnClick: true,
+            pauseOnFocusLoss: true,
+            pauseOnHover: true,
+            draggable: true,
+            draggablePercent: 0.6,
+            showCloseButtonOnHover: false,
+            hideProgressBar: true,
+            closeButton: "button",
+            icon: true,
+            rtl: false,
+          });
         })
         .catch((res) => {
           console.log(res);
@@ -318,39 +369,48 @@ export default {
      */
     btnAddOnClick() {
       let vm = this;
-      axios // chuyển sang bên hàm con ||
-        .get("http://cukcuk.manhnv.net/v1/Employees/NewEmployeeCode")
-        .then((res) => {
-          vm.employeeCode = res.data;
-          alert(vm.employeeCode);
-          this.isHide = false;
-          this.modeFormDetail = 0;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
+      vm.isHideForm = false;
+      eventBus.$emit("openModalForm", vm.isHideForm);
+      vm.modeFormDetail = 0;
     },
     /**
-     * Xem thông tin nhân viên khi nhấn đúp chuột
+     * Xem thông tin nhân viên khi nhấn biểu tượng edit
      * CreatedBy: LNTHAO (29/07)
      */
     fixInfor(emplId) {
       this.modeFormDetail = 1;
-      this.isHide = false;
+      this.isHideForm = false;
       this.employeeId = emplId;
+      eventBus.$emit("openModalFormToEdit", this.isHideForm);
     },
     /**
      * Nhấn nút xóa để xóa 1 nhân viên
      * CreatedBy: LNTHAO (05/08)
      */
-    btnDelete(emplId) {
+    async btnDelete(emplId) {
       var id = emplId;
       let vm = this;
-      axios
+      await axios
         .delete("http://cukcuk.manhnv.net/v1/Employees/" + id)
         .then((res) => {
-          alert("Xóa dữ liệu thành công.");
           console.log(res);
+          this.$toast.success(
+            "Xóa dữ liệu thành công! Vui lòng đợi trong giây lát để hệ thống tải lại dữ liệu!",
+            {
+              position: "bottom-right",
+              timeout: 5000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButtonOnHover: false,
+              hideProgressBar: true,
+              closeButton: "button",
+              icon: true,
+              rtl: false,
+            }
+          );
           vm.loadData();
         })
         .catch((res) => {
@@ -383,7 +443,7 @@ export default {
       return 0;
     },
     /**
-     * Format trạng thái hoạt động
+     * Format trạng thái hoạt động - Xem lại giá trị để match cho chuẩn
      * CreatedBy: LNTHAO (06/08)
      */
     formatWorkStatus(value) {
@@ -398,6 +458,12 @@ export default {
           return "Đã nghỉ việc";
       }
     },
+    btnCheckedOnClick(index) {
+      eventBus.$emit("checkToDelete", index);
+      this.$refs.deleteAll.click();
+      console.log(index);
+    },
+
   },
 };
 </script>

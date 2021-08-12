@@ -1,5 +1,4 @@
 .modal {
-    /* display: none; */
     position: fixed; 
     top: 0;
     left: 0;
@@ -7,10 +6,7 @@
     height: 100%;
     z-index: 10;
     background-color: rgb(0, 0, 0);
-    /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
-    overflow: scroll;
     position: absolute;
     overflow: hidden;
 }
@@ -24,8 +20,14 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    overflow-y: scroll;
-    /* height: fit-content; */
+}
+
+.modal-header{
+    height: 84px;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 150;
 }
 
 .modal .modal-content .btn-close {
@@ -36,6 +38,7 @@
     height: 40px;
     border: none;
     padding: 0;
+    
 }
 
 .modal .modal-content .btn-close:hover {
@@ -50,45 +53,42 @@
     color: #454545;
     height: 20px;
     width: 20px;
-    /* border: 1px solid red; */
     background-image: url('../../assets/icon/x.svg');
     background-size: contain;
     background-repeat: no-repeat;
-    z-index: 10;
+    
 }
-
-
-/* .modal .modal-content .btn-close .btn-close-icon {
-    position: absolute;
-    align-items: center;
-    height: 20px;
-    width: 20px;
-    /* right: 16px;
-    top: 16px; */
-
-
-/* border: 1px solid red;
-text-align: center;
-} */
 
 */ .modal .modal-content .btn-close:focus {
     background-color: red;
 }
 
 .modal .modal-content .form {
-    padding: 24px 24px 0;
-    /* overflow-y: scroll; */
+    padding-top: 0;
+    padding-left: 24px;
+    padding-bottom: 0;
+    padding-right: 24px;
 }
 
-.modal .modal-content .form .form-title {
+.title-hold{
+    height: 60px;
+    width: 100%;
+    background-color: #fff;    
+    position: sticky;
+    top: 0%;
+}
+.form-title {
     text-transform: uppercase;
     font-size: 24px;
     color: #454545;
     font-weight: bold;
+    padding-top: 48px;
+    padding-left: 24px;
 }
 
 .modal .modal-content .form .form-content {
-    margin: 24px 0;
+    margin-bottom: 24px;
+    margin-top: 24px;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
 }
@@ -195,7 +195,6 @@ text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
     align-items: center;
-    position: sticky;
     bottom: 0;
     z-index: 150;
 }
@@ -306,11 +305,6 @@ text-align: center;
     border-color: #555 transparent transparent transparent;
 }
 
-/* .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-} */
-
 #dayOfCMTND1{
     visibility: hidden;
 }
@@ -321,7 +315,6 @@ text-align: center;
 
 .dropdownForm{
     width: 100%;
-    /* box-sizing: border-box; */
 }
 
 .m-dialog-hidden{

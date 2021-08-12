@@ -36,32 +36,55 @@
 </template>
 
 <script>
+import eventBus from "../../js/eventBus";
 export default {
   name: "Popup",
 
   props: {
-    isHidePopup: {
-      // chi duoc doc khong duoc sua
-      type: Boolean,
-      default: true,
-      // required: true,
-    },
+    // isHidePopup: {
+    //   // chi duoc doc khong duoc sua
+    //   type: Boolean,
+    //   default: true,
+    //   // required: true,
+    // },
 
-    isHide:{ // chi duoc doc khong duoc sua 
-        type: Boolean,
-        default: false,
-        // required: true,
-    },
+    // isHide:{ // chi duoc doc khong duoc sua 
+    //     type: Boolean,
+    //     default: false,
+    //     // required: true,
+    // },
+  },
+
+  created() {
+    eventBus.$on("openPopUp", (value) => {
+      this.isHidePopup = value;
+    })
   },
 
   methods: {
-    btnCloseModalForm() {
-      this.$emit("closeDetailForm");
-    },
-
+    /**
+     * Đóng PopUp khi nhấn vào nút X hoặc Tiếp tục nhập
+     * CreatedBy: LNTHAO (10/08)
+     */
     btnClosePopupForm(){
-      this.$emit("isHidePopupUpdated");   
+      this.isHidePopup = true;
     },
+    /**
+     * Đóng PopUp và Modal Form khi nhấn nút Đóng
+     * CreatedBy: LNTHAO (10/08)
+     */
+    btnCloseModalForm() {
+      this.isHidePopup = true;
+      this.isHideForm = true;
+      eventBus.$emit("closePopUpAndModalForm", this.isHideForm);
+    },
+  },
+
+  data() {
+    return {
+      isHidePopup: true,
+      isHideForm: true,
+    }
   },
 };
 </script>

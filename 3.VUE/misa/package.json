@@ -10,10 +10,13 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "jquery": "^3.6.0",
     "moment": "^2.29.1",
     "v-money": "^0.8.1",
+    "vee-validate": "^3.4.11",
     "vue": "^2.6.11",
     "vue-axios": "^3.2.5",
+    "vue-toastification": "^1.7.11",
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {

@@ -194,3 +194,8 @@ button.btn-reset svg {
     background-color: red;
     opacity: 1;
 }
+
+button.btnDel-active{
+    background-color: red;
+    opacity: 1;
+}
