@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import money from 'v-money'
+// import money from 'v-money'
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import moment from 'moment';
@@ -13,6 +13,7 @@ import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import VueMask from 'v-mask';
 
+
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
@@ -22,9 +23,7 @@ new Vue({
 
 Vue.prototype.moment = moment
 
-Vue.filter('mymoney', function(created) {
-  return money(created, {precision: 2});
-});
+// Vue.use(money, {precision: 4})
 
 Vue.use(Toast, {
   transition: "Vue-Toastification__bounce",

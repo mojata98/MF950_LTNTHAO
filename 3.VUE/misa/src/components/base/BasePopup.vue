@@ -28,6 +28,7 @@
           <div class="popup-message">
             <span :class="{ 'hide-message-warning': isMessageWarning }">Bạn có chắc chắn muốn đóng <b>"Thông tin nhân viên"</b> hay không?</span> 
             <span :class="{ 'hide-message-delete': isMessageDelete }">Bạn có chắc chắn muốn xóa Nhân viên có mã <b>{{ message }}</b> hay không?</span> 
+            <span :class="{ 'hide-message-delete': isMessageDeleteMany }">Bạn có chắc chắn muốn xóa Nhân viên có mã <b>{{ message }}</b> hay không?</span> 
           </div>
         </div>
       </div>
@@ -42,6 +43,7 @@
       >
         <span :class="{ 'hide-message-warning': isMessageWarning }">Đóng</span> 
         <span :class="{ 'hide-message-delete': isMessageDelete }">Xóa</span>
+        <span :class="{ 'hide-message-delete-many': isMessageDeleteMany }">Xóa</span>
       </div>
     </div>
   </div>
@@ -69,18 +71,20 @@ export default {
       this.isDelete = false;
       this.isMessageWarning = false;
       this.isMessageDelete = true;
+      this.isMessageDeleteMany = true;
     });
     /**
      * Mở popup dạng delete
      * CreatedBy: LNTHAO (12/08)
      */
     eventBus.$on("openPopUpDelete", async (value) => {
-      this.value = value;
+      this.value = value; // id của NV cần xóa
       this.isHidePopup = false;
       this.isWarning = false;
       this.isDelete = true;
       this.isMessageWarning = true;
       this.isMessageDelete = false;
+      this.isMessageDeleteMany = true;
       await axios
         .get(`http://cukcuk.manhnv.net/v1/Employees/${value}`)
         .then((res) => {
@@ -93,12 +97,43 @@ export default {
       this.message = this.employee.EmployeeCode;
     });
     /**
+     * Mở popup dạng delete nhiều người
+     * CreatedBy: LNTHAO (12/08)
+     */
+    eventBus.$on("openPopUpDeleteMany", async (value) => {
+      this.idDelete = value; // id của NV cần xóa
+      this.isHidePopup = false;
+      this.isWarning = false;
+      this.isDelete = true;
+      this.isMessageWarning = true;
+      this.isMessageDelete = true;
+      this.isMessageDeleteMany = false;
+      for (let index = 0; index < this.idDelete.length; index++) {
+        await axios
+        .get(`http://cukcuk.manhnv.net/v1/Employees/${this.idDelete[index]}`)
+        .then((res) => {
+          this.employee = res.data;
+          console.log(this.employee);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+        this.codeDelete[index] = this.employee.EmployeeCode;
+      }
+      for (let index = 0; index < this.codeDelete.length - 1; index++) {
+        this.message += this.codeDelete[index] + ", ";
+      }
+      this.message += this.codeDelete[this.codeDelete.length - 1];
+      console.log(this.message);
+    });
+    /**
      * Đóng popup khi ấn Hủy hoặc dấu X
      * CreatedBy: LNTHAO (12/08)
      */
     eventBus.$on("closePopUp", (value) => {
       this.isHidePopup = value;
     });
+  
   },
 
   methods: {
@@ -118,10 +153,15 @@ export default {
       if (this.isWarning){
         this.isHideForm = true;
         eventBus.$emit("closePopUpAndModalForm", this.isHideForm);
+        
       }
-      else{
+      else if (!this.isMessageDelete){
         eventBus.$emit("deletePerson", this.employee.EmployeeId);
       }
+      else if (!this.isMessageDeleteMany) {
+        eventBus.$emit("deleteAllChecked", this.idDelete);
+      }
+      this.message = "";
     },
   },
 
@@ -133,9 +173,12 @@ export default {
       isDelete: false,
       isMessageWarning: true,
       isMessageDelete: true,
+      isMessageDeleteMany: true,
       value: "",
       employee: {},
       message: "",
+      idDelete: [],
+      codeDelete: [],
     }
   },
 };
@@ -149,6 +192,9 @@ export default {
   display: none;
 }
 .hide-message-delete{
+  display: none;
+}
+.hide-message-delete-many{
   display: none;
 }
 </style>

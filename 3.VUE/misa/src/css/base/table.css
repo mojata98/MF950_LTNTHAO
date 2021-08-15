@@ -92,6 +92,22 @@ thead tbody tr {
     background: #555;
 }
 
+table.table tbody tr.checked{
+    background-color: #2FBE8E;
+}
+.checkbox {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #bbbbbb;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.checkbox.checked {
+    background-color: #019160;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
 
 

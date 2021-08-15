@@ -4,12 +4,14 @@
       <div class="content-title">
         <div class="content-title-text">Danh sách nhân viên</div>
 
-        <div class="button button-new btnDel" id="btnDel">
+        <div class="button button-new btnDel" id="btnDel"
+        :class="{'btn-Del-active': turnOn}">
           <div class="button-icon-delete"></div>
             <div 
               class="button-value" 
               @click="btnDeleteAll()"
               ref="deleteAll"
+              
             >Xóa nhân viên</div>
         </div>
 
@@ -200,10 +202,15 @@
             </tr>
           </thead>
           <tbody id="tbody">
-            <tr v-for="employee in employees" :key="employee.EmployeeId">
+            <tr 
+            v-for="(employee, index) in employees" 
+            :key="employee.EmployeeId"
+            v-bind:class="{wasChecked: isChecked[index],}"
+            >
               <td style="text-align: center">
                 <input type="checkbox" class="checkbox" @click="btnCheckedOnClick(employee.EmployeeId)"/>
               </td>
+              
               <td style="min-width: 100px">{{ employee.EmployeeCode }}</td>
               <td style="min-width: 100px; max-width: 150px">
                 {{ employee.FullName }}
@@ -302,6 +309,8 @@ export default {
       isChecked: [],
       employeeClick: null,
       employee: {},
+      employeeCheck: [],
+      turnOn: false,
     };
   },
 
@@ -351,6 +360,34 @@ export default {
         .catch((res) => {
           console.log(res);
         });
+    });
+    /**
+     * Xóa nhiều người
+     * CreatedBy: LNTHAO (14/08)
+     */
+    eventBus.$on("deleteAllChecked", async (value) => {
+      this.employeeCheck = value;
+      for (var i = 0; i < this.employeeCheck.length; i++) {
+        // if (this.isChecked[i]) {
+          await axios
+            .delete(
+              "http://cukcuk.manhnv.net/v1/Employees/" +
+                this.employeeCheck[i]
+            )
+            .then((res) => {
+              console.log("res" + res);
+              // alert("Xóa thành công!");
+              
+            })
+            .catch((res) => {
+              console.log(res);
+            });
+        // }
+      }
+      this.loadData();
+      this.turnOn = false;
+      this.employeeCheck.splice(0, this.employeeCheck.length);
+      console.log(this.employeeCheck);
     });
   },
 
@@ -433,7 +470,9 @@ export default {
      * CreatedBy: LNTHAO (05/08)
      */
     btnDeleteAll() {
-      alert("Bạn chắc chắn muốn xóa nhân viên?");
+      // alert("Bạn chắc chắn muốn xóa nhân viên?");
+      eventBus.$emit("openPopUpDeleteMany", this.employeeCheck);
+      // eventBus.$emit("deleteAllChecked", this.employeeCheck);
     },
     /**
      *Hàm format lương hiển thị dạng 1.000.000
@@ -469,12 +508,47 @@ export default {
           return "Đã nghỉ việc";
       }
     },
-    btnCheckedOnClick(index) {
-      eventBus.$emit("checkToDelete", index);
-      this.$refs.deleteAll.click();
-      console.log(index);
+    
+    /**
+     * Hàm xóa nhân viên
+     * CreatedBy: LNTHAO (12/8/2021)
+     */
+    async btnDeleteOnClick() {
+      for (var i = 0; i < this.employeeCheck.length; i++) {
+        // if (this.isChecked[i]) {
+          await axios
+            .delete(
+              "http://cukcuk.manhnv.net/v1/Employees/" +
+                this.employeeCheck[i].EmployeeId
+            )
+            .then((res) => {
+              console.log("res" + res);
+              alert("Xóa thành công!");
+              // this.showMessage(type.SUCCESS, [message.DELETE_MSG_SUCCESS]);
+              // this.isHidePopup = true;
+              this.loadData();
+            })
+            .catch((res) => {
+              console.log(res);
+              
+              // this.showMessage(type.WARNING, [message.EXCEPTION_MSG]);
+            });
+        // }
+      }
     },
-
+    /**
+     * Hàm đánh dấu bản ghi đã được chọn
+     * CreatedBy: LNTHAO (12/8/2021)
+     */
+    async btnCheckedOnClick(index) {
+      // this.countChecked = 0;
+      // this.dialogFormMode = "del";
+      // this.$set(this.isChecked, index, !this.isChecked[index]);
+      this.turnOn = true;
+      this.employeeCheck.push(index);
+      console.log(this.employeeCheck);
+      // eventBus.$emit("deleteAllChecked", this.employeeCheck);
+    },
   },
 };
 </script>
@@ -489,5 +563,9 @@ export default {
 
 .checkbox:hover {
   cursor: pointer;
+}
+.btn-Del-active{
+  opacity: 1;
+  background-color: red;
 }
 </style>
