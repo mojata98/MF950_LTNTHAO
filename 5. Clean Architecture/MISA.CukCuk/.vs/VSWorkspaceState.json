@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\MISA.CukCuk.Api.DEMO",
+    "\\MISA.CukCuk.Api.DEMO\\Controllers"
   ],
-  "SelectedNode": "\\MISA.CukCuk.sln",
+  "SelectedNode": "\\MISA.CukCuk.Api.DEMO\\Controllers\\CustomersController.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace MISA.CukCuk.Api.DEMO.Model
+namespace MISA.Core.Entities
 {
-    public class Customer:BaseEntity
+    public class Customer
     {
         #region Property
         /// <summary>
@@ -49,6 +48,5 @@ namespace MISA.CukCuk.Api.DEMO.Model
         /// </summary>
         public DateTime? DateOfBirth { get; set; }
         #endregion
-
     }
 }

@@ -323,6 +323,35 @@
         "runtime": {
           "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
         }
+      },
+      "MISA.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Dapper": "2.0.90",
+          "MySqlConnector": "1.3.11"
+        },
+        "compile": {
+          "bin/placeholder/MISA.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MISA.Core.dll": {}
+        }
+      },
+      "MISA.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Dapper": "2.0.90",
+          "MISA.Core": "1.0.0",
+          "MySqlConnector": "1.3.11"
+        },
+        "compile": {
+          "bin/placeholder/MISA.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MISA.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -997,11 +1026,23 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "MISA.Core/1.0.0": {
+      "type": "project",
+      "path": "../MISA.Core/MISA.Core.csproj",
+      "msbuildProject": "../MISA.Core/MISA.Core.csproj"
+    },
+    "MISA.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../MISA.Infrastructure/MISA.Infrastructure.csproj",
+      "msbuildProject": "../MISA.Infrastructure/MISA.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Dapper >= 2.0.90",
+      "MISA.Core >= 1.0.0",
+      "MISA.Infrastructure >= 1.0.0",
       "MySqlConnector >= 1.3.11",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 5.0.7",
       "Swashbuckle.AspNetCore >= 6.1.5"
@@ -1013,11 +1054,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\4. API\\MISA.CukCuk\\MISA.CukCuk.Api.DEMO\\MISA.CukCuk.Api.DEMO.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\5. Clean Architecture\\MISA.CukCuk\\MISA.CukCuk.Api.DEMO\\MISA.CukCuk.Api.DEMO.csproj",
       "projectName": "MISA.CukCuk.Api.DEMO",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\4. API\\MISA.CukCuk\\MISA.CukCuk.Api.DEMO\\MISA.CukCuk.Api.DEMO.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\5. Clean Architecture\\MISA.CukCuk\\MISA.CukCuk.Api.DEMO\\MISA.CukCuk.Api.DEMO.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\4. API\\MISA.CukCuk\\MISA.CukCuk.Api.DEMO\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\5. Clean Architecture\\MISA.CukCuk\\MISA.CukCuk.Api.DEMO\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1033,7 +1074,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\5. Clean Architecture\\MISA.CukCuk\\MISA.Core\\MISA.Core.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\5. Clean Architecture\\MISA.CukCuk\\MISA.Core\\MISA.Core.csproj"
+            },
+            "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\5. Clean Architecture\\MISA.CukCuk\\MISA.Infrastructure\\MISA.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\5. Clean Architecture\\MISA.CukCuk\\MISA.Infrastructure\\MISA.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

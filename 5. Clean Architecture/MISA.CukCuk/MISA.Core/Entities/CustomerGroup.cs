@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace MISA.CukCuk.Api.DEMO.Model
+namespace MISA.Core.Entities
 {
-    public class CustomerGroup:BaseEntity
+    public class CustomerGroup
     {
         #region
         /// <summary>

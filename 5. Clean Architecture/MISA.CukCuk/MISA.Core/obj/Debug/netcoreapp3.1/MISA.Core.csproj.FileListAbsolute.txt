@@ -1,0 +1,9 @@
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\bin\Debug\netcoreapp3.1\MISA.Core.deps.json
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\bin\Debug\netcoreapp3.1\MISA.Core.dll
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\bin\Debug\netcoreapp3.1\MISA.Core.pdb
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.AssemblyInfo.cs
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.dll
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.pdb

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yWU+MrPKls7iP8bpNGrfAXls0G7+OTWcHtV9ujBLxZhiVuK+DHhMeGYgeifE517vybTKyth7cW9092RYrDY+Ag==",
+  "dgSpecHash": "4JhTMJVDr3oYDo8na7d7EBFFRZsVAcyjiA7rXxheJnOezMiwVnOoQ/wrXme0zCeAa7aiXGM14QJme0UK2sP1Og==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\4. API\\MISA.CukCuk\\MISA.CukCuk.Api.DEMO\\MISA.CukCuk.Api.DEMO.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Desktop\\MF950_LTNTHAO\\5. Clean Architecture\\MISA.CukCuk\\MISA.CukCuk.Api.DEMO\\MISA.CukCuk.Api.DEMO.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\dapper\\2.0.90\\dapper.2.0.90.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.7\\microsoft.entityframeworkcore.5.0.7.nupkg.sha512",

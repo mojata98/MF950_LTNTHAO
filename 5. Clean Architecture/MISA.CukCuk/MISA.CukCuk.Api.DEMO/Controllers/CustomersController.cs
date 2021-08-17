@@ -4,11 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MISA.CukCuk.Api.DEMO.Model;
 using System.Data;
 using MySqlConnector;
 using Dapper;
 using System.Text.RegularExpressions;
+using MISA.Core.Interfaces.Services;
+using MISA.Core.Entities;
+using MISA.Core.Interfaces.Repository;
 
 namespace MISA.CukCuk.Api.DEMO.Controllers
 {
@@ -16,6 +18,12 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
+        ICustomerService _customerService;
+
+        public CustomersController(ICustomerService customerService)
+        {
+            _customerService = customerService;
+        }
         // Xác định phương thức: GET, POST, PUT, DELETE
 
         // Viết phương thức
@@ -30,23 +38,17 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
         {
             try
             {
-                // Truy cập vào database
-                // 1. Khai báo thông tin database
-                var connectionString = "Host = 47.241.69.179;" +
-                                        "Database = MISA.CukCuk_Demo_NVMANH;" +
-                                        "User Name = dev;" +
-                                        "Password = 12345678";
-
-                // 2. Khởi tạo đối tượng kết nối database
-                IDbConnection dbConnection = new MySqlConnection(connectionString);
-
-                // 3. Lấy dữ liệu
-                var sqlCommand = "SELECT * FROM Customer";
-                var customers = dbConnection.Query<Customer>(sqlCommand);
                 // 4. Trả về cho client
+                var serviceResult = _customerService.Get();
 
-                var response = StatusCode(200, customers);
-                return response;
+                if (serviceResult.IsValid == true)
+                {
+                    return StatusCode(201, serviceResult.Data);
+                }
+                else
+                {
+                    return BadRequest(serviceResult.Data);
+                }
             }
             catch (Exception ex)
             {
@@ -72,35 +74,17 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
         {
             try
             {
-                var connectionString = "Host = 47.241.69.179;" +
-                                    "Database = MISA.CukCuk_Demo_NVMANH;" +
-                                    "User Name = dev;" +
-                                    "Password = 12345678";
+                // 4. Trả về cho client
+                var serviceResult = _customerService.GetById(customerId);
 
-                IDbConnection dbConnection = new MySqlConnection(connectionString);
-
-                var sqlCommand = $"SELECT * FROM Customer WHERE CustomerId = @CustomerIdParam"; // C1: '{customerId.ToString()}'
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@CustomerIdParam", customerId);
-                var customers = dbConnection.QueryFirstOrDefault<Customer>(sqlCommand, param: parameters); // Lấy bản ghi đầu tiên
-
-                if (customers != null)
+                if (serviceResult.IsValid == true)
                 {
-                    var resultObj = new
-                    {
-                        message = Properties.ResourceResponseSuccess.Get_Data_Success,
-                    };
-                    return StatusCode(200, customers);
+                    return StatusCode(201, serviceResult.Data);
                 }
                 else
                 {
-                    var resultObj = new
-                    {
-                        message = Properties.Resources.Get_Data_Fail,
-                    };
-                    return StatusCode(204, resultObj);
+                    return BadRequest(serviceResult.Data);
                 }
-                
             }
             catch (Exception ex)
             {
@@ -126,109 +110,15 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
         {
             try
             {
-                // Kiểm tra thông tin của khách hàng đã hợp lệ chưa?
-                // 1. Mã khách hàng bắt buộc phải có
-                if (customer.CustomerCode == "" || customer.CustomerCode == null)
+                var serviceResult = _customerService.Add(customer);
+                
+                if (serviceResult.IsValid == true)
                 {
-                    var errorObj = new
-                    {
-                        devMsg = Properties.ResourceDev.Exception_Invalid_Input,
-                        userMeg = Properties.Resources.Exception_NullEmployeeCode,
-                        errorCode = "misa-002",
-                        moreInfo = "",
-                        traceId = ""
-                    };
-                    return BadRequest(errorObj);
-                }
-                // 2. Email đúng định dạng
-                if (customer.Email == "" || customer.Email == null)
-                {
-                    var errorObj = new
-                    {
-                        devMsg = Properties.ResourceDev.Exception_Invalid_Input,
-                        userMeg = Properties.Resources.Exception_Email_Null,
-                        errorCode = "misa-003",
-                        moreInfo = "",
-                        traceId = ""
-                    };
-                    return BadRequest(errorObj);
+                    return StatusCode(201, serviceResult.Data);
                 }
                 else
                 {
-                    var checkEmail = Regex.IsMatch(customer.Email, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
-                    if (checkEmail == false)
-                    {
-                        var errorObj = new
-                        {
-                            devMsg = Properties.ResourceDev.Exception_Invalid_Input,
-                            userMeg = Properties.Resources.Exception_Email_Invalid,
-                            errorCode = "misa-004",
-                            moreInfo = "",
-                            traceId = ""
-                        };
-                        return BadRequest(errorObj);
-                    }
-                }
-                customer.CustomerId = Guid.NewGuid();
-                var connectionString = "Host = 47.241.69.179;" +
-                                        "Database = MISA.CukCuk_Demo_NVMANH;" +
-                                        "User Name = dev;" +
-                                        "Password = 12345678";
-
-                IDbConnection dbConnection = new MySqlConnection(connectionString);
-
-
-                // Thêm dữ liệu vào db
-                var columnsName = string.Empty;
-                var columnsParam = string.Empty;
-                // Khai báo dynamicParam 
-                var dynamicParam = new DynamicParameters();
-                // Đọc từng property của object
-                var properties = customer.GetType().GetProperties();
-
-                // Duyệt từng property
-                foreach (var prop in properties)
-                {
-                    // Lấy tên của prop
-                    var propName = prop.Name;
-
-                    // Lấy value của prop
-                    var propValue = prop.GetValue(customer);
-
-                    // Lấy kiểu dữ liệu của prop
-                    var propType = prop.PropertyType;
-
-                    // Thêm param tương ứng với mỗi property của đối tượng
-                    dynamicParam.Add($"@{propName}", propValue);
-
-                    columnsName += $"{propName},";
-                    columnsParam += $"@{propName},";
-                }
-
-                columnsName = columnsName.Remove(columnsName.Length - 1, 1);
-                columnsParam = columnsParam.Remove(columnsParam.Length - 1, 1);
-
-                var sqlCommand = $"INSERT INTO Customer({columnsName}) VALUES({columnsParam})";
-
-                var rowEffects = dbConnection.Execute(sqlCommand, param: dynamicParam); // trả số bản ghi thay đổi
-
-                if (rowEffects > 0)
-                {
-                    var resultObj = new
-                    {
-                        message = Properties.ResourceResponseSuccess.Number_Row_Updated,
-                        row_Updated = rowEffects
-                    };
-                    return StatusCode(201, resultObj);
-                }
-                else
-                {
-                    var resultObj = new
-                    {
-                        message = Properties.Resources.Exception_Row_NoUpdated,
-                        row_Updated = rowEffects
-                    };
-                    return StatusCode(204, resultObj);
+                    return BadRequest(serviceResult.Data);
                 }
             }
             catch (Exception ex)
@@ -255,33 +145,16 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
         {
             try
             {
-                var connectionString = "Host = 47.241.69.179;" +
-                                    "Database = MISA.CukCuk_Demo_NVMANH;" +
-                                    "User Name = dev;" +
-                                    "Password = 12345678";
+                // 4. Trả về cho client
+                var serviceResult = _customerService.Delete(customerId);
 
-                IDbConnection dbConnection = new MySqlConnection(connectionString);
-
-                var sqlCommand = $"DELETE FROM Customer WHERE CustomerId = @CustomerIdParam"; // C1: '{customerId.ToString()}'
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@CustomerIdParam", customerId);
-                var customers = dbConnection.QueryFirstOrDefault<Customer>(sqlCommand, param: parameters); // Lấy bản ghi đầu tiên
-
-                if (customers != null)
+                if (serviceResult.IsValid == true)
                 {
-                    var resultObj = new
-                    {
-                        message = Properties.ResourceResponseSuccess.Number_Row_Updated,
-                    };
-                    return StatusCode(200);
+                    return StatusCode(201, serviceResult.Data);
                 }
                 else
                 {
-                    var resultObj = new
-                    {
-                        message = Properties.Resources.Exception_Row_NoDeleted,
-                    };
-                    return StatusCode(204, customers);
+                    return BadRequest(serviceResult.Data);
                 }
             }
             catch (Exception ex)
@@ -309,103 +182,14 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
         {
             try
             {
-                // Kiểm tra thông tin của khách hàng đã hợp lệ chưa?
-                // 1. Mã khách hàng bắt buộc phải có
-                if (customer.CustomerCode == "" || customer.CustomerCode == null)
+                var serviceResult = _customerService.Update(customer, customerId);
+                if (serviceResult.IsValid == true)
                 {
-                    var errorObj = new
-                    {
-                        devMsg = Properties.ResourceDev.Exception_Invalid_Input,
-                        userMeg = Properties.Resources.Exception_NullEmployeeCode,
-                        errorCode = "misa-002",
-                        moreInfo = "",
-                        traceId = ""
-                    };
-                    return BadRequest(errorObj);
-                }
-                // 2. Email đúng định dạng
-                if (customer.Email == "" || customer.Email == null)
-                {
-                    var errorObj = new
-                    {
-                        devMsg = Properties.ResourceDev.Exception_Invalid_Input,
-                        userMeg = Properties.Resources.Exception_Email_Null,
-                        errorCode = "misa-003",
-                        moreInfo = "",
-                        traceId = ""
-                    };
-                    return BadRequest(errorObj);
+                    return StatusCode(201, serviceResult.Data);
                 }
                 else
                 {
-                    var checkEmail = Regex.IsMatch(customer.Email, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
-                    if (checkEmail == false)
-                    {
-                        var errorObj = new
-                        {
-                            devMsg = Properties.ResourceDev.Exception_Invalid_Input,
-                            userMeg = Properties.Resources.Exception_Email_Invalid,
-                            errorCode = "misa-004",
-                            moreInfo = "",
-                            traceId = ""
-                        };
-                        return BadRequest(errorObj);
-                    }
-                }
-                var connectionString = "Host = 47.241.69.179;" +
-                                   "Database = MISA.CukCuk_Demo_NVMANH;" +
-                                   "User Name = dev;" +
-                                   "Password = 12345678";
-
-                IDbConnection dbConnection = new MySqlConnection(connectionString);
-
-                // Thêm dữ liệu vào db
-                var columnsName = string.Empty;
-                var columnsParam = string.Empty;
-                var resultString = string.Empty;
-                // Khai báo dynamicParam 
-                var dynamicParam = new DynamicParameters();
-                // Đọc từng property của object
-                var properties = customer.GetType().GetProperties();
-
-                // Duyệt từng property
-                foreach (var prop in properties)
-                {
-                    // Lấy tên của prop
-                    var propName = prop.Name;
-
-                    // Lấy value của prop
-                    var propValue = prop.GetValue(customer);
-
-                    // Lấy kiểu dữ liệu của prop
-                    var propType = prop.PropertyType;
-
-                    // Thêm param tương ứng với mỗi property của đối tượng
-                    dynamicParam.Add($"@{propName}", propValue);
-
-                    resultString += $"{propName} = " + $"@{propName},";
-                }
-                resultString = resultString.Remove(resultString.Length - 1, 1);
-                var sqlCommand = $"UPDATE Customer SET {resultString} WHERE CustomerId = '{customerId.ToString()}'";
-
-                var rowEffects = dbConnection.Execute(sqlCommand, param: dynamicParam);
-                if (rowEffects > 0)
-                {
-                    var resultObj = new
-                    {
-                        message = Properties.ResourceResponseSuccess.Edit_Susscess,
-                        row_Updated = rowEffects
-                    };
-                    return StatusCode(201, resultObj);
-                }
-                else
-                {
-                    var resultObj = new
-                    {
-                        message = Properties.Resources.Exception_Row_NoEdited,
-                        row_Updated = rowEffects
-                    };
-                    return StatusCode(204, resultObj);
+                    return BadRequest(serviceResult.Data);
                 }
                 
             }
