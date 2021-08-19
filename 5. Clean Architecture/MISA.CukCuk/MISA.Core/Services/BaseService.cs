@@ -48,9 +48,7 @@ namespace MISA.Core.Services
 
             }
             return _serviceResult;
-            // Validate data
-            //_serviceResult.Data = _baseRepository.Add(entity);
-            //return _serviceResult;
+            
         }
 
         public ServiceResult Delete(Guid entityId)
@@ -243,6 +241,57 @@ namespace MISA.Core.Services
                 return true;
             return false;
 
+        }
+
+        public ServiceResult GetNewCode()
+        {
+            
+            _serviceResult.MoreInfo = Properties.Resource.GET;
+            try
+            {
+                var employee = _baseRepository.GetNewCode();
+                if (employee != null)
+                {
+                    _serviceResult.SetSuccess(_serviceResult, employee);
+                }
+                else
+                {
+                    _serviceResult.SetNoContent(_serviceResult);
+                }
+            }
+            catch (Exception ex)
+            {
+                _serviceResult.SetInternalServerError(_serviceResult);
+                _serviceResult.DevMessage.Add($"Exception: {ex.Message}");
+            }
+            return _serviceResult;
+        }
+
+        public ServiceResult GetByProperty(string name, string value)
+        {
+            _serviceResult.MoreInfo = Properties.Resource.GET;
+            try
+            {
+                var entity = _baseRepository.GetByProperty(name, value);
+                _serviceResult.SetSuccess(_serviceResult, entity);
+                if (entity != null)
+                {
+                    _serviceResult.UserMessage = $"Giá trị {value} đã tồn tại";
+                    _serviceResult.DevMessage.Add($"Giá trị {value} đã tồn tại");
+                }
+                else
+                {
+                    _serviceResult.UserMessage = $"Giá trị {value} chưa có trong csdl";
+                    _serviceResult.DevMessage.Add($"Giá trị {value} chưa có trong csdl");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _serviceResult.SetInternalServerError(_serviceResult);
+                _serviceResult.DevMessage.Add($"Exception: {ex.Message}");
+            }
+            return _serviceResult;
         }
     }
 }

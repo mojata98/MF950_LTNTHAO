@@ -12,9 +12,6 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
     [ApiController]
     public class BaseEntityController<MISAEntity> : ControllerBase
     {
-        //#region DECLARE
-        //IBaseService<MISAEntity> _baseService;
         
-        //#endregion
     }
 }

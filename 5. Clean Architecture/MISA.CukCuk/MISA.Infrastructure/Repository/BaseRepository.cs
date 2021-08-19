@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using MISA.Core.Interfaces.Repository;
 using MySqlConnector;
 using System;
@@ -9,29 +10,37 @@ using System.Text;
 
 namespace MISA.Infrastructure.Repository
 {
-    public class BaseRepository<MISAEntity> : IBaseRepository<MISAEntity>
+    public class BaseRepository<MISAEntity> : IBaseRepository<MISAEntity>, IDisposable
 
     {
+        #region Declare
+        IConfiguration _configuration;
         protected string _tableName;
-        protected string _connectString;
+        protected string _connectString = null;
         protected IDbConnection _dbConnection;
-        DynamicParameters parameter; 
+        DynamicParameters parameter;
+        #endregion
+
         #region Constructor
-        public BaseRepository()
+        public BaseRepository(IConfiguration configuration)
         {
+            _configuration = configuration;
             _tableName = typeof(MISAEntity).Name;
-            _connectString = "" +
-                "Host = 47.241.69.179;" +
-                "Database = MISACukCuk_MF950_LNTHAO;" +
-                "User Id = dev;" +
-                "Password = 12345678";
+            _connectString = _configuration.GetConnectionString("MISACukCuk");
             _dbConnection = new MySqlConnection(_connectString);
             parameter = new DynamicParameters();
         }
         #endregion
 
+        /// <summary>
+        /// Thêm mới bản ghi
+        /// </summary>
+        /// <param name="entity">Thông tin thêm mới</param>
+        /// <returns></returns>
+        /// CreatedBy: LNT (19/08)
         public int Add(MISAEntity entity)
         {
+            parameter = new DynamicParameters();
             string sqlCommand = $"Proc_Insert{_tableName}";
             foreach (PropertyInfo prop in entity.GetType().GetProperties())
             {
@@ -47,6 +56,12 @@ namespace MISA.Infrastructure.Repository
             }
         }
 
+        /// <summary>
+        /// Xóa thông tin theo ID
+        /// </summary>
+        /// <param name="entityId">ID cần xóa thông tin</param>
+        /// <returns></returns>
+        /// CreatedBy: LNT (19/08)
         public int Delete(Guid entityId)
         {
             parameter.Add($"@{_tableName}Id", entityId.ToString());
@@ -55,6 +70,11 @@ namespace MISA.Infrastructure.Repository
             return rowEffects;
         }
 
+        /// <summary>
+        /// Lấy danh sách thông tin
+        /// </summary>
+        /// <returns></returns>
+        /// CreatedBy: LNT (19/08)
         public IEnumerable<MISAEntity> Get()
         {
             string sqlCommand = $"Proc_Get{_tableName}s";
@@ -62,31 +82,53 @@ namespace MISA.Infrastructure.Repository
             return entities;
         }
 
+        /// <summary>
+        /// Lấy thông tin từ ID
+        /// </summary>
+        /// <param name="entityId">ID cần lấy thông tin</param>
+        /// <returns></returns>
         public MISAEntity GetById(Guid entityId)
         {
-            
             parameter.Add($"@{_tableName}Id", entityId.ToString());
             string sqlCommand = $"Proc_Get{_tableName}ById";
             var entity = _dbConnection.QueryFirstOrDefault<MISAEntity>(sqlCommand, param: parameter, commandType: CommandType.StoredProcedure);
             return entity;
         }
 
+        /// <summary>
+        /// Cập nhật thông tin 
+        /// </summary>
+        /// <param name="entity">Thông tin cập nhật</param>
+        /// <param name="entityId">ID cần cập nhật</param>
+        /// <returns></returns>
+        /// CreatedBy: LNT (19/08)
         public int Update(MISAEntity entity, Guid entityId)
         {
+            DynamicParameters parameters = new DynamicParameters();
             string sqlCommand = $"Proc_Update{_tableName}";
             foreach (PropertyInfo prop in entity.GetType().GetProperties())
             {
                 var value = prop.GetValue(entity) == "" ? null : prop.GetValue(entity);
-                parameter.Add($"@{prop.Name}", value);
+                parameters.Add($"@{prop.Name}", value);
             }
-            parameter.Add($"@{_tableName}Id", entityId.ToString());
+            parameters.Add($"@{_tableName}Id", entityId.ToString());
             _dbConnection.Open();
             using (var transaction = _dbConnection.BeginTransaction())
             {
-                int rowAffects = _dbConnection.Execute(sqlCommand, param: parameter, transaction, commandType: CommandType.StoredProcedure);
+                int rowAffects = _dbConnection.Execute(sqlCommand, param: parameters, transaction, commandType: CommandType.StoredProcedure);
                 transaction.Commit();
                 return rowAffects;
             }
+        }
+        /// <summary>
+        /// Lấy mã mới 
+        /// </summary>
+        /// <returns></returns>
+        public string GetNewCode()
+        {
+            string oldCode = _dbConnection.QueryFirstOrDefault<string>($"Proc_GetNew{_tableName}Code", commandType: CommandType.StoredProcedure);
+            string newCode = GenerateNewCode(oldCode);
+            return newCode;
         }
 
         /// <summary>
@@ -101,6 +143,53 @@ namespace MISA.Infrastructure.Repository
             parameter.Add("@Value", propertyValue);
             var entity = _dbConnection.QueryFirstOrDefault<MISAEntity>(sqlCommand, param: parameter, commandType: CommandType.StoredProcedure);
             return entity;
+        }
+
+        /// <summary>
+        /// Tạo mã mới
+        /// </summary>
+        /// <param name="oldCode">Mã nhân viên cũ</param>
+        /// <returns></returns>
+        /// CreatedBy : LP(12/8)
+        public string GenerateNewCode(string oldCode)
+        {
+            string changeValue = "";
+            int plus = 1;
+            int brk = 0;
+            for (int i = oldCode.Length - 1; i >= 0; i--)
+            {
+                brk = i;
+                if (oldCode[i] >= '0' && oldCode[i] <= '9')
+                {
+                    int n = (int)(oldCode[i] - '0');
+                    if (n + plus >= 10)
+                    {
+                        int v = (n + plus) - 10;
+                        plus = 1;
+                        changeValue = v.ToString() + changeValue;
+                    }
+                    else
+                    {
+                        changeValue = (n + plus).ToString() + changeValue;
+                        break;
+                    }
+                }
+                else
+                {
+                    brk += 1;
+                    changeValue = plus.ToString() + changeValue;
+                    break;
+                }
+            }
+            return oldCode.Substring(0, brk) + changeValue;
+        }
+
+        /// <summary>
+        /// Hủy kết nối DATABASE
+        /// </summary>
+        public void Dispose()
+        {
+            _dbConnection.Dispose();
         }
     }
 }   
