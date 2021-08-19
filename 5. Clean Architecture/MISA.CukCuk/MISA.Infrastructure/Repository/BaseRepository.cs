@@ -64,6 +64,7 @@ namespace MISA.Infrastructure.Repository
         /// CreatedBy: LNT (19/08)
         public int Delete(Guid entityId)
         {
+            parameter = new DynamicParameters();
             parameter.Add($"@{_tableName}Id", entityId.ToString());
             string sqlCommand = $"Proc_Delete{_tableName}ById";
             int rowEffects = _dbConnection.Execute(sqlCommand, param: parameter, commandType: CommandType.StoredProcedure);
@@ -77,6 +78,7 @@ namespace MISA.Infrastructure.Repository
         /// CreatedBy: LNT (19/08)
         public IEnumerable<MISAEntity> Get()
         {
+            parameter = new DynamicParameters();
             string sqlCommand = $"Proc_Get{_tableName}s";
             var entities = _dbConnection.Query<MISAEntity>(sqlCommand, commandType: CommandType.StoredProcedure);
             return entities;
@@ -89,6 +91,7 @@ namespace MISA.Infrastructure.Repository
         /// <returns></returns>
         public MISAEntity GetById(Guid entityId)
         {
+            parameter = new DynamicParameters();
             parameter.Add($"@{_tableName}Id", entityId.ToString());
             string sqlCommand = $"Proc_Get{_tableName}ById";
             var entity = _dbConnection.QueryFirstOrDefault<MISAEntity>(sqlCommand, param: parameter, commandType: CommandType.StoredProcedure);
@@ -104,18 +107,18 @@ namespace MISA.Infrastructure.Repository
         /// CreatedBy: LNT (19/08)
         public int Update(MISAEntity entity, Guid entityId)
         {
-            DynamicParameters parameters = new DynamicParameters();
+            parameter = new DynamicParameters();
             string sqlCommand = $"Proc_Update{_tableName}";
             foreach (PropertyInfo prop in entity.GetType().GetProperties())
             {
                 var value = prop.GetValue(entity) == "" ? null : prop.GetValue(entity);
-                parameters.Add($"@{prop.Name}", value);
+                parameter.Add($"@{prop.Name}", value);
             }
-            parameters.Add($"@{_tableName}Id", entityId.ToString());
+            parameter.Add($"@{_tableName}Id", entityId.ToString());
             _dbConnection.Open();
             using (var transaction = _dbConnection.BeginTransaction())
             {
-                int rowAffects = _dbConnection.Execute(sqlCommand, param: parameters, transaction, commandType: CommandType.StoredProcedure);
+                int rowAffects = _dbConnection.Execute(sqlCommand, param: parameter, transaction, commandType: CommandType.StoredProcedure);
                 transaction.Commit();
                 return rowAffects;
             }
@@ -139,6 +142,7 @@ namespace MISA.Infrastructure.Repository
         /// <returns></returns>
         public MISAEntity GetByProperty(string propertyName, string propertyValue)
         {
+            parameter = new DynamicParameters();
             string sqlCommand = $"Proc_Get{_tableName}By{propertyName}";
             parameter.Add("@Value", propertyValue);
             var entity = _dbConnection.QueryFirstOrDefault<MISAEntity>(sqlCommand, param: parameter, commandType: CommandType.StoredProcedure);

@@ -8,11 +8,16 @@ using Dapper;
 using MySqlConnector;
 using System.Text.RegularExpressions;
 using System.Data;
+using Microsoft.Extensions.Configuration;
 
 namespace MISA.Core.Services
 {
     public class EmployeeService : BaseService<Employee>, IEmployeeService
     {
+        public EmployeeService(IBaseRepository<Employee> baseRepository):base(baseRepository)
+        {
+
+        }
         //IEmployeeRepository _employeeRepository;
         //ServiceResult _serviceResult;
         //public EmployeeService(IEmployeeRepository employeeRepository, IBaseRepository<Employee> baseRepository) : base(baseRepository)

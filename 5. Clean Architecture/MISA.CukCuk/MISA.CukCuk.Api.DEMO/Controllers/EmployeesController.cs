@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using MISA.Core.Entities;
 using MISA.Core.Interfaces.Repository;
 using MISA.Core.Interfaces.Services;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MISA.CukCuk.Api.DEMO.Controllers
@@ -88,5 +91,48 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
             ServiceResult serviceResult = _employeeService.Delete(employeeId);
             return Ok(serviceResult);
         }
+
+        [HttpPost("Import")]
+        public IActionResult Import(IFormFile formFile, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var list = new List<Employee>();
+
+                using (var stream = new MemoryStream())
+                {
+                    formFile.CopyToAsync(stream, cancellationToken);
+
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                        var rowCount = worksheet.Dimension.Rows;
+
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            list.Add(new Employee
+                            {
+                                EmployeeCode = worksheet.Cells[row, 1].Value.ToString().Trim(),
+                                FullName = worksheet.Cells[row, 2].Value.ToString().Trim(),
+                                IdentityNumber = worksheet.Cells[row, 1].Value.ToString().Trim(),
+                                //FullName = int.Parse(worksheet.Cells[row, 2].Value.ToString().Trim()),
+                            });
+                        }
+                    }
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                var obj = new
+                {
+                    devMsg = ex.Message,
+                    userMsg = "Error!"
+                };
+                return StatusCode(500, obj);
+            }
+        }
     }
+
+    
 }
