@@ -22,5 +22,33 @@ namespace MISA.Core.Entities
         /// Người sửa
         /// </summary>
         public string ModifiedBy { get; set; }
+
+        
+    }
+    //---------------------------------------------
+    /// <summary>
+    /// Cờ Required yêu cầu không để trống
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class Required : Attribute
+    {
+
+    }
+
+    /// <summary>
+    /// Cờ Duplication thông báo thông tin không được trùng
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class Duplication : Attribute
+    {
+
+    }
+
+    /// <summary>
+    /// Cờ Email yêu cầu thông tin email ohair đúng đinh dạng
+    /// </summary>
+    public class Email : Attribute
+    {
+
     }
 }

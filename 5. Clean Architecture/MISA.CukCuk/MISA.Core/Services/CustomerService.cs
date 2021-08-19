@@ -80,51 +80,51 @@ namespace MISA.Core.Services
                 }
             }
             // 3. Check trùng mã nhân viên khi thêm
-            try
-            {
-                var connectionString = "Host = 47.241.69.179;" +
-                                        "Database = MISA.CukCuk_Demo_NVMANH;" +
-                                        "User Name = dev;" +
-                                        "Password = 12345678";
+            //try
+            //{
+            //    var connectionString = "Host = 47.241.69.179;" +
+            //                            "Database = MISA.CukCuk_Demo_NVMANH;" +
+            //                            "User Name = dev;" +
+            //                            "Password = 12345678";
 
-                IDbConnection dbConnection = new MySqlConnection(connectionString);
+            //    IDbConnection dbConnection = new MySqlConnection(connectionString);
 
                 
-                var sqlCommand = $"SELECT * FROM Customer WHERE CustomerCode = @CustomerCodeParam";
-                DynamicParameters dynamicParam = new DynamicParameters();
-                dynamicParam.Add("@CustomerCodeParam", customer.CustomerCode);
-                var rowFind = dbConnection.Execute(sqlCommand, param:dynamicParam);
+            //    var sqlCommand = $"SELECT * FROM Customer WHERE CustomerCode = @CustomerCodeParam";
+            //    DynamicParameters dynamicParam = new DynamicParameters();
+            //    dynamicParam.Add("@CustomerCodeParam", customer.CustomerCode);
+            //    var rowFind = dbConnection.Execute(sqlCommand, param:dynamicParam);
 
-                if (rowFind != null)
-                {
-                    var errorObj = new
-                    {
-                        devMsg = "Dữ liệu đầu vào chưa đúng",
-                        userMeg = "Mã khách hàng bị trùng",
-                        errorCode = "misa-004",
-                        moreInfo = rowFind,
-                        traceId = ""
-                    };
-                    _serviceResult.IsValid = false;
-                    _serviceResult.Data = errorObj;
-                    return _serviceResult;
-                }
+            //    if (rowFind != null)
+            //    {
+            //        var errorObj = new
+            //        {
+            //            devMsg = "Dữ liệu đầu vào chưa đúng",
+            //            userMeg = "Mã khách hàng bị trùng",
+            //            errorCode = "misa-004",
+            //            moreInfo = rowFind,
+            //            traceId = ""
+            //        };
+            //        _serviceResult.IsValid = false;
+            //        _serviceResult.Data = errorObj;
+            //        return _serviceResult;
+            //    }
                 
-            }
-            catch (Exception ex)
-            {
-                var errorObj = new
-                {
-                    devMsg = ex.Message,
-                    userMeg = "Có lỗi, vui lòng liên hệ MISA!",
-                    errorCode = "misa-001",
-                    moreInfo = "",
-                    traceId = ""
-                };
-                _serviceResult.IsValid = false;
-                _serviceResult.Data = errorObj;
-                return _serviceResult;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    var errorObj = new
+            //    {
+            //        devMsg = ex.Message,
+            //        userMeg = "Có lỗi, vui lòng liên hệ MISA!",
+            //        errorCode = "misa-001",
+            //        moreInfo = "",
+            //        traceId = ""
+            //    };
+            //    _serviceResult.IsValid = false;
+            //    _serviceResult.Data = errorObj;
+            //    return _serviceResult;
+            //}
             // Tương tác kết nối DB (Phần việc của Repos => Chuyển cho Repos)
             _serviceResult.Data = _customerRepository.Add(customer);
             return _serviceResult;

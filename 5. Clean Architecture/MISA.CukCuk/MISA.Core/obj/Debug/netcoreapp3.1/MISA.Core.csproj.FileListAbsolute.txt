@@ -7,3 +7,5 @@ C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core
 C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.csproj.CoreCompileInputs.cache
 C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.dll
 C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.pdb
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.Properties.Resource.resources
+C:\Users\Admin\Desktop\MF950_LTNTHAO\5. Clean Architecture\MISA.CukCuk\MISA.Core\obj\Debug\netcoreapp3.1\MISA.Core.csproj.GenerateResource.cache

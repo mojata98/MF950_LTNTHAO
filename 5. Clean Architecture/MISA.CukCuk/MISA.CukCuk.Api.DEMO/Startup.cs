@@ -41,10 +41,12 @@ namespace MISA.CukCuk.Api.DEMO
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            
+            services.AddScoped(typeof(IBaseRepository<>),  typeof(BaseRepository<>));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,7 +72,14 @@ namespace MISA.CukCuk.Api.DEMO
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true)
+                // allow any origin
+                //.WithOrigins("https://localhost:44344")); 
+                // Allow only this origin can also have multiple origins separated with comma
+                .AllowCredentials()); // allow credentials
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

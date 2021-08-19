@@ -15,7 +15,7 @@ namespace MISA.Infrastructure.Repository
         {
             customer.CustomerId = Guid.NewGuid();
             var connectionString = "Host = 47.241.69.179;" +
-                                    "Database = MISA.CukCuk_Demo_NVMANH;" +
+                                    "Database = MISACukCuk_MF950_LNTHAO;" +
                                     "User Name = dev;" +
                                     "Password = 12345678";
 
@@ -61,7 +61,7 @@ namespace MISA.Infrastructure.Repository
         public int Delete(Guid customerId)
         {
             var connectionString = "Host = 47.241.69.179;" +
-                                    "Database = MISA.CukCuk_Demo_NVMANH;" +
+                                    "Database = MISACukCuk_MF950_LNTHAO;" +
                                     "User Name = dev;" +
                                     "Password = 12345678";
 
@@ -80,7 +80,7 @@ namespace MISA.Infrastructure.Repository
                 // Truy cập vào database
                 // 1. Khai báo thông tin database
                 var connectionString = "Host = 47.241.69.179;" +
-                                        "Database = MISA.CukCuk_Demo_NVMANH;" +
+                                        "Database = MISACukCuk_MF950_LNTHAO;" +
                                         "User Name = dev;" +
                                         "Password = 12345678";
 
@@ -98,7 +98,7 @@ namespace MISA.Infrastructure.Repository
         public Customer GetById(Guid customerId)
         {
             var connectionString = "Host = 47.241.69.179;" +
-                                    "Database = MISA.CukCuk_Demo_NVMANH;" +
+                                    "Database = MISACukCuk_MF950_LNTHAO;" +
                                     "User Name = dev;" +
                                     "Password = 12345678";
 
@@ -114,7 +114,7 @@ namespace MISA.Infrastructure.Repository
         public int Update(Customer customer, Guid customerId)
         {
             var connectionString = "Host = 47.241.69.179;" +
-                                   "Database = MISA.CukCuk_Demo_NVMANH;" +
+                                   "Database = MISACukCuk_MF950_LNTHAO;" +
                                    "User Name = dev;" +
                                    "Password = 12345678";
 

@@ -253,7 +253,7 @@
         </table>
       </div>
       <!-------------------------------------------------------FOOTER-------------------------------------------------------->
-      <div class="footer">
+      <!-- <div class="footer">
         <div class="footer-left">
           Hiển thị <b id="employeeTotal">1-10/1000</b> nhân viên
         </div>
@@ -270,7 +270,10 @@
           </div>
         </div>
         <div class="footer-right">10 nhân viên/trang</div>
-      </div>
+      </div> -->
+      <BasePagination2 
+      style="position: absolute; bottom: 0;width: 100%;height: 56px; "
+      v-bind:active="pageIndex" v-bind:size="pageSize"/>
     </div>
     <EmployeeDetail
       v-bind:employeeId="employeeId"
@@ -289,6 +292,7 @@ import EmployeeDetail from "../employee/EmployeeDetail.vue";
 import BasePopup from "../../components/base/BasePopup.vue";
 import BaseDropdown from "../../components/base/BaseDropdown.vue";
 import eventBus from '../../js/eventBus';
+import BasePagination2 from '../../components/base/BasePagination.vue';
 // import $ from 'jquery';
 export default {
   name: "EmployeePage",
@@ -296,6 +300,7 @@ export default {
     EmployeeDetail,
     BasePopup,
     BaseDropdown,
+    BasePagination2,
   },
 
   data() {
@@ -311,6 +316,11 @@ export default {
       employee: {},
       employeeCheck: [],
       turnOn: false,
+      keyword: "",
+      positionId: "",
+      departmentId: "",
+      pageIndex: 1,
+      pageSize: 12,
     };
   },
 
@@ -389,6 +399,26 @@ export default {
       this.employeeCheck.splice(0, this.employeeCheck.length);
       console.log(this.employeeCheck);
     });
+  
+    eventBus.$on("pagination", (page) => {
+      this.pageIndex = page;
+      this.filterEmployees(
+        this.pageIndex,
+        this.pageSize,
+        this.keyword,
+        this.departmentId,
+        this.positionId
+      );
+    });
+  
+    // get all employees
+    this.filterEmployees(
+      this.pageIndex,
+      this.pageSize,
+      this.keyword,
+      this.departmentId,
+      this.positionId
+    );
   },
 
   methods: {
@@ -412,9 +442,10 @@ export default {
       //       icon: true,
       //       rtl: false,
       //     });
-      axios
-        .get("http://cukcuk.manhnv.net/v1/Employees")
+      axios//
+        .get("https://localhost:44344/api/v1/Employees")//http://cukcuk.manhnv.net/v1/Employees
         .then((res) => {
+          // Response.AppendHeader ("Access-Control-Allow-Origin", "*");
           vm.employees = res.data;
           this.$toast.info("Load dữ liệu thành công!", {
             position: "bottom-right",
@@ -548,6 +579,30 @@ export default {
       this.employeeCheck.push(index);
       console.log(this.employeeCheck);
       // eventBus.$emit("deleteAllChecked", this.employeeCheck);
+    },
+
+    /**
+     * Filter data by keyword, departmentId, positionId api
+     * Author : LP(7/8)
+     */
+    async filterEmployees(
+      pageIndex,
+      pageSize,
+      keyword,
+      departmentId,
+      positionId
+    ) {
+      try {
+        let result = await axios.get(
+          "http://cukcuk.manhnv.net/v1/Employees" +
+            `/paging?keyword=${keyword}&positionId=${positionId}&departmentId=${departmentId}&pageIndex=${
+              (pageIndex-1) * pageSize
+            }&pageSize=${pageSize}`
+        );
+        this.employees = result.data;
+      } catch (error) {
+        console.log("filterEmployees\n" + error);
+      }
     },
   },
 };

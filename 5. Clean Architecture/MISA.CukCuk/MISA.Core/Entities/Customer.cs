@@ -15,14 +15,14 @@ namespace MISA.Core.Entities
         /// Mã khách hàng
         /// </summary>
         public string CustomerCode { get; set; }
-        /// <summary>
-        /// Họ
-        /// </summary>
-        public string FirstName { get; set; }
-        /// <summary>
-        /// Tên
-        /// </summary>
-        public string LastName { get; set; }
+        ///// <summary>
+        ///// Họ
+        ///// </summary>
+        //public string FirstName { get; set; }
+        ///// <summary>
+        ///// Tên
+        ///// </summary>
+        //public string LastName { get; set; }
         /// <summary>
         /// Tên đầy đủ
         /// </summary>

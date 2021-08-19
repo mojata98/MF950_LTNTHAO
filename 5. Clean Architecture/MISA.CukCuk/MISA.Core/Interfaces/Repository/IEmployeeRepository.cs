@@ -5,16 +5,20 @@ using System.Text;
 
 namespace MISA.Core.Interfaces.Repository
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository: IBaseRepository<Employee>
     {
-        List<Employee> Get();
+        //List<Employee> Get();
 
-        Employee GetById(Guid employeeId);
+        //Employee GetById(Guid employeeId);
 
-        int Add(Employee employee);
+        //int Add(Employee employee);
 
-        int Update(Employee employee, Guid employeeId);
+        //int Update(Employee employee, Guid employeeId);
 
-        int Delete(Guid employeeId);
+        //int Delete(Guid employeeId);
+
+        //public string GetNewEmployeeCode();
+
+
     }
 }
