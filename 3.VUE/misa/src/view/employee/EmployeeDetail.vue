@@ -265,7 +265,7 @@
                         itemName="DepartmentName"
                         :selectedId="employee.DepartmentId"
                         v-model="employee.DepartmentId"
-                        myUrl="api/Department"
+                        myUrl="v1/Departments"
                         dropdownValue="txtDepartmentName"
                       />
                     </div>
@@ -419,7 +419,7 @@ export default {
         this.$refs.EmployeeCode.focus();
       });
       axios
-        .get("http://cukcuk.manhnv.net/v1/Employees/NewEmployeeCode")
+        .get("https://localhost:44338/api/v1/Employees/NewEmployeeCode")
         .then((res) => {
           this.employee.EmployeeCode = res.data;
           this.$refs.EmployeeCode.value = res.data;
@@ -477,7 +477,7 @@ export default {
           let vm = this;
           // Thêm mới nhân viên
           await axios
-            .post(`http://cukcuk.manhnv.net/v1/Employees`, vm.employee)
+            .post(`https://localhost:44338/api/v1/Employees`, vm.employee)
             .then((res) => {
               this.$toast.success(
                 "Thêm mới thành công! \nHệ thống đang tải lại dữ liệu!",
@@ -515,6 +515,7 @@ export default {
                 icon: true,
                 rtl: false,
               });
+              console.log(this.employee);
               console.log(res);
             });
           this.employee = {};
@@ -524,7 +525,7 @@ export default {
           // Sửa thông tin nhân viên
           await axios
             .put(
-              `http://cukcuk.manhnv.net/v1/Employees/${vm.employeeId}`,vm.employee)
+              `https://localhost:44338/api/v1/Employees/${vm.employeeId}`,vm.employee)
             .then((res) => {
               this.$toast.success(
                 "Sửa thông tin thành công! \nHệ thống đang tải lại dữ liệu!",
@@ -646,7 +647,7 @@ export default {
     employeeId: function (value) {
       let vm = this;
       axios
-        .get(`http://cukcuk.manhnv.net/v1/Employees/${value}`)
+        .get(`https://localhost:44338/api/v1/Employees/${value}`)
         .then((res) => {
           vm.employee = res.data;
           // vm.employee.Salary = Number(vm.employee.Salary).toLocaleString("vi");

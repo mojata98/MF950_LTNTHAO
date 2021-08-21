@@ -38,7 +38,7 @@ namespace MISA.Infrastructure.Repository
         /// <param name="entity">Thông tin thêm mới</param>
         /// <returns></returns>
         /// CreatedBy: LNT (19/08)
-        public int Add(MISAEntity entity)
+        public virtual int Add(MISAEntity entity)
         {
             parameter = new DynamicParameters();
             string sqlCommand = $"Proc_Insert{_tableName}";
@@ -62,7 +62,7 @@ namespace MISA.Infrastructure.Repository
         /// <param name="entityId">ID cần xóa thông tin</param>
         /// <returns></returns>
         /// CreatedBy: LNT (19/08)
-        public int Delete(Guid entityId)
+        public virtual int Delete(Guid entityId)
         {
             parameter = new DynamicParameters();
             parameter.Add($"@{_tableName}Id", entityId.ToString());
@@ -76,7 +76,7 @@ namespace MISA.Infrastructure.Repository
         /// </summary>
         /// <returns></returns>
         /// CreatedBy: LNT (19/08)
-        public IEnumerable<MISAEntity> Get()
+        public virtual IEnumerable<MISAEntity> Get()
         {
             parameter = new DynamicParameters();
             string sqlCommand = $"Proc_Get{_tableName}s";
@@ -89,7 +89,7 @@ namespace MISA.Infrastructure.Repository
         /// </summary>
         /// <param name="entityId">ID cần lấy thông tin</param>
         /// <returns></returns>
-        public MISAEntity GetById(Guid entityId)
+        public virtual MISAEntity GetById(Guid entityId)
         {
             parameter = new DynamicParameters();
             parameter.Add($"@{_tableName}Id", entityId.ToString());
@@ -105,7 +105,7 @@ namespace MISA.Infrastructure.Repository
         /// <param name="entityId">ID cần cập nhật</param>
         /// <returns></returns>
         /// CreatedBy: LNT (19/08)
-        public int Update(MISAEntity entity, Guid entityId)
+        public virtual int Update(MISAEntity entity, Guid entityId)
         {
             parameter = new DynamicParameters();
             string sqlCommand = $"Proc_Update{_tableName}";
@@ -127,7 +127,7 @@ namespace MISA.Infrastructure.Repository
         /// Lấy mã mới 
         /// </summary>
         /// <returns></returns>
-        public string GetNewCode()
+        public virtual string GetNewCode()
         {
             string oldCode = _dbConnection.QueryFirstOrDefault<string>($"Proc_GetNew{_tableName}Code", commandType: CommandType.StoredProcedure);
             string newCode = GenerateNewCode(oldCode);
@@ -140,11 +140,11 @@ namespace MISA.Infrastructure.Repository
         /// <param name="propertyName">Tên thuộc tính</param>
         /// <param name="propertyValue">Giá trị thuộc tính</param>
         /// <returns></returns>
-        public MISAEntity GetByProperty(string propertyName, string propertyValue)
+        public virtual MISAEntity GetByProperty(string propertyName, string propertyValue)
         {
             parameter = new DynamicParameters();
             string sqlCommand = $"Proc_Get{_tableName}By{propertyName}";
-            parameter.Add("@Value", propertyValue);
+            parameter.Add($"{propertyName}", propertyValue);
             var entity = _dbConnection.QueryFirstOrDefault<MISAEntity>(sqlCommand, param: parameter, commandType: CommandType.StoredProcedure);
             return entity;
         }
@@ -155,7 +155,7 @@ namespace MISA.Infrastructure.Repository
         /// <param name="oldCode">Mã nhân viên cũ</param>
         /// <returns></returns>
         /// CreatedBy : LP(12/8)
-        public string GenerateNewCode(string oldCode)
+        public virtual string GenerateNewCode(string oldCode)
         {
             string changeValue = "";
             int plus = 1;

@@ -210,6 +210,98 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
             }         
         }
 
-        
+        /// <summary>
+        /// Import file excel
+        /// </summary>
+        /// <param name="formFile"></param>
+        /// <returns></returns>
+        [HttpPost("Import")]
+        public IActionResult Import(IFormFile formFile)
+        {
+            try
+            {
+                var serviceResult = _customerService.Import(formFile);
+                if (serviceResult.IsValid == true)
+                {
+                    return StatusCode(201, serviceResult.Data);
+                }
+                else
+                {
+                    return BadRequest(serviceResult.Data);
+                }
+
+                //var res = _customerService.Import(formFile);
+                //if (res.ErrorCode == MISACode.NoValid)
+                //{
+                //    res.Status = RequestStatus.Fail;
+                //    return StatusCode(400, res);
+                //}
+                //else if (res.Status == RequestStatus.Fail)
+                //{
+                //    return StatusCode(204, res);
+                //}
+                //else
+                //{
+                //    return StatusCode(200, res.Data);
+                //}
+            }
+            catch (Exception ex)
+            {
+                var errorObj = new
+                {
+                    devMsg = ex.Message,
+                    userMeg = Properties.Resources.Exception_ErrorMsg,
+                    errorCode = "misa-001",
+                    moreInfo = "",
+                    traceId = ""
+                };
+                return StatusCode(500, errorObj);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("InsertFromFile")]
+        public IActionResult InsertFromFile()
+        {
+            try
+            {
+                var serviceResult = _customerService.InsertCustomersFromFile();
+                if (serviceResult.IsValid == true)
+                {
+                    return StatusCode(201, serviceResult.Data);
+                }
+                else
+                {
+                    return BadRequest(serviceResult.Data);
+                }
+
+                var result = _customerService.InsertCustomersFromFile();
+                //if (result.Count == 0)
+                //{
+                //    _serviceResult.Status = RequestStatus.Fail;
+                //    return StatusCode(204, result);
+                //}
+                //else
+                //{
+                //    _serviceResult.Status = RequestStatus.Complete;
+                //    return StatusCode(200, result);
+                //}
+            }
+            catch (Exception ex)
+            {
+                var errorObj = new
+                {
+                    devMsg = ex.Message,
+                    userMeg = Properties.Resources.Exception_ErrorMsg,
+                    errorCode = "misa-001",
+                    moreInfo = "",
+                    traceId = ""
+                };
+                return StatusCode(500, errorObj);
+            }
+        }
     }
 }

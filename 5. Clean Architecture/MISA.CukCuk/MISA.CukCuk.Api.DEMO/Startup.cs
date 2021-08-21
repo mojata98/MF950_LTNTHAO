@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using MISA.Core.Interfaces.Repository;
 using MISA.Core.Interfaces.Services;
 using MISA.Core.Services;
@@ -32,7 +33,10 @@ namespace MISA.CukCuk.Api.DEMO
             services.AddCors();
             services.AddControllers();
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Create By Lê Thị Ngọc Thảo", Version = "v1" });
+            });
 
             services.AddControllers().AddJsonOptions(jsonOptions =>
             {
@@ -58,13 +62,14 @@ namespace MISA.CukCuk.Api.DEMO
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DEMO MISA CukCuk");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "DEMO MISA CukCuk v1");
                 c.RoutePrefix = "";
             });
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
             }
 
             app.UseHttpsRedirection();

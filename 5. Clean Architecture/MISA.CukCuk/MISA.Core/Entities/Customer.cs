@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MISA.Core.Entities
 {
-    public class Customer
+    public class Customer : CustomerGroup
     {
         #region Property
         /// <summary>
@@ -18,11 +18,11 @@ namespace MISA.Core.Entities
         ///// <summary>
         ///// Họ
         ///// </summary>
-        //public string FirstName { get; set; }
+        public string FirstName { get; set; }
         ///// <summary>
         ///// Tên
         ///// </summary>
-        //public string LastName { get; set; }
+        public string LastName { get; set; }
         /// <summary>
         /// Tên đầy đủ
         /// </summary>
@@ -36,6 +36,10 @@ namespace MISA.Core.Entities
         /// </summary>
         public string Address { get; set; }
         /// <summary>
+        /// Ngày sinh
+        /// </summary>
+        public DateTime? DateOfBirth { get; set; }
+        /// <summary>
         /// Email
         /// </summary>
         public string Email { get; set; }
@@ -44,9 +48,27 @@ namespace MISA.Core.Entities
         /// </summary>
         public string PhoneNumber { get; set; }
         /// <summary>
-        /// Ngày sinh
+        /// Số dư nợ?
         /// </summary>
-        public DateTime? DateOfBirth { get; set; }
+        public Double DebitAmount { get; set; }
+        /// <summary>
+        /// Mã thẻ thành viên
+        /// </summary>
+        public string MemberCardCode { get; set; }
+        /// <summary>
+        /// Tên công ty
+        /// </summary>
+        public string CompanyName { get; set; }
+        /// <summary>
+        /// Mã số thuế công ty
+        /// </summary>
+        public string CompanyTaxCode { get; set; }
+        /// <summary>
+        /// Hiệu lực mã số thuế
+        /// </summary>
+        public bool IsStopTaxCode { get; set; }
+
+
         #endregion
     }
 }

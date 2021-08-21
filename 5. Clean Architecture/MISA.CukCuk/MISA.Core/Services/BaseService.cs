@@ -34,6 +34,7 @@ namespace MISA.Core.Services
                     if (rowEffects > 0)
                     {
                         _serviceResult.SetSuccess(_serviceResult, rowEffects);
+                        _serviceResult.ResultCode = (int)EnumServiceResult.Created;
                     }
                     else
                     {
@@ -174,6 +175,7 @@ namespace MISA.Core.Services
                         _serviceResult.ResultCode = (int)EnumServiceResult.BadRequest;
                         _serviceResult.DevMessage.Add($"Giá trị {name} không được để trống");
                         _serviceResult.UserMessage = $"Giá trị {name} không được để trống";
+                        return _serviceResult;
                     }
 
                     if (property.IsDefined(typeof(Duplication), false) && IsDuplication(name, (string)value))
@@ -181,6 +183,7 @@ namespace MISA.Core.Services
                         _serviceResult.ResultCode = (int)EnumServiceResult.BadRequest;
                         _serviceResult.DevMessage.Add($"Giá trị {name} đã tồn tại");
                         _serviceResult.UserMessage = $"Giá trị {name} đã tồn tại";
+                        return _serviceResult;
                     }
 
                     if (property.IsDefined(typeof(Email), false))
@@ -190,7 +193,9 @@ namespace MISA.Core.Services
                             _serviceResult.ResultCode = (int)EnumServiceResult.BadRequest;
                             _serviceResult.DevMessage.Add($"Giá trị {name} không đúng định dạng");
                             _serviceResult.UserMessage = $"Giá trị {name} không đúng định dạng";
+                            return _serviceResult;
                         }
+                        
                     }
                 }
                 _serviceResult.ResultCode = (int)EnumServiceResult.Created;

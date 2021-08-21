@@ -97,7 +97,7 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
         {
             try
             {
-                var list = new List<Employee>();
+                var list = new List<Customer>();
 
                 using (var stream = new MemoryStream())
                 {
@@ -110,11 +110,14 @@ namespace MISA.CukCuk.Api.DEMO.Controllers
 
                         for (int row = 2; row <= rowCount; row++)
                         {
-                            list.Add(new Employee
+                            list.Add(new Customer
                             {
-                                EmployeeCode = worksheet.Cells[row, 1].Value.ToString().Trim(),
+                                CustomerCode = worksheet.Cells[row, 1].Value.ToString().Trim(),
                                 FullName = worksheet.Cells[row, 2].Value.ToString().Trim(),
-                                IdentityNumber = worksheet.Cells[row, 1].Value.ToString().Trim(),
+                                MemberCardCode = worksheet.Cells[row, 3].Value.ToString().Trim(),
+                                CustomerGroupName = worksheet.Cells[row, 3].Value.ToString().Trim(),
+                                PhoneNumber = worksheet.Cells[row, 4].Value.ToString().Trim(),
+                                DateOfBirth = (DateTime)worksheet.Cells[row, 5].Value.ToString().Trim(),
                                 //FullName = int.Parse(worksheet.Cells[row, 2].Value.ToString().Trim()),
                             });
                         }

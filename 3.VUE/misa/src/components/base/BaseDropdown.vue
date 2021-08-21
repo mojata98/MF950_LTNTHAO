@@ -36,6 +36,7 @@
 
 <script>
 import axios from "axios";
+import eventBus from '../../js/eventBus';
 export default {
   name: "BaseDropdown",
   data() {
@@ -64,6 +65,9 @@ export default {
     this.loadDropdownData();
     this.currentName = this.defaultName;
     this.initChoice();
+    eventBus.$on("reloadDropdown", () => {
+      this.currentName = "";
+    });
   },
   watch: {
     selectedId: function () {
@@ -107,6 +111,7 @@ export default {
               WorkStatus: 3,
               WorkStatusName: "Đã nghỉ việc",
             },
+            
           ];
           break;
         case "StoreName":
@@ -132,7 +137,7 @@ export default {
         default:
           if (this.myUrl) {
             axios
-              .get(`http://cukcuk.manhnv.net/${this.myUrl}`)
+              .get(`https://localhost:44338/api/${this.myUrl}`)
               .then((res) => {
                 this.itemlist = res.data;
               })
@@ -184,5 +189,7 @@ export default {
   font-size: 15px;
   border: none;
 }
+
+
 </style>
 

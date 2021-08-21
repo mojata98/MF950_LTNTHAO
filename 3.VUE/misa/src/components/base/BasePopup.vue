@@ -37,6 +37,7 @@
       <div class="button btnContinue" @click="btnClosePopupForm()">
         <span :class="{ 'hide-message-warning': isMessageWarning }">Tiếp tục nhập</span> 
         <span :class="{ 'hide-message-delete': isMessageDelete }">Hủy</span> 
+        <span :class="{ 'hide-message-delete-many': isMessageDeleteMany }">Hủy</span>
         </div>
       <div class="button " @click="btnCloseModalForm()"
         :class="{ 'btnClose': isWarning , 'btnDelete': isDelete}" 
@@ -86,7 +87,7 @@ export default {
       this.isMessageDelete = false;
       this.isMessageDeleteMany = true;
       await axios
-        .get(`http://cukcuk.manhnv.net/v1/Employees/${value}`)
+        .get(`https://localhost:44338/api/v1/Employees/${value}`)
         .then((res) => {
           this.employee = res.data;
           console.log(this.employee);
@@ -110,7 +111,7 @@ export default {
       this.isMessageDeleteMany = false;
       for (let index = 0; index < this.idDelete.length; index++) {
         await axios
-        .get(`http://cukcuk.manhnv.net/v1/Employees/${this.idDelete[index]}`)
+        .get(`https://localhost:44338/api/v1/Employees/${this.idDelete[index]}`)
         .then((res) => {
           this.employee = res.data;
           console.log(this.employee);
